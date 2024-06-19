@@ -181,7 +181,6 @@ const ProjectContent = ({ project, nextProject }) => {
     return size;
   };
 
-  console.log('project data', project);
   return (
     <PageLayout
       options={{ currentURI: '/work/', scrollIndicator: scrollContainerRef }}

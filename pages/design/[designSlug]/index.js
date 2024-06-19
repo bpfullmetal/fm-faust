@@ -15,7 +15,7 @@ export default function Page(props) {
     variables: Page.variables(),
   });
 
-  console.log('design page data: ', data)
+  // console.log('design page data: ', data)
   const allCategoriesData = data?.categories?.edges ?? [];
   const allProjectsData = data?.projects?.edges ?? [];
 

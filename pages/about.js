@@ -228,7 +228,7 @@ export default function Page(props) {
         revealEl.classList.add('reveal');
     }
   };
-  console.log('about page data', data.page)
+  // console.log('about page data', data.page)
   return (
     <PageLayout className="about relative" options={{ currentURI: data.page.uri }} pageData={data.page}>
       <div className={`hidden fixed top-2/4 left-10 md:flex flex-col z-10`}>
