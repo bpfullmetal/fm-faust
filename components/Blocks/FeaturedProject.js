@@ -91,13 +91,20 @@ const BlockFeaturedProject = ({ data }) => {
   };
 
   return (
-    <section className="featured-project relative flex items-center">
+    <section className="featured-project relative flex items-center w-full !min-h-screen">
       {projectImage && (
         <Image
-          className="!min-h-screen w-full rounded-none object-cover"
+          className="rounded-none"
           src={projectImage.sourceUrl}
           alt={projectImage.altText}
+          // layout="fill"
+          objectFit="cover"
+          objectPosition="center"
           layout="fill"
+          // width={window.width}
+          // height={window.height}
+          sizes="80vw"
+          style={{objectFit: "cover"}}
           // width={projectImage.mediaDetails.width}
           // height={projectImage.mediaDetails.height}
         />

@@ -70,6 +70,7 @@ const BlockProjectsCarousel = () => {
       {carouselData.manualSelection && carouselData.projects.length && (
         <ProjectsCarousel
           slides={carouselData.projects.map((project) => {
+            console.log('project', project)
             let image = null
             if ( project.image ) {
               image = project.image

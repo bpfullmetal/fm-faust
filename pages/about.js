@@ -376,6 +376,7 @@ export default function Page(props) {
                       // width={ourTeam?.featuredImage?.node?.mediaDetails?.width}
                       // height={ourTeam?.featuredImage?.node?.mediaDetails?.height}
                       layout="fill"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     />
                   </div>
                 )}

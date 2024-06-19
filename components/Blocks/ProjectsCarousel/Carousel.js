@@ -55,12 +55,15 @@ const ProjectsCarousel = ({ slides }) => {
                       // width={project.image.mediaDetails.width}
                       // height={project.image.mediaDetails.height}
                       layout="fill"
+                      objectFit="cover"
+                      objectPosition="center"
+                      sizes="(min-width: 1024px) 33vw, 50vw"
                     />
                   </a>
                 )}
               </div>
               <div className="flex flex-col flex-wrap items-start text-dark_green">
-                <a className="text-lg leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7" href={project.link}>
+                <a className="text-md leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7" href={project.link}>
                   {project.title}
                 </a>
               </div>

@@ -306,6 +306,7 @@ const ProjectContent = ({ project, nextProject }) => {
                     imageBlock.node.mediaDetails.height
                       ? 'portrait'
                       : 'landscape';
+                      
                   return (
                     <div
                       ref={projectRefs[i]}
@@ -321,7 +322,9 @@ const ProjectContent = ({ project, nextProject }) => {
                       </div>
                       {(block.image || block.video) && (
                         <div
-                          className={`image-reveal image-to-lightbox ${size2Class[blockSize]} flex`}
+                          className={`image-reveal image-to-lightbox ${size2Class[blockSize]} relative ${orientation === 'landscape'
+                            ? 'aspect-[4/3]'
+                            : 'aspect-[3/4]'}`}
                           onClick={() =>
                             !isMobile ? setClickedImageOrder(i) : null
                           }
@@ -351,14 +354,14 @@ const ProjectContent = ({ project, nextProject }) => {
                             </div>
                           ) : (
                             <Image
-                              className={`featured-image-wrapper w-full h-full object-cover rounded ${
-                                orientation === 'landscape'
-                                  ? 'aspect-[4/3]'
-                                  : 'aspect-[3/4]'
-                              }`}
+                              className={`featured-image-wrapper w-full h-auto rounded`}
                               src={block.image.node.sourceUrl}
-                              width={block.image.node.mediaDetails.width}
-                              height={block.image.node.mediaDetails.height}
+                              // width={orientation === 'landscape' ? 800 : 600}
+                              // height={orientation === 'landscape' ? 600 : 800}
+                              layout="fill"
+                              objectFit="cover"
+                              objectPosition="center"
+                              sizes="(min-width: 1024px) 60vw, 100vw"
                               alt={
                                 block.image.node.altText ||
                                 block.description ||
@@ -396,17 +399,13 @@ const ProjectContent = ({ project, nextProject }) => {
                     loading="eager"
                     className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
                     src={nextProject.featuredImage.node.sourceUrl}
-                    width={
-                      nextProject.featuredImage.node.mediaDetails.width
-                    }
-                    height={
-                      nextProject.featuredImage.node.mediaDetails
-                        .height
-                    }
+                    width={nextProject.featuredImage.node.mediaDetails.width}
+                    height={nextProject.featuredImage.node.mediaDetails.height}
                     alt={
                       nextProject.featuredImage.node.altText ||
                       nextProject.title
                     }
+                    sizes="100vw"
                   />
                 </a>
               )}

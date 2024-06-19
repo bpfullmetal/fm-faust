@@ -124,12 +124,14 @@ const ProjectCarouselModal = ({ imageBlocks, initialSlide, onClose }) => {
                       />
                     </video>
                   ) : (
-                    <img
+                    <Image
                       src={block.image.node.sourceUrl}
                       alt={block.image.node.altText || block.description || ''}
+                      width={block.width || block.video.node.mediaDetails.width}
+                      height={block.height || block.video.node.mediaDetails.height}
                       style={{
-                        width: block.width || block.video.node.mediaDetails.width,
-                        height: block.height || block.video.node.mediaDetails.height,
+                        // width: block.width || block.video.node.mediaDetails.width,
+                        // height: block.height || block.video.node.mediaDetails.height,
                         objectFit: 'cover',
                       }}
                     />

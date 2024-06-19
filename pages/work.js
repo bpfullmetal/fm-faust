@@ -94,6 +94,7 @@ export default function Page(props) {
         <section className="w-full grid grid-cols-1 md:grid-cols-2 max-w-wide mx-auto px-5 sm:px-12 gap-x-8">
           {projects.map((project, i) => {
             const isPreload = (i + 1) / postsPerPage > currentPage - 1;
+            console.log('pro', project.node.link)
             return (
               <div
                 className={`${
@@ -105,23 +106,28 @@ export default function Page(props) {
                 ref={workProjectRefs[i]}
               >
                 {project.node.featuredImage && (
-                  <a className="w-full h-full" href={project.node.link}>
+                  <a className="w-full h-auto" href={project.node.link}>
                     <div
                       style={{
-                        height: 1,
-                        paddingTop: "66.67%",
+                        // height: 0,
+                        // paddingTop: "66.67%",
                         position: 'relative',
                       }}
                     >
                       <Image
                         // className="w-full h-full aspect-[3/2] rounded"
-                        className="absolute top-0 w-full rounded"
+                        className="w-full rounded"
                         src={project?.node?.featuredImage?.node?.sourceUrl}
+                        style={{objectFit: "cover"}}
+                        // layout="fill"
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        width={655}
+                        height={437}
+                        objectFit='cover'
                         alt={
                           project?.node?.featuredImage?.node?.altText ||
                           project?.node?.title
                         }
-                        layout="fill"
                       />
                     </div>
                   </a>
