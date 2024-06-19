@@ -21,7 +21,7 @@ export default function SEO({ title, description, imageUrl, url }) {
       <Head>
         <meta property="og:type" content="website" />
         <meta property="twitter:card" content="summary_large_image" />
-
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         {title && (
           <>
             <title>{title}</title>

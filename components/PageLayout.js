@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Head from 'next/head';
 import {BookConsultation, Footer, Header} from './';
-// import SEO from './SEO';
+import { SEO } from './SEO';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment, FmSettingsFragment, NavigationMenuItemFragment } from '../fragments';
 
@@ -18,9 +18,15 @@ export const PageLayout = ({ className, children, options = {}, pageData = null,
   const footerMenu = data?.footerMenuItems?.nodes ?? [];
 
   const description = pageData?.excerpt ? pageData.excerpt().replace(/<[^>]*>?/gm, '').trim() : null
-
+// console.log(data)
   return (
     <>
+      {/* <SEO
+        title={pageData?.title}
+        description={ description }
+        image={ pageData?.featuredImage ? pageData.featuredImage.node.mediaItemUrl : null }
+        url={pageData?.uri}
+      /> */}
       {/* {
         pageData && (
           <SEO

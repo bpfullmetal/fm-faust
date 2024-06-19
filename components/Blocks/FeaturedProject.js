@@ -104,7 +104,6 @@ const BlockFeaturedProject = ({ data }) => {
           // width={window.width}
           // height={window.height}
           sizes="80vw"
-          style={{objectFit: "cover"}}
           // width={projectImage.mediaDetails.width}
           // height={projectImage.mediaDetails.height}
         />
