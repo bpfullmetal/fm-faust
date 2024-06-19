@@ -110,6 +110,7 @@ export default function Page(props) {
                       style={{
                         height: 1,
                         paddingTop: "66.67%",
+                        overflow: 'hidden',
                       }}
                     >
                       <Image
