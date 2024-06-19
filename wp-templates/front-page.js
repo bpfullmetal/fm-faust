@@ -33,6 +33,7 @@ export default function Component() {
 
   return (
     <PageLayout
+      pageData={data.page}
       className="default-page"
       options={{
         hiddenHeader: !shouldRenderHeader,

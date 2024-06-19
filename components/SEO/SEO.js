@@ -12,24 +12,25 @@ import Head from 'next/head';
  * @returns {React.ReactElement} The SEO component
  */
 export default function SEO({ title, description, imageUrl, url }) {
-  if (!title && !description && !imageUrl && !url) {
-    return null;
-  }
+  // if (!title && !description && !imageUrl && !url) {
+  //   return null;
+  // }
 
+  const seoTitle = title || 'Frances Mildred'
+  const seoImage = imageUrl || '/placeholder.png'
+  console.log('SEO', seoTitle, description, imageUrl, url)
   return (
     <>
       <Head>
         <meta property="og:type" content="website" />
         <meta property="twitter:card" content="summary_large_image" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        {title && (
-          <>
-            <title>{title}</title>
-            <meta name="title" content={title} />
-            <meta property="og:title" content={title} />
-            <meta property="twitter:title" content={title} />
-          </>
-        )}
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <title>{title}</title>
+        <meta name="title" content={seoTitle} />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="twitter:title" content={seoTitle} />
 
         {description && (
           <>
@@ -39,10 +40,10 @@ export default function SEO({ title, description, imageUrl, url }) {
           </>
         )}
 
-        {imageUrl && (
+        {seoImage && (
           <>
-            <meta property="og:image" content={imageUrl} />
-            <meta property="twitter:image" content={imageUrl} />
+            <meta property="og:image" content={seoImage} />
+            <meta property="twitter:image" content={seoImage} />
           </>
         )}
 

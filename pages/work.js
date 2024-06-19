@@ -89,12 +89,11 @@ export default function Page(props) {
   }, [projects]);
 
   return (
-    <PageLayout className="work" options={{ currentURI: data.page.uri }}>
+    <PageLayout className="work" options={{ currentURI: data.page.uri }} pageData={data.page}>
       <div className="min-h-screen">
         <section className="w-full grid grid-cols-1 md:grid-cols-2 max-w-wide mx-auto px-5 sm:px-12 gap-x-8">
           {projects.map((project, i) => {
             const isPreload = (i + 1) / postsPerPage > currentPage - 1;
-            console.log('pro', project.node.link)
             return (
               <div
                 className={`${

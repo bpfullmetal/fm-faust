@@ -18,15 +18,19 @@ export const PageLayout = ({ className, children, options = {}, pageData = null,
   const footerMenu = data?.footerMenuItems?.nodes ?? [];
 
   const description = pageData?.excerpt ? pageData.excerpt().replace(/<[^>]*>?/gm, '').trim() : null
-// console.log(data)
+  console.log('page data', pageData)
   return (
     <>
-      {/* <SEO
-        title={pageData?.title}
-        description={ description }
-        image={ pageData?.featuredImage ? pageData.featuredImage.node.mediaItemUrl : null }
-        url={pageData?.uri}
-      /> */}
+      {
+        pageData && (
+          <SEO
+            title={pageData?.title}
+            description={ description }
+            imageUrl={ pageData?.featuredImage ? pageData.featuredImage.node.mediaItemUrl : null }
+            url={pageData?.uri}
+          />
+        )
+      }
       {/* {
         pageData && (
           <SEO

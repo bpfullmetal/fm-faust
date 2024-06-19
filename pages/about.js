@@ -16,8 +16,6 @@ export default function Page(props) {
     variables: Page.variables(),
   });
 
-  console.log('ABOUT DATA', data)
-
   const pageContent = data.page.template.pageAbout;
   const intro = {
     backgroundImage: pageContent.intro.backgroundImage ? {
@@ -230,9 +228,9 @@ export default function Page(props) {
         revealEl.classList.add('reveal');
     }
   };
-
+  console.log('about page data', data.page)
   return (
-    <PageLayout className="about relative" options={{ currentURI: data.page.uri }}>
+    <PageLayout className="about relative" options={{ currentURI: data.page.uri }} pageData={data.page}>
       <div className={`hidden fixed top-2/4 left-10 md:flex flex-col z-10`}>
         {navMenuItems.map((item) => (
           <div className="uppercase" key={item.id}>

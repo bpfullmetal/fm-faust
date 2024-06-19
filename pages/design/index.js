@@ -7,9 +7,9 @@ export default function Page(props) {
   const { data } = useQuery(Page.query, {
     variables: Page.variables(),
   });
-
+  
   return (
-    <PageLayout options={{ currentURI: data.page.uri, hiddenBookSection: true }} />
+    <PageLayout options={{ currentURI: data.page.uri, hiddenBookSection: true }} pageData={data.page} />
   );
 }
 
