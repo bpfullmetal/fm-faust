@@ -1,0 +1,43 @@
+/*
+        This font software is the property of Commercial Type.
+
+        You may not modify the font software, use it on another website, or install it on a computer.
+
+        License information is available at http://commercialtype.com/eula
+        For more information please visit Commercial Type at http://commercialtype.com or email us at info[at]commercialtype.com
+
+        Copyright (C) 2023 Schwartzco Inc.
+        License: 2309-QSEIPX     
+*/
+
+@font-face {
+  font-family: 'Haas Grot Text Web';
+  src: url('NeueHaasGrotText-56Italic-Web.woff2') format('woff2'),
+    url('NeueHaasGrotText-56Italic-Web.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-stretch: normal;
+}
+
+.NeueHaasGrotText-56Italic-Web {
+  font-family: 'Haas Grot Text Web';
+  font-weight: 400;
+  font-style: italic;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: 'Haas Grot Text Web';
+  src: url('NeueHaasGrotText-55Roman-Web.woff2') format('woff2'),
+    url('NeueHaasGrotText-55Roman-Web.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+.NeueHaasGrotText-55Roman-Web {
+  font-family: 'Haas Grot Text Web';
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+}
