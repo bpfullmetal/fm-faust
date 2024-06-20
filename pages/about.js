@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import { PageLayout } from '../components';
+
 import {
   ByTheNumberBlock,
   OpeningJobItem,

@@ -30,7 +30,7 @@ export default function Component(props) {
       <SEO
         title={siteTitle}
         description={siteDescription}
-        imageUrl={featuredImage?.node?.mediaItemUrl}
+        imageUrl={featuredImage?.node?.sourceUrl}
       />
       <Header
         title={siteTitle}
