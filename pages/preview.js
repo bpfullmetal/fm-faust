@@ -1,18 +1,20 @@
 import React from 'react';
 import { gql } from '@apollo/client';
-import { getApolloAuthClient } from '@faustwp/core';
+import { getApolloAuthClient, useAuth } from '@faustwp/core';
 import { useRouter } from 'next/router';
 import ProjectContent from '../components/Project/ProjectContent';
 
 export default function Preview(props) {
+  const { isAuthenticated, isReady } = useAuth();
   const { query } = useRouter();
   const client = getApolloAuthClient();
-  const id = query.p;
+
+  const id = query.p ? parseInt(query.p) : null;
   const isPreview = true;
   
   const [previewProject, setPreviewProject] = React.useState();
   
-  if (id) {
+  if (id && isAuthenticated && isReady) {
     client.query({
       query: gqlquery,
       variables: {
