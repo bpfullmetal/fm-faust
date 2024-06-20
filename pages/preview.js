@@ -12,16 +12,18 @@ export default function Preview(props) {
   
   const [previewProject, setPreviewProject] = React.useState();
   
-  client.query({
-    query: gqlquery,
-    variables: {
-      id,
-      idType: isPreview ? 'DATABASE_ID' : 'URI',
-      asPreview: isPreview,
-    },
-  }).then(({ data }) => {
-    setPreviewProject(data.contentNode);
-  });
+  if (id) {
+    client.query({
+      query: gqlquery,
+      variables: {
+        id,
+        idType: isPreview ? 'DATABASE_ID' : 'URI',
+        asPreview: isPreview,
+      },
+    }).then(({ data }) => {
+      setPreviewProject(data.contentNode);
+    });
+  }
 
   if (!previewProject) return <></>;
 
