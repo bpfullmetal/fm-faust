@@ -61,7 +61,7 @@ const BlockFeaturedContent = ({ data }) => {
                     ref={scrollRevealRefs[i + 1]}
                   >
                     {content.imageBlock.image && (<Image
-                      src={content.imageBlock.image.node.sourceUrl()}
+                      src={content.imageBlock.image.node.mediaItemUrl}
                       alt={
                         content.imageBlock.image.node.altText ||
                         content.imageBlock.link.title

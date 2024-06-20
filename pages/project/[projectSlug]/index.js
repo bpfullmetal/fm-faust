@@ -39,7 +39,6 @@ const gqlquery = gql`
         node {
           mediaItemUrl
           altText
-          sourceUrl
         }
       }
       projectsSingle {
@@ -57,8 +56,9 @@ const gqlquery = gql`
           description
           image {
             node {
+              id
               altText
-              sourceUrl
+              mediaItemUrl
               mediaDetails {
                 width
                 height
@@ -79,11 +79,12 @@ const gqlquery = gql`
         id
         title
         link
+        uri
         date
         featuredImage {
           node {
             altText
-            sourceUrl
+            mediaItemUrl
             mediaDetails {
               width
               height

@@ -59,7 +59,7 @@ export const BookConsultation = ({ fmSettings }) => {
               <a href={link?.url ?? ''} target={link?.target} rel="noopener noreferrer">
                 <Image
                   className="w-full"
-                  src={image.sourceUrl}
+                  src={image.mediaItemUrl}
                   alt={ 
                     image.altText 
                       ? image.altText

@@ -6,7 +6,7 @@ export const FmSettingsFragment = gql`
       consultationImage {
         node {
           altText
-          sourceUrl
+          mediaItemUrl
           mediaDetails {
             width
             height

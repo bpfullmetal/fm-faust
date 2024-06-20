@@ -37,7 +37,7 @@ FeaturedImage.fragments = {
       featuredImage {
         node {
           id
-          sourceUrl
+          mediaItemUrl
           altText
           mediaDetails {
             width

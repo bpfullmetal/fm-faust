@@ -78,11 +78,23 @@ const ProjectContent = ({ project, nextProject }) => {
     );
   }, [projectRefs]);
 
+  const handleDisplayImage = (image, imageRef) => {
+    // console.log('image', image.target?.classList)
+    // console.log('ref', imageRef.current?.classList)
+    // if ( image?.target?.classList && imageRef?.current?.classList?.contains('reveal') ) {
+    //   image.target.classList.add('reveal')
+    // }
+    image.target.classList.add('loaded')
+  }
+
   const handleIntersection = (entries) => {
     const [entry] = entries;
-    if (!entry.isIntersecting && !entry.isVisible) return;
+    if ( !entry.isIntersecting || entry.target.classList.contains('reveal') ) return;
 
-    entry.target.classList.add('reveal');
+    const featuredImageWrapper = entry.target.querySelector('.featured-image-wrapper');
+    if ( featuredImageWrapper?.classList?.contains('loaded') ) {
+      entry.target.classList.add('reveal');
+    }
   };
 
   React.useEffect(() => {
@@ -193,8 +205,9 @@ const ProjectContent = ({ project, nextProject }) => {
             <div className="relative w-full h-full flex items-center justify-center">
               <Image
                 className="featured-image-wrapper w-full h-full object-cover rounded-none"
-                src={featuredImage.node.sourceUrl}
+                src={featuredImage.node.mediaItemUrl}
                 layout="fill"
+                loading="eager"
                 alt={featuredImage.node.altText || title}
               />
               <h1 className="absolute max-w-[480px] text-4xl font-medium !leading-none text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
@@ -355,14 +368,17 @@ const ProjectContent = ({ project, nextProject }) => {
                             </div>
                           ) : (
                             <Image
-                              className={`featured-image-wrapper w-full h-auto rounded`}
-                              src={block.image.node.sourceUrl}
-                              // width={orientation === 'landscape' ? 800 : 600}
-                              // height={orientation === 'landscape' ? 600 : 800}
+                              className={`featured-image-wrapper w-full h-auto rounded featured-image-${block.image.node.id}`}
+                              src={block.image.node.mediaItemUrl}
+                              width={orientation === 'landscape' ? 800 : 600}
+                              height={orientation === 'landscape' ? 600 : 800}
                               layout="fill"
                               objectFit="cover"
                               objectPosition="center"
-                              sizes="(min-width: 1024px) 60vw, 100vw"
+                              sizes="(min-width: 1024px) 40vw, 100vw"
+                              loading="lazy"
+                              onLoad={event => handleDisplayImage(event, projectRefs[i])}	
+                              quality={60}
                               alt={
                                 block.image.node.altText ||
                                 block.description ||
@@ -391,15 +407,15 @@ const ProjectContent = ({ project, nextProject }) => {
                 !isMobile ? 'w-screen h-screen' : 'py-32 px-8'
               }`}
             >
-              {nextProject.featuredImage?.node?.sourceUrl && (
+              {nextProject.featuredImage?.node?.mediaItemUrl && (
                 <a
                   href={nextProject.link}
                   className={!isMobile ? 'static' : 'relative w-full h-auto'}
                 >
                   <Image
-                    loading="eager"
+                    loading="lazy"
                     className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
-                    src={nextProject.featuredImage.node.sourceUrl}
+                    src={nextProject.featuredImage.node.mediaItemUrl}
                     width={nextProject.featuredImage.node.mediaDetails.width}
                     height={nextProject.featuredImage.node.mediaDetails.height}
                     alt={

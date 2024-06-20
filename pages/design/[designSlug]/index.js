@@ -112,7 +112,7 @@ export default function Page(props) {
               image: image.image,
               video: image.video,
               title: project.node.title,
-              link: project.node.link,
+              link: project.node.uri,
               categories: image.category.nodes
             }
           })
@@ -233,17 +233,18 @@ Page.query = gql`
           featuredImage {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
           title
           link
+          uri
           projectsSingle {
             projectImages {
               image {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                   mediaDetails {
                     width
                     height

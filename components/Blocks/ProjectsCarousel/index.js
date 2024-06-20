@@ -10,7 +10,7 @@ const BlockProjectsCarousel = () => {
   const projects = respData?.projects?.edges ?? [];
 
   const data = editorBlocks.find(block => block.blockProjectsCarousel)?.blockProjectsCarousel;
-
+  console.log('data', data)
   if (!data) return <></>;
 
   const carouselData = {
@@ -20,7 +20,7 @@ const BlockProjectsCarousel = () => {
     projects: data.projects?.length ? data.projects.map(project => ({
       image: project.image ? {
         altText: project.image.node.altText,
-        sourceUrl: project.image.node.sourceUrl,
+        sourceUrl: project.image.node.mediaItemUrl,
         mediaDetails: {
           width: project.image.node.mediaDetails.width,
           height: project.image.node.mediaDetails.height,
@@ -28,16 +28,16 @@ const BlockProjectsCarousel = () => {
       } : null,
       title: project.title,
       project: {
-        featuredImage: project.project.nodes.length ? project.project.nodes[0].featuredImage.node.sourceUrl ? {
-          sourceUrl: project.project.nodes[0].featuredImage.node.sourceUrl,
+        featuredImage: project.project.nodes.length ? project.project.nodes[0].featuredImage.node.mediaItemUrl ? {
+          sourceUrl: project.project.nodes[0].featuredImage.node.mediaItemUrl,
           altText: project.project.nodes[0].featuredImage.node.altText,
           mediaDetails: {
             width: project.project.nodes[0].featuredImage.node.mediaDetails.width,
             height: project.project.nodes[0].featuredImage.node.mediaDetails.height
           }
         } : null : null,
-        projectSingleAlternateImages: project.project.nodes.length ? project.project.nodes[0].projectSingleAlternateImages?.verticalImage?.node?.sourceUrl ? {
-          sourceUrl: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.sourceUrl,
+        projectSingleAlternateImages: project.project.nodes.length ? project.project.nodes[0].projectSingleAlternateImages?.verticalImage?.node?.mediaItemUrl ? {
+          sourceUrl: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.mediaItemUrl,
           altText: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.altText,
           mediaDetails: {
             width: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.mediaDetails.width,
@@ -46,7 +46,7 @@ const BlockProjectsCarousel = () => {
         } : null : null,
         title: project.title ?? project.project.nodes.length ? project.project.nodes[0].title : '',
         id: project.project.nodes.length ? project.project.nodes[0].id : '',
-        link: project.project.nodes.length ? project.project.nodes[0].link : '',
+        link: project.project.nodes.length ? project.project.nodes[0].uri : '',
       }
     })) : []
   };
@@ -64,13 +64,14 @@ const BlockProjectsCarousel = () => {
       <div className="flex justify-between text-dark_green text-xl leading-tight mb-5 sm:justify-start sm:text-[22px]">
         {carouselData.title && <p>{carouselData.title}</p>}
         <p className="animate-underline ml-6 mr-5">
-          <Link href="/">View all work</Link>
+          <Link href="/work">View all work</Link>
         </p>
       </div>
       {carouselData.manualSelection && carouselData.projects.length && (
         <ProjectsCarousel
           slides={carouselData.projects.map((project) => {
             let image = null
+            console.log(project,'project')
             if ( project.image ) {
               image = project.image
             } else {
@@ -107,7 +108,7 @@ const BlockProjectsCarousel = () => {
                   image: image,
                   title: project.node.title,
                   id: project.node.id,
-                  link: project.node.link,
+                  link: project.node.uri,
                 };
               })}
             />
@@ -131,7 +132,7 @@ const gqlquery = gql`
               image {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                   mediaDetails {
                     width
                     height
@@ -146,7 +147,7 @@ const gqlquery = gql`
                       verticalImage {
                         node {
                           altText
-                          sourceUrl
+                          mediaItemUrl
                           mediaDetails {
                             width
                             height
@@ -157,13 +158,14 @@ const gqlquery = gql`
                     featuredImage {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                         mediaDetails {
                           width
                           height
                         }
                       }
                     }
+                    uri
                     link
                     title
                   }
@@ -185,7 +187,7 @@ const gqlquery = gql`
             verticalImage {
               node {
                 altText
-                sourceUrl
+                mediaItemUrl
                 mediaDetails {
                   width
                   height
@@ -196,7 +198,7 @@ const gqlquery = gql`
           featuredImage {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
               mediaDetails {
                 width
                 height
@@ -205,6 +207,7 @@ const gqlquery = gql`
           }
           title
           link
+          uri
         }
       }
     }

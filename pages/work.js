@@ -105,7 +105,7 @@ export default function Page(props) {
                 ref={workProjectRefs[i]}
               >
                 {project.node.featuredImage && (
-                  <a className="w-full h-auto" href={project.node.link}>
+                  <a className="w-full h-auto" href={project.node.uri}>
                     <div
                       style={{
                         // height: 0,
@@ -116,7 +116,7 @@ export default function Page(props) {
                       <Image
                         // className="w-full h-full aspect-[3/2] rounded"
                         className="w-full rounded"
-                        src={project?.node?.featuredImage?.node?.sourceUrl}
+                        src={project?.node?.featuredImage?.node?.mediaItemUrl}
                         style={{objectFit: "cover"}}
                         // layout="fill"
                         sizes="(min-width: 768px) 50vw, 100vw"
@@ -132,7 +132,7 @@ export default function Page(props) {
                   </a>
                 )}
                 {!project.node.featuredImage && (
-                  <a className="w-full h-full" href={project.node.link}>
+                  <a className="w-full h-full" href={project.node.uri}>
                     <Image src={projectPlaceholder} alt={project.node.title} />
                   </a>
                 )}
@@ -164,11 +164,12 @@ Page.query = gql`
           id
           menuOrder
           link
+          uri
           title
           featuredImage {
             node {
               altText
-              sourceUrl
+              mediaItemUrl
             }
           }
         }

@@ -22,7 +22,7 @@ export default function Page(props) {
       node: {
         ...pageContent.intro.backgroundImage.node,
         altText: pageContent.intro.backgroundImage.node.altText,
-        sourceUrl: pageContent.intro.backgroundImage.node.sourceUrl,
+        sourceUrl: pageContent.intro.backgroundImage.node.mediaItemUrl,
       }
     } : null,
     backgroundVideo: pageContent.intro.backgroundVideo ? {
@@ -44,7 +44,7 @@ export default function Page(props) {
     featuredImage: {
       node: {
         altText: pageContent.ourTeam.featuredImage?.node?.altText,
-        sourceUrl: pageContent.ourTeam.featuredImage?.node?.sourceUrl
+        sourceUrl: pageContent.ourTeam.featuredImage?.node?.mediaItemUrl
       }
     },
     featuredTeamMembers: pageContent.ourTeam.featuredTeamMembers.map(member => ({
@@ -54,7 +54,7 @@ export default function Page(props) {
       image: {
         node: {
           altText: member.image.node.altText,
-          sourceUrl: member.image.node.sourceUrl
+          sourceUrl: member.image.node.mediaItemUrl
         }
       },
       name: member.name,
@@ -269,10 +269,10 @@ export default function Page(props) {
               {
                 isVideoLoaded
                 ? null
-                : intro.backgroundImage?.node?.sourceUrl 
+                : intro.backgroundImage?.node?.mediaItemUrl 
                   ? <Image
                       className="featured-image-wrapper w-full h-full object-cover absolute"
-                      src={intro.backgroundImage.node.sourceUrl}
+                      src={intro.backgroundImage.node.mediaItemUrl}
                       alt={intro.backgroundImage.node.altText}
                       layout="fill"
                     />
@@ -291,11 +291,11 @@ export default function Page(props) {
                 ></source>
               </video>
             </div>
-          ) : intro.backgroundImage?.node?.sourceUrl
+          ) : intro.backgroundImage?.node?.mediaItemUrl
               ? (
                 <Image
                   className="featured-image-wrapper w-full h-full object-cover absolute inset-0"
-                  src={intro.backgroundImage.node.sourceUrl}
+                  src={intro.backgroundImage.node.mediaItemUrl}
                   alt={intro.backgroundImage.node.altText}
                   layout="fill"
                 />
@@ -364,12 +364,12 @@ export default function Page(props) {
           </div>
 
           <div className="max-w-[860px] flex flex-col">
-            {(ourTeam?.featuredImage?.node?.sourceUrl || ourTeam.description) && (
+            {(ourTeam?.featuredImage?.node?.mediaItemUrl || ourTeam.description) && (
               <div className="flex flex-col mb-48">
-                {ourTeam?.featuredImage?.node?.sourceUrl && (
+                {ourTeam?.featuredImage?.node?.mediaItemUrl && (
                   <div className="animate-reveal" ref={ourTeamRefs[1]}>
                     <Image
-                      src={ourTeam?.featuredImage?.node?.sourceUrl}
+                      src={ourTeam?.featuredImage?.node?.mediaItemUrl}
                       alt={ourTeam?.featuredImage?.node?.altText || 'Our team'}
                       // width={ourTeam?.featuredImage?.node?.mediaDetails?.width}
                       // height={ourTeam?.featuredImage?.node?.mediaDetails?.height}
@@ -490,7 +490,7 @@ Page.query = gql`
               backgroundImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
               backgroundVideo {
@@ -505,7 +505,7 @@ Page.query = gql`
               featuredImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                 }
               }
               featuredTeamMembers {
@@ -516,7 +516,7 @@ Page.query = gql`
                 image {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                   }
                 }
               }

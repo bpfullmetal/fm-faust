@@ -125,7 +125,7 @@ const ProjectCarouselModal = ({ imageBlocks, initialSlide, onClose }) => {
                     </video>
                   ) : (
                     <Image
-                      src={block.image.node.sourceUrl}
+                      src={block.image.node.mediaItemUrl}
                       alt={block.image.node.altText || block.description || ''}
                       width={block.width || block.video.node.mediaDetails.width}
                       height={block.height || block.video.node.mediaDetails.height}

@@ -35,7 +35,7 @@ const ProjectsCarousel = ({ slides }) => {
       });
     }
   };
-
+  console.log(slides, 'poororoo')
   return (
     <div className="project-carousel -ml-2.5 sm:ml-0" ref={carouselRef}>
       <Swiper slidesPerView={'auto'} spaceBetween={4}>

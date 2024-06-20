@@ -58,7 +58,7 @@ const DesignProjectsGrid = ({
             >
               <Image
                 className="rounded"
-                src={project.image.node.sourceUrl}
+                src={project.image.node.mediaItemUrl}
                 width={project.image.node.mediaDetails.width}
                 height={project.image.node.mediaDetails.height}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

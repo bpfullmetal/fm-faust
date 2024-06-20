@@ -15,6 +15,8 @@ export default function Component() {
     variables: Component.variables(),
   });
 
+  console.log(data)
+
   const primaryMenu = data?.headerMenuItems?.nodes ?? [];
   const editorBlocks = data?.page?.editorBlocks ?? [];
 
@@ -132,7 +134,7 @@ Component.query = gql`
           blockLogoBanner {
             backgroundImage {
               node {
-                sourceUrl
+                mediaItemUrl
                 altText
                 mediaDetails {
                   width
@@ -156,7 +158,7 @@ Component.query = gql`
               backgroundImage {
                 node {
                   altText
-                  sourceUrl
+                  mediaItemUrl
                   mediaDetails {
                     width
                     height
@@ -176,7 +178,7 @@ Component.query = gql`
                     featuredImage {
                       node {
                         altText
-                        sourceUrl
+                        mediaItemUrl
                         mediaDetails {
                           width
                           height
@@ -185,6 +187,7 @@ Component.query = gql`
                     }
                     title
                     link
+                    uri
                   }
                 }
               }
@@ -199,7 +202,7 @@ Component.query = gql`
                 image {
                   node {
                     altText
-                    sourceUrl
+                    mediaItemUrl
                     mediaDetails {
                       width
                       height

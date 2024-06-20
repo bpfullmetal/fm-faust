@@ -18,7 +18,7 @@ export default function SEO({ title, description, imageUrl, url }) {
 
   const seoTitle = title || 'Frances Mildred'
   const seoImage = imageUrl || '/placeholder.png'
-  console.log('SEO', seoTitle, description, imageUrl, url)
+  // console.log('SEO', seoTitle, description, imageUrl, url)
   return (
     <>
       <Head>

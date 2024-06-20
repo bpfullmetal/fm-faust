@@ -7,7 +7,7 @@ const BlockFeaturedProject = ({ data }) => {
       backgroundImage: project.backgroundImage?.node ? {
         node: {
           altText: project.backgroundImage.node.altText,
-          sourceUrl: project.backgroundImage.node.sourceUrl,
+          sourceUrl: project.backgroundImage.node.mediaItemUrl,
           mediaDetails: {
             width: project.backgroundImage.node.mediaDetails.width,
             height: project.backgroundImage.node.mediaDetails.height
@@ -22,13 +22,13 @@ const BlockFeaturedProject = ({ data }) => {
       project: project.project.nodes?.length ? {
         featuredImage: {
           altText: project.project.nodes[0].featuredImage.node.altText,
-          sourceUrl: project.project.nodes[0].featuredImage.node.sourceUrl,
+          sourceUrl: project.project.nodes[0].featuredImage.node.mediaItemUrl,
           mediaDetails: {
             width: project.project.nodes[0].featuredImage.node.mediaDetails.width,
             height: project.project.nodes[0].featuredImage.node.mediaDetails.height
           }
         },
-        link: project.project.nodes[0].link,
+        link: project.project.nodes[0].uri,
         title: project.project.nodes[0].title
       } : null
     }))
@@ -98,6 +98,7 @@ const BlockFeaturedProject = ({ data }) => {
           src={projectImage.sourceUrl}
           alt={projectImage.altText}
           // layout="fill"
+          loading="eager"
           objectFit="cover"
           objectPosition="center"
           layout="fill"

@@ -80,7 +80,8 @@ const BlockLogoBanner = ({ data }) => {
                   ? (
                     <Image
                       className="w-full h-full object-cover absolute"
-                      src={data.backgroundImage.node.sourceUrl}
+                      src={data.backgroundImage.node.mediaItemUrl}
+                      loading="eager"
                       alt={data.backgroundImage.node.altText}
                       width={data.backgroundImage.node.mediaDetails.width}
                       height={data.backgroundImage.node.mediaDetails.height}
@@ -115,7 +116,7 @@ const BlockLogoBanner = ({ data }) => {
               <div className="banner-image-wrapper">
                 <Image
                   className="w-full h-full object-cover absolute"
-                  src={data.backgroundImage.node.sourceUrl}
+                  src={data.backgroundImage.node.mediaItemUrl}
                   alt={data.backgroundImage.node.altText}
                   width={data.backgroundImage.node.mediaDetails.width}
                   height={data.backgroundImage.node.mediaDetails.height}

@@ -17,7 +17,7 @@ export const PageLayout = ({ className, children, options = {}, pageData = null,
   const primaryMenu = data?.headerMenuItems?.nodes ?? [];
   const footerMenu = data?.footerMenuItems?.nodes ?? [];
 
-  const description = pageData?.excerpt ? pageData.excerpt().replace(/<[^>]*>?/gm, '').trim() : null
+  const description = pageData?.excerpt ? pageData.excerpt.replace(/<[^>]*>?/gm, '').trim() : null
   // console.log('page data', pageData)
   return (
     <>
