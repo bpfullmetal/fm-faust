@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { gql, useQuery } from '@apollo/client';
+import Link from 'next/link'
 import LetterA from '../../assets/js/icons/letter-a';
 import LetterC from '../../assets/js/icons/letter-c';
 import LetterD from '../../assets/js/icons/letter-d';
@@ -73,31 +74,31 @@ export default function Header({
     <div className="sticky top-0 z-20">
       <header className="bg-white px-12">
         <ul className="hidden justify-between sm:flex">
-          {links?.map((link, i) => (
-            <li
-              key={i}
-              className={`flex items-center text-black text-sm py-3${
-                link.path?.includes(options?.currentURI) ? ' is-active' : ''
-              }`}
-            >
-              <a href={link.label === 'Home' ? '/' : link.path ?? ''}>
-                {link.label === 'Home' ? (
-                  <div className="home-logo"></div>
-                ) : (
-                  <span>{link.label}</span>
-                )}
-              </a>
-            </li>
-          ))}
+          {links?.map((link, i) => {
+            return (
+              <li
+                key={i}
+                className={`flex items-center text-black text-sm py-3${
+                  link.path?.includes(options?.currentURI) ? ' is-active' : ''
+                }`}
+              >
+                <Link passHref href={link.label === 'Home' ? '/' : link.path ?? ''}>
+                  {link.label === 'Home' ? (
+                    <a><div className="home-logo"></div></a>
+                  ) : link.label}
+                </Link>
+              </li>
+            )
+          })}
           <li className="text-black text-sm py-3 icon-instagram">
-            <a
+            <Link
               className="flex"
               href="https://www.instagram.com/frances.mildred/"
               target="_blank"
               rel="noreferrer"
             >
               <Image src={IconInstagram} alt="instagram" />
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="flex justify-center sm:hidden py-1">
