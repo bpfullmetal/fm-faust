@@ -21,7 +21,7 @@ export default function Header({
   options
 }) {
   const { data } = useQuery(gqlquery);
-  const categories = data?.categories?.edges ?? [];
+  // const categories = data?.categories?.edges ?? [];
 
   const [isOpened, setIsOpened] = React.useState(false);
   const [scrollPercentage, setScrollPercentage] = React.useState(0);
@@ -54,17 +54,17 @@ export default function Header({
       if (item.label === 'Home') {
         path = '/';
       }
-      if (item.label === 'Design') {
-        if (categories.length) {
-          path = `/design/${categories[0].node.slug}`;
-        }
-      }
+      // if (item.label === 'Design') {
+      //   if (categories.length) {
+      //     path = `/design/${categories[0].node.slug}`;
+      //   }
+      // }
       return {
         label: item.label,
         path,
       };
     })
-  }, [categories, menuItems]);
+  }, [menuItems]);
 
   return (
     <div className="sticky top-0 z-20">
@@ -198,15 +198,15 @@ export default function Header({
   );
 }
 
-const gqlquery = gql`
-  query {
-    categories(where: {order: ASC, orderby: COUNT}) {
-      edges {
-        node {
-          name
-          slug
-        }
-      }
-    }
-  }
-`;
+// const gqlquery = gql`
+//   query {
+//     categories(where: {order: ASC, orderby: COUNT}) {
+//       edges {
+//         node {
+//           name
+//           slug
+//         }
+//       }
+//     }
+//   }
+// `;
