@@ -92,12 +92,13 @@ export default function Header({
           })}
           <li className="text-black text-sm py-3 icon-instagram">
             <Link
-              className="flex"
               href="https://www.instagram.com/frances.mildred/"
               target="_blank"
               rel="noreferrer"
             >
-              <Image src={IconInstagram} alt="instagram" />
+              <a className="flex">
+                <Image src={IconInstagram} alt="instagram" />
+              </a>
             </Link>
           </li>
         </ul>
