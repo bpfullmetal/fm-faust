@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link'
 
 const CategoryModal = ({ categories, selectedCat, onClose }) => {
   const [isEntered, setIsEntered] = React.useState(false);
@@ -23,13 +24,13 @@ const CategoryModal = ({ categories, selectedCat, onClose }) => {
           {categories
             .filter((cat) => cat.node.slug !== selectedCat.slug)
             .map((category) => (
-              <a
+              <Link
                 key={category.node.slug}
                 className="title flex items-center w-fit text-3xl leading-[44px] capitalize my-2 sm:text-4xl"
                 href={`/design/${category.node.slug}`}
               >
                 {category.node.name}
-              </a>
+              </Link>
             ))}
         </div>
       </div>

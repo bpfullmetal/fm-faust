@@ -2,6 +2,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Helper from '../../../helper';
+import Link from 'next/link'
 
 const ProjectsCarousel = ({ slides }) => {
   const carouselRef = React.useRef();
@@ -47,25 +48,29 @@ const ProjectsCarousel = ({ slides }) => {
                 className="swiper-slide-image bg-[#f8f8f8] rounded aspect-[5/7]"
               >
                 {project.image && (
-                  <a href={project.link}>
-                    <Image
-                      className="featured-image-wrapper rounded"
-                      src={project.image.sourceUrl}
-                      alt={project.image.altText || project.title}
-                      // width={project.image.mediaDetails.width}
-                      // height={project.image.mediaDetails.height}
-                      layout="fill"
-                      objectFit="cover"
-                      objectPosition="center"
-                      sizes="(min-width: 1024px) 33vw, 50vw"
-                    />
-                  </a>
+                  <Link href={project.link}>
+                    <a>
+                      <Image
+                        className="featured-image-wrapper rounded"
+                        src={project.image.sourceUrl}
+                        alt={project.image.altText || project.title}
+                        // width={project.image.mediaDetails.width}
+                        // height={project.image.mediaDetails.height}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="center"
+                        sizes="(min-width: 1024px) 33vw, 50vw"
+                      />
+                    </a>
+                  </Link>
                 )}
               </div>
               <div className="flex flex-col flex-wrap items-start text-dark_green">
-                <a className="text-md leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7" href={project.link}>
-                  {project.title}
-                </a>
+                <Link href={project.link}>
+                  <a className="text-md leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7">
+                    {project.title}
+                  </a>
+                </Link>
               </div>
             </div>
           </SwiperSlide>

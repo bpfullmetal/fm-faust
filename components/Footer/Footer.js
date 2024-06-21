@@ -11,6 +11,7 @@ import LetterM from '../../assets/js/icons/letter-m';
 import LetterN from '../../assets/js/icons/letter-n';
 import LetterR from '../../assets/js/icons/letter-r';
 import LetterS from '../../assets/js/icons/letter-s';
+import Link from 'next/link'
 
 export default function Footer({ fmSettings, menuItems, showMenu }) {
   const contactInfo = fmSettings?.contactInfo;
@@ -26,9 +27,9 @@ export default function Footer({ fmSettings, menuItems, showMenu }) {
                 <ul className="flex flex-col mb-12 sm:flex-row sm:mb-24 sm:space-x-6">
                   {menuItems.map((item, i) => (
                     <li key={i} className="w-fit py-2">
-                      <a target={item.target} href={item.url}>
+                      <Link target={item.target} href={item.url}>
                         {item.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

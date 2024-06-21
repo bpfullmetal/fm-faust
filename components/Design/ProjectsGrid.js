@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Helper from '../../helper';
+import Link from 'next/link'
 
 const DesignProjectsGrid = ({
   category,
@@ -69,7 +70,7 @@ const DesignProjectsGrid = ({
             </div>
           )}
           <p className="text-xl leading-none tracking-[0.48px] mb-1 sm:text-lg mt-2">
-            <a href={project.link}>{project.title}</a>
+            <Link href={project.link}>{project.title}</Link>
           </p>
         </div>
       ))}

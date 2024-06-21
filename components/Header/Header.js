@@ -82,7 +82,7 @@ export default function Header({
                   link.path?.includes(options?.currentURI) ? ' is-active' : ''
                 }`}
               >
-                <Link passHref href={link.label === 'Home' ? '/' : link.path ?? ''}>
+                <Link href={link.label === 'Home' ? '/' : link.path ?? ''}>
                   {link.label === 'Home' ? (
                     <a><div className="home-logo"></div></a>
                   ) : link.label}
@@ -134,7 +134,7 @@ export default function Header({
                     key={i}
                     className="text-black leading-[40px] tracking-[0.48px] text-center"
                   >
-                    <a href={link.path}>{link.label}</a>
+                    <Link href={link.path}>{link.label}</Link>
                   </div>
                 ))}
               </div>

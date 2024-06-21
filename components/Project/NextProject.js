@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { gql, useQuery } from '@apollo/client';
+import Link from 'next/link'
 
 const NextProject = ({ currentProject }) => {
   const { data } = useQuery(GET_ALL_PROJECTS_QUERY);
@@ -100,7 +101,7 @@ const NextProjectContent = ({ nextProjectId }) => {
             }`}
           >
             {nextProject.featuredImage?.node?.mediaItemUrl && (
-              <a
+              <Link
                 href={nextProject.link}
                 className={!isMobile ? 'static' : 'relative w-full h-auto'}
               >
@@ -116,7 +117,7 @@ const NextProjectContent = ({ nextProjectId }) => {
                   }
                   sizes="100vw"
                 />
-              </a>
+              </Link>
             )}
             <svg width="0" height="0">
               <clipPath id="next-project-image-mask">
@@ -142,17 +143,17 @@ const NextProjectContent = ({ nextProjectId }) => {
                   : ''
               }`}
             >
-              <a href={nextProject.link}>
+              <Link href={nextProject.link}>
                 {nextProject.title}
-              </a>
+              </Link>
             </p>
             {isMobile && (
-              <a
+              <Link
                 className="uppercase text-black"
                 href={nextProject.link}
               >
                 View project
-              </a>
+              </Link>
             )}
           </div>
         </section>

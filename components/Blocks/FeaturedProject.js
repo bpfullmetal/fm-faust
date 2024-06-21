@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link'
 
 const BlockFeaturedProject = ({ data }) => {
   const [featuredProjectData] = React.useState({
@@ -129,12 +130,13 @@ const BlockFeaturedProject = ({ data }) => {
               </p>
             )}
             {projectLink && (
-              <a
-                className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8"
-                href={projectLink.url}
-              >
-                {projectLink.title}
-              </a>
+              <div className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8">
+                <Link
+                  href={projectLink.url}
+                >
+                  {projectLink.title}
+                </Link>
+              </div>
             )}
           </div>
         </div>

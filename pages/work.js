@@ -5,16 +5,16 @@ import Image from 'next/image';
 import { PageLayout } from '../components';
 import Helper from '../helper';
 import projectPlaceholder from '../assets/images/project-placeholder.jpg';
+import Link from 'next/link'
 
 const ProjectBlockDetail = ({ project }) => {
   return (
     <div className="flex flex-col items-start mt-5 space-y-3 lg:flex-row lg:items-center lg:space-x-7 lg:space-y-0">
-      <a
-        className="text-dark_green text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]"
-        href={project.link}
-      >
-        {project.title}
-      </a>
+      <Link href={project.link}>
+        <a className="text-dark_green text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]">
+          {project.title}
+        </a>
+      </Link>
     </div>
   );
 };
@@ -105,36 +105,40 @@ export default function Page(props) {
                 ref={workProjectRefs[i]}
               >
                 {project.node.featuredImage && (
-                  <a className="w-full h-auto" href={project.node.uri}>
-                    <div
-                      style={{
-                        // height: 0,
-                        // paddingTop: "66.67%",
-                        position: 'relative',
-                      }}
-                    >
-                      <Image
-                        // className="w-full h-full aspect-[3/2] rounded"
-                        className="w-full rounded"
-                        src={project?.node?.featuredImage?.node?.mediaItemUrl}
-                        style={{objectFit: "cover"}}
-                        // layout="fill"
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        width={655}
-                        height={437}
-                        objectFit='cover'
-                        alt={
-                          project?.node?.featuredImage?.node?.altText ||
-                          project?.node?.title
-                        }
-                      />
-                    </div>
-                  </a>
+                  <Link href={project.node.uri}>
+                    <a className="w-full h-auto">
+                      <div
+                        style={{
+                          // height: 0,
+                          // paddingTop: "66.67%",
+                          position: 'relative',
+                        }}
+                      >
+                        <Image
+                          // className="w-full h-full aspect-[3/2] rounded"
+                          className="w-full rounded"
+                          src={project?.node?.featuredImage?.node?.mediaItemUrl}
+                          style={{objectFit: "cover"}}
+                          // layout="fill"
+                          sizes="(min-width: 768px) 50vw, 100vw"
+                          width={655}
+                          height={437}
+                          objectFit='cover'
+                          alt={
+                            project?.node?.featuredImage?.node?.altText ||
+                            project?.node?.title
+                          }
+                        />
+                      </div>
+                    </a>
+                  </Link>
                 )}
                 {!project.node.featuredImage && (
-                  <a className="w-full h-full" href={project.node.uri}>
-                    <Image src={projectPlaceholder} alt={project.node.title} />
-                  </a>
+                  <Link href={project.node.uri}>
+                    <a className="w-full h-full">
+                      <Image src={projectPlaceholder} alt={project.node.title} />
+                    </a>
+                  </Link>
                 )}
                 <ProjectBlockDetail project={project.node} />
               </div>

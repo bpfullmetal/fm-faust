@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Helper from '../helper';
+import Link from 'next/link'
 
 export const BookConsultation = ({ fmSettings }) => {
   const [scrollRevealRefs] = React.useState(
