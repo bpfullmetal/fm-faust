@@ -5,14 +5,22 @@ import { useRouter } from 'next/router';
 import ProjectContent from '../components/Project/ProjectContent';
 
 export default function Preview(props) {
-  const { isAuthenticated, isReady } = useAuth();
+  const { isAuthenticated, isReady, loginUrl } = useAuth();
   const { query } = useRouter();
   const client = getApolloAuthClient();
+
+  console.log('isAuthenticated: ', isAuthenticated)
+  console.log('isReady: ', isReady)
+  console.log('loginUrl: ', loginUrl)
 
   const id = query.p ? parseInt(query.p) : null;
   const isPreview = true;
   
   const [previewProject, setPreviewProject] = React.useState();
+
+  if (!isAuthenticated && loginUrl) {
+    location.href = loginUrl;
+  }
   
   if (id && isAuthenticated && isReady) {
     client.query({
