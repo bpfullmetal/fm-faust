@@ -12,13 +12,9 @@ import Head from 'next/head';
  * @returns {React.ReactElement} The SEO component
  */
 export default function SEO({ title, description, imageUrl, url }) {
-  // if (!title && !description && !imageUrl && !url) {
-  //   return null;
-  // }
-
-  const seoTitle = title || 'Frances Mildred'
+  const seoTitle = title ? `${title} - Frances Mildred` : 'Frances Mildred'
   const seoImage = imageUrl || '/placeholder.png'
-  // console.log('SEO', seoTitle, description, imageUrl, url)
+
   return (
     <>
       <Head>

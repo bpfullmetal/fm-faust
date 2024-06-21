@@ -18,6 +18,7 @@ Page.query = gql`
     $id: ID!
   ) {
     page(id: $id) {
+      title
       uri
     }
   }

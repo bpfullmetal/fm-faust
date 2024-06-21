@@ -30,7 +30,7 @@ export default function Preview(props) {
   if (!previewProject) return <></>;
 
   return (
-    <ProjectContent project={previewProject} nextProject={null} />
+    <ProjectContent project={previewProject} isPreview />
   );
 }
 

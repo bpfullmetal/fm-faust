@@ -46,7 +46,7 @@ const TeamStudioFeatured = ({ data }) => {
         break;
     }
   };
-  console.log('team ', data.image)
+
   return (
     <div className="flex flex-col">
       {data?.image?.node?.sourceUrl && (

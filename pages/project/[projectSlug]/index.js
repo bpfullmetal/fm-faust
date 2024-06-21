@@ -10,23 +10,19 @@ export default function Page(props) {
   const projectUri = query.projectSlug;
 
   const { data } = useQuery(gqlquery, {
-    variables: { id: `/project/${projectUri}/`, uri: projectUri },
+    variables: { id: `/project/${projectUri}/` },
   });
 
-  const project = data?.project ?? null;
-  const nextProjects = data?.projects?.nodes ?? [];
+  const project = data?.project;
 
   if (!project) return <></>;
 
-  return (
-    <ProjectContent project={project} nextProject={nextProjects.length ? nextProjects[0] : null} />
-  );
+  return <ProjectContent project={project} />;
 }
 
 const gqlquery = gql`
   query GetProjectData(
     $id: ID!
-    $uri: String!
   ) {
     project(id: $id, idType: URI) {
       uri
@@ -68,26 +64,6 @@ const gqlquery = gql`
           video {
             node {
               mediaItemUrl
-            }
-          }
-        }
-      }
-    }
-    
-    projects(after: $uri, where: {orderby: {field: DATE, order: DESC}}) {
-      nodes {
-        id
-        title
-        link
-        uri
-        date
-        featuredImage {
-          node {
-            altText
-            mediaItemUrl
-            mediaDetails {
-              width
-              height
             }
           }
         }

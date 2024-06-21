@@ -3,8 +3,9 @@ import Image from 'next/image';
 import Helper from '../../helper';
 import { PageLayout } from '../../components';
 import ProjectCarouselModal from './CarouselModal';
+import NextProject from './NextProject';
 
-const ProjectContent = ({ project, nextProject }) => {
+const ProjectContent = ({ project, isPreview = false }) => {
   const { title, featuredImage, projectsSingle } = project;
   const positions = ['right', 'left', 'center'];
 
@@ -27,9 +28,6 @@ const ProjectContent = ({ project, nextProject }) => {
   const [imageBlockPositions, setImageBlockPositions] = React.useState([]);
   const [imageBlockSizes, setImageBlockSizes] = React.useState([]);
   const [imageBlockDetails, setImageBlockDetails] = React.useState([]);
-
-  const nextProjectAfterEleRef = React.useRef();
-  const imageMaskRef = React.useRef();
 
   React.useEffect(() => {
     let prevPosition = getRandomPosition();
@@ -98,12 +96,6 @@ const ProjectContent = ({ project, nextProject }) => {
   };
 
   React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  React.useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 600);
     };
@@ -118,42 +110,6 @@ const ProjectContent = ({ project, nextProject }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  const handleScroll = () => {
-    const imageMaskEle = imageMaskRef.current;
-    const nextProjectAfterEle = nextProjectAfterEleRef.current;
-
-    if (imageMaskEle && nextProjectAfterEle) {
-      const initialMaskWidth = 660;
-      const initialMaskHeight = 440;
-      let maskScale = 1;
-      let translateX = (window.innerWidth - initialMaskWidth) / 2;
-      let translateY = (window.innerHeight - initialMaskHeight) / 2;
-      const scrollMovePos =
-        window.innerHeight * 1.5 -
-        nextProjectAfterEle.getBoundingClientRect().top;
-
-      if (scrollMovePos > 0 && scrollMovePos < window.innerHeight * 1.5) {
-        maskScale =
-          1 +
-          ((Math.floor(window.innerWidth / initialMaskWidth) * scrollMovePos) /
-            window.innerHeight) *
-            2;
-        if (maskScale > 3) {
-          maskScale = 3;
-        }
-        translateX =
-          ((window.innerWidth - initialMaskWidth * maskScale) / 2 / maskScale) *
-          1;
-        translateY =
-          ((window.innerHeight - initialMaskHeight * maskScale) /
-            2 /
-            maskScale) *
-          1;
-        imageMaskEle.style.transform = `scale(${maskScale}) translate(${translateX}px, ${translateY}px)`;
-      }
-    }
-  };
 
   const size2Class = {
     small: 'w-full md:w-6/12',
@@ -196,7 +152,6 @@ const ProjectContent = ({ project, nextProject }) => {
   return (
     <PageLayout
       options={{ currentURI: '/work/', scrollIndicator: scrollContainerRef }}
-      pageTitle={project.title}
       pageData={project}
     >
       <>
@@ -396,80 +351,7 @@ const ProjectContent = ({ project, nextProject }) => {
           </div>
         </section>
 
-        {nextProject && (
-          <section
-            className={`${
-              !isMobile ? ' next-project mb-[50vh] sticky top-0' : ''
-            }`}
-          >
-            <div
-              className={`flex items-center flex-col items-baseline md:items-center md:justify-center relative ${
-                !isMobile ? 'w-screen h-screen' : 'py-32 px-8'
-              }`}
-            >
-              {nextProject.featuredImage?.node?.mediaItemUrl && (
-                <a
-                  href={nextProject.link}
-                  className={!isMobile ? 'static' : 'relative w-full h-auto'}
-                >
-                  <Image
-                    loading="lazy"
-                    className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
-                    src={nextProject.featuredImage.node.mediaItemUrl}
-                    width={nextProject.featuredImage.node.mediaDetails.width}
-                    height={nextProject.featuredImage.node.mediaDetails.height}
-                    alt={
-                      nextProject.featuredImage.node.altText ||
-                      nextProject.title
-                    }
-                    sizes="100vw"
-                  />
-                </a>
-              )}
-              <svg width="0" height="0">
-                <clipPath id="next-project-image-mask">
-                  <path
-                    ref={imageMaskRef}
-                    d="M 0.034 -0.034 L 660 -0.049 L 660 440 L 0 440 L 0 0 L 0.034 -0.034 Z"
-                  />
-                </clipPath>
-              </svg>
-              <p
-                className={`mt-4 md:mt-0 md:mb-8 text-[12px] tracking-[4px] sm:text-lg uppercase relative ${
-                  !nextProject.featuredImage || isMobile
-                    ? 'text-black'
-                    : 'text-white'
-                }`}
-              >
-                Next Project
-              </p>
-              <p
-                className={`relative max-w-[600px] text-lg md:text-[58px] md:leading-[58px] md:text-center${
-                  !nextProject.featuredImage || isMobile
-                    ? ' text-black'
-                    : ''
-                }`}
-              >
-                <a href={nextProject.link}>
-                  {nextProject.title}
-                </a>
-              </p>
-              {isMobile && (
-                <a
-                  className="uppercase text-black"
-                  href={nextProject.link}
-                >
-                  View project
-                </a>
-              )}
-            </div>
-          </section>
-        )}
-
-        <section
-          className="next-project-after"
-          ref={nextProjectAfterEleRef}
-        ></section>
+        {!isPreview && <NextProject currentProject={project} />}
 
         {clickedImageOrder > -1 && (
           <ProjectCarouselModal

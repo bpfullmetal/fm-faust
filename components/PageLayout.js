@@ -1,24 +1,21 @@
 import * as React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import Head from 'next/head';
 import {BookConsultation, Footer, Header} from './';
 import { SEO } from './SEO';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment, FmSettingsFragment, NavigationMenuItemFragment } from '../fragments';
 
-export const PageLayout = ({ className, children, options = {}, pageData = null, pageTitle }) => {
+export const PageLayout = ({ className, children, options = {}, pageData = null }) => {
   const { data } = useQuery(PageLayout.query, {
     variables: PageLayout.variables(),
   });
 
-  // const { title: siteTitle, description: siteDescription } =
-  //   data?.generalSettings;
   const fmSettings = data?.settings?.fmSettings;
   const primaryMenu = data?.headerMenuItems?.nodes ?? [];
   const footerMenu = data?.footerMenuItems?.nodes ?? [];
 
   const description = pageData?.excerpt ? pageData.excerpt.replace(/<[^>]*>?/gm, '').trim() : null
-  // console.log('page data', pageData)
+
   return (
     <>
       {
@@ -31,20 +28,6 @@ export const PageLayout = ({ className, children, options = {}, pageData = null,
           />
         )
       }
-      {/* {
-        pageData && (
-          <SEO
-            title={pageData?.title()}
-            description={ description }
-            image={ pageData?.featuredImage ? pageData.featuredImage.node.mediaItemUrl : null }
-            url={pageData?.uri}
-          />
-        )
-      }
-
-      <Head>
-        <title>{`${pageTitle} - Frances Mildred`}</title>
-      </Head> */}
 
       {!options.hiddenHeader && <Header menuItems={primaryMenu} options={options} />}
 

@@ -157,8 +157,9 @@ Page.query = gql`
   ) {
     page(id: $id) {
       uri
+      title
     }
-    projects {
+    projects(where: {orderby: {field: MENU_ORDER, order: ASC}}) {
       edges {
         node {
           id

@@ -15,8 +15,6 @@ export default function Component() {
     variables: Component.variables(),
   });
 
-  console.log(data)
-
   const primaryMenu = data?.headerMenuItems?.nodes ?? [];
   const editorBlocks = data?.page?.editorBlocks ?? [];
 

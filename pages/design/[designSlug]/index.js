@@ -11,11 +11,8 @@ export default function Page(props) {
 
   const currentCategory = query.designSlug;
 
-  const { data } = useQuery(Page.query, {
-    variables: Page.variables(),
-  });
+  const { data } = useQuery(Page.query);
 
-  // console.log('design page data: ', data)
   const allCategoriesData = data?.categories?.edges ?? [];
   const allProjectsData = data?.projects?.edges ?? [];
 
@@ -141,7 +138,7 @@ export default function Page(props) {
     <PageLayout
       className="discover bg-dark_blue"
       options={{ currentURI: '/design', hiddenBookSection: true }}
-      pageData={data.page}
+      pageData={{ title: 'Design' }}
     >
       <section
         className={`bg-dark_blue py-32 sm:py-32 min-h-screen ${
@@ -226,7 +223,7 @@ Page.query = gql`
         }
       }
     }
-    projects(where: {orderby: {field: DATE, order: DESC}}) {
+    projects(first: 20, where: {orderby: {field: DATE, order: DESC}}) {
       edges {
         node {
           id
@@ -268,12 +265,6 @@ Page.query = gql`
     }
   }
 `;
-
-Page.variables = () => {
-  return {
-    // id: 'cG9zdDoxMg=='
-  };
-};
 
 export function getStaticProps(ctx) {
   return getNextStaticProps(ctx, {Page});

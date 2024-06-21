@@ -10,7 +10,7 @@ const BlockProjectsCarousel = () => {
   const projects = respData?.projects?.edges ?? [];
 
   const data = editorBlocks.find(block => block.blockProjectsCarousel)?.blockProjectsCarousel;
-  console.log('data', data)
+
   if (!data) return <></>;
 
   const carouselData = {
@@ -71,7 +71,6 @@ const BlockProjectsCarousel = () => {
         <ProjectsCarousel
           slides={carouselData.projects.map((project) => {
             let image = null
-            console.log(project,'project')
             if ( project.image ) {
               image = project.image
             } else {
