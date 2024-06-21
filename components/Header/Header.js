@@ -69,7 +69,7 @@ export default function Header({
       };
     })
   }, [menuItems]);
-
+  console.log('links', links)
   return (
     <div className="sticky top-0 z-20">
       <header className="bg-white px-12">
