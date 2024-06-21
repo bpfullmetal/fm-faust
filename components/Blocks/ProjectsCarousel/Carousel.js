@@ -48,7 +48,7 @@ const ProjectsCarousel = ({ slides }) => {
                 className="swiper-slide-image bg-[#f8f8f8] rounded aspect-[5/7]"
               >
                 {project.image && (
-                  <Link href={project.link}>
+                  <Link href={project.link} passHref>
                     <a>
                       <Image
                         className="featured-image-wrapper rounded"
@@ -66,7 +66,7 @@ const ProjectsCarousel = ({ slides }) => {
                 )}
               </div>
               <div className="flex flex-col flex-wrap items-start text-dark_green">
-                <Link href={project.link}>
+                <Link href={project.link} passHref>
                   <a className="text-md leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7">
                     {project.title}
                   </a>

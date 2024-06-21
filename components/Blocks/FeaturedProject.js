@@ -131,6 +131,7 @@ const BlockFeaturedProject = ({ data }) => {
             )}
             {projectLink && (
               <Link
+                passHref
                 href={projectLink.url}
               >
                 <a className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8">

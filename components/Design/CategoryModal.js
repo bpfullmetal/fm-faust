@@ -25,6 +25,7 @@ const CategoryModal = ({ categories, selectedCat, onClose }) => {
             .filter((cat) => cat.node.slug !== selectedCat.slug)
             .map((category) => (
               <Link
+                passHref
                 key={category.node.slug}
                 href={`/design/${category.node.slug}`}
               >

@@ -82,7 +82,7 @@ export default function Header({
                   link.path?.includes(options?.currentURI) ? ' is-active' : ''
                 }`}
               >
-                <Link href={link.label === 'Home' ? '/' : link.path ?? ''}>
+                <Link href={link.label === 'Home' ? '/' : link.path ?? ''} passHref={link.label === 'Home' ? true : false }>
                   {link.label === 'Home' ? (
                     <a><div className="home-logo"></div></a>
                   ) : link.label}
@@ -92,6 +92,7 @@ export default function Header({
           })}
           <li className="text-black text-sm py-3 icon-instagram">
             <Link
+              passHref
               href="https://www.instagram.com/frances.mildred/"
               target="_blank"
               rel="noreferrer"

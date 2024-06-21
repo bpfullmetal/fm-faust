@@ -102,21 +102,23 @@ const NextProjectContent = ({ nextProjectId }) => {
           >
             {nextProject.featuredImage?.node?.mediaItemUrl && (
               <Link
+                passHref
                 href={nextProject.link}
-                className={!isMobile ? 'static' : 'relative w-full h-auto'}
               >
-                <Image
-                  loading="lazy"
-                  className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
-                  src={nextProject.featuredImage.node.mediaItemUrl}
-                  width={nextProject.featuredImage.node.mediaDetails.width}
-                  height={nextProject.featuredImage.node.mediaDetails.height}
-                  alt={
-                    nextProject.featuredImage.node.altText ||
-                    nextProject.title
-                  }
-                  sizes="100vw"
-                />
+                <a className={!isMobile ? 'static' : 'relative w-full h-auto'}>
+                  <Image
+                    loading="lazy"
+                    className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
+                    src={nextProject.featuredImage.node.mediaItemUrl}
+                    width={nextProject.featuredImage.node.mediaDetails.width}
+                    height={nextProject.featuredImage.node.mediaDetails.height}
+                    alt={
+                      nextProject.featuredImage.node.altText ||
+                      nextProject.title
+                    }
+                    sizes="100vw"
+                  />
+                </a>
               </Link>
             )}
             <svg width="0" height="0">

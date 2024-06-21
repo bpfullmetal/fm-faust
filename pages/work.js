@@ -10,7 +10,7 @@ import Link from 'next/link'
 const ProjectBlockDetail = ({ project }) => {
   return (
     <div className="flex flex-col items-start mt-5 space-y-3 lg:flex-row lg:items-center lg:space-x-7 lg:space-y-0">
-      <Link href={project.link}>
+      <Link passHref href={project.link}>
         <a className="text-dark_green text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]">
           {project.title}
         </a>
@@ -105,7 +105,7 @@ export default function Page(props) {
                 ref={workProjectRefs[i]}
               >
                 {project.node.featuredImage && (
-                  <Link href={project.node.uri}>
+                  <Link passHref href={project.node.uri}>
                     <a className="w-full h-auto">
                       <div
                         style={{
@@ -134,7 +134,7 @@ export default function Page(props) {
                   </Link>
                 )}
                 {!project.node.featuredImage && (
-                  <Link href={project.node.uri}>
+                  <Link passHref href={project.node.uri}>
                     <a className="w-full h-full">
                       <Image src={projectPlaceholder} alt={project.node.title} />
                     </a>
