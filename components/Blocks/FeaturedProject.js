@@ -130,13 +130,13 @@ const BlockFeaturedProject = ({ data }) => {
               </p>
             )}
             {projectLink && (
-              <div className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8">
-                <Link
-                  href={projectLink.url}
-                >
+              <Link
+                href={projectLink.url}
+              >
+                <a className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8">
                   {projectLink.title}
-                </Link>
-              </div>
+                </a>
+              </Link>
             )}
           </div>
         </div>

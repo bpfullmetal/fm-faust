@@ -10,8 +10,10 @@ const NotFoundPage = () => {
           <h1 className="text-xl">Oops, this page doesn’t exist.</h1>
           <p>
             View some of our{' '}
-            <Link className="underline" href="/work">
-              case studies
+            <Link>
+              <a className="underline" href="/work">
+                case studies
+              </a>
             </Link>{' '}
             instead :)
           </p>
