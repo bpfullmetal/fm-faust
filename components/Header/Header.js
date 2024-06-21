@@ -20,8 +20,11 @@ export default function Header({
   menuItems,
   options
 }) {
-  const { data } = useQuery(gqlquery);
+  // const { data } = useQuery(gqlquery);
   // const categories = data?.categories?.edges ?? [];
+  const categories = [
+    { node: { slug: 'entertainment' }}
+  ]
 
   const [isOpened, setIsOpened] = React.useState(false);
   const [scrollPercentage, setScrollPercentage] = React.useState(0);
