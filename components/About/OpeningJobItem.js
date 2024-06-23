@@ -86,10 +86,16 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
             ref={applyRef}
           >
             <div
-              className="animate-reveal text-black text-2xl leading-[30px] underline mb-2"
+              className={`animate-reveal text-black text-2xl leading-[30px] ${
+                data.applicationLink ? 'underline' : ''
+              } mb-2`}
               ref={applyContentRefs[0]}
             >
-              <a target="_blank" href={data.applicationLink} rel="noreferrer">How to apply</a>
+              {data.applicationLink ? (
+                <a target="_blank" href={data.applicationLink} rel="noreferrer">How to apply</a>
+              ) : (
+                <p>How to apply</p>
+              )}
             </div>
             <p
               className="animate-reveal text-black text-lg leading-[30px]"
@@ -101,7 +107,9 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
               className="animate-reveal text-black text-sm underline uppercase tracking-[1px] mt-16"
               ref={applyContentRefs[2]}
             >
-              <a target="_blank" href={data.applicationLink} rel="noreferrer">Apply here</a>
+              {data.applicationLink && (
+                <a target="_blank" href={data.applicationLink} rel="noreferrer">Apply here</a>
+              )}
             </div>
           </div>
         )}
