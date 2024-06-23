@@ -136,7 +136,7 @@ export default function Page(props) {
 
   return (
     <PageLayout
-      className="discover bg-dark_blue"
+      className="discover"
       options={{ currentURI: '/design', hiddenBookSection: true }}
       pageData={{ title: 'Design' }}
     >

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const NavigationMenuItemFragment = gql`
-  fragment NavigationMenuItemFragment on MenuItem {
+export const NavigationMainMenuItemFragment = gql`
+  fragment NavigationMainMenuItemFragment on MenuItem {
     label
     path
   }

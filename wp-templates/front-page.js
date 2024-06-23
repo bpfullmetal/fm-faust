@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
-import { NavigationMenuItemFragment } from '../fragments';
+import { NavigationMainMenuItemFragment } from '../fragments';
 import { Header, PageLayout } from '../components';
 import {
   BlockLogoBanner,
@@ -106,14 +106,14 @@ export default function Component() {
 }
 
 Component.query = gql`
-  ${NavigationMenuItemFragment}
+  ${NavigationMainMenuItemFragment}
   query GetPageData(
     $id: ID!
     $headerLocation: MenuLocationEnum
   ) {
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {
-        ...NavigationMenuItemFragment
+        ...NavigationMainMenuItemFragment
       }
     }
     page(id: $id) {
@@ -234,55 +234,3 @@ Component.variables = () => {
     id: 'cG9zdDo3NjU=',
   };
 };
-
-// ... on AcfProjectsCarousel {
-//   blockProjectsCarousel {
-//     manualSelection
-//     projects {
-//       image {
-//         node {
-//           altText
-//           sourceUrl
-//           mediaDetails {
-//             width
-//             height
-//           }
-//         }
-//       }
-//       project {
-//         nodes {
-//           ... on Project {
-//             id
-//             projectSingleAlternateImages {
-//               verticalImage {
-//                 node {
-//                   altText
-//                   sourceUrl
-//                   mediaDetails {
-//                     width
-//                     height
-//                   }
-//                 }
-//               }
-//             }
-//             featuredImage {
-//               node {
-//                 altText
-//                 sourceUrl
-//                 mediaDetails {
-//                   width
-//                   height
-//                 }
-//               }
-//             }
-//             link
-//             title
-//           }
-//         }
-//       }
-//       title
-//     }
-//     projectsMax
-//     title
-//   }
-// }

@@ -2,10 +2,10 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import Image from 'next/image';
+import Link from 'next/link'
 import { PageLayout } from '../components';
 import Helper from '../helper';
 import projectPlaceholder from '../assets/images/project-placeholder.jpg';
-import Link from 'next/link'
 
 const ProjectBlockDetail = ({ project }) => {
   return (

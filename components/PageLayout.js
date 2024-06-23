@@ -3,7 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import {BookConsultation, Footer, Header} from './';
 import { SEO } from './SEO';
 import * as MENUS from '../constants/menus';
-import { BlogInfoFragment, FmSettingsFragment, NavigationMenuItemFragment } from '../fragments';
+import { FmSettingsFragment, NavigationMainMenuItemFragment } from '../fragments';
 
 export const PageLayout = ({ className, children, options = {}, pageData = null }) => {
   const { data } = useQuery(PageLayout.query, {
@@ -43,27 +43,23 @@ export const PageLayout = ({ className, children, options = {}, pageData = null 
 };
 
 PageLayout.query = gql`
-  ${BlogInfoFragment}
   ${FmSettingsFragment}
-  ${NavigationMenuItemFragment}
+  ${NavigationMainMenuItemFragment}
   query GetLayout(
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
   ) {
-    generalSettings {
-      ...BlogInfoFragment
-    }
     settings {
       ...FmSettingsFragment
     }
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {
-        ...NavigationMenuItemFragment
+        ...NavigationMainMenuItemFragment
       }
     }
     footerMenuItems: menuItems(where: { location: $footerLocation }) {
       nodes {
-        ...NavigationMenuItemFragment
+        ...NavigationMainMenuItemFragment
       }
     }
   }
