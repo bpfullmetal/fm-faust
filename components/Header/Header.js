@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link'
 import LetterA from '../../assets/js/icons/letter-a';
 import LetterC from '../../assets/js/icons/letter-c';
@@ -21,12 +20,6 @@ export default function Header({
   menuItems,
   options
 }) {
-  // const { data } = useQuery(gqlquery);
-  // const categories = data?.categories?.edges ?? [];
-  const categories = [
-    { node: { slug: 'entertainment' }}
-  ]
-
   const [isOpened, setIsOpened] = React.useState(false);
   const [scrollPercentage, setScrollPercentage] = React.useState(0);
 
@@ -52,29 +45,11 @@ export default function Header({
     }
   }, []);
 
-  const links = React.useMemo(() => {
-    return menuItems.map(item => {
-      let path = item.path;
-      if (item.label === 'Home') {
-        path = '/';
-      }
-      // if (item.label === 'Design') {
-      //   if (categories.length) {
-      //     path = `/design/${categories[0].node.slug}`;
-      //   }
-      // }
-      return {
-        label: item.label,
-        path,
-      };
-    })
-  }, [menuItems]);
-  console.log('links', links)
   return (
     <div className="sticky top-0 z-20">
       <header className="bg-white px-12">
         <ul className="hidden justify-between sm:flex">
-          {links?.map((link, i) => {
+          {menuItems?.map((link, i) => {
             return (
               <li
                 key={i}
@@ -82,7 +57,11 @@ export default function Header({
                   link.path?.includes(options?.currentURI) ? ' is-active' : ''
                 }`}
               >
-                <Link href={link.label === 'Home' ? '/' : link.path ?? ''} passHref={link.label === 'Home' ? true : false }>
+                <Link
+                  href={link.label === 'Home' ? '/' : link.path ?? ''}
+                  passHref={link.label === 'Home' ? true : false }
+                  replace={link.label === 'Design' ? true: false}
+                >
                   {link.label === 'Home' ? (
                     <a><div className="home-logo"></div></a>
                   ) : link.label}
@@ -131,7 +110,7 @@ export default function Header({
                 </svg>
               </div>
               <div className="flex flex-col mt-10">
-                {links?.map((link, i) => (
+                {menuItems?.map((link, i) => (
                   <div
                     key={i}
                     className="text-black leading-[40px] tracking-[0.48px] text-center"
@@ -203,16 +182,3 @@ export default function Header({
     </div>
   );
 }
-
-// const gqlquery = gql`
-//   query {
-//     categories(where: {order: ASC, orderby: COUNT}) {
-//       edges {
-//         node {
-//           name
-//           slug
-//         }
-//       }
-//     }
-//   }
-// `;

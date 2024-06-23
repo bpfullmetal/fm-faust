@@ -12,11 +12,6 @@ module.exports = withFaust({
   async redirects() {
     return [
       {
-        source: '/design',
-        destination: '/design/entertainment',
-        permanent: true,
-      },
-      {
         source: '/about-1',
         destination: '/contact',
         permanent: true,
