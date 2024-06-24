@@ -49,7 +49,7 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
 
     setIsOpened((old) => !old);
   }, [contentRef, isOpened]);
-
+  console.log('how to apply', data.howToApply)
   return (
     <div
       className={`animate-reveal flex flex-col ${isEntered ? 'reveal' : ''}`}
@@ -97,12 +97,13 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
                 <p>How to apply</p>
               )}
             </div>
-            <p
+            <div
               className="animate-reveal text-black text-lg leading-[30px]"
               ref={applyContentRefs[1]}
-            >
-              {data.howToApply}
-            </p>
+              dangerouslySetInnerHTML={{
+                __html: data.howToApply,
+              }}
+            />
             <div
               className="animate-reveal text-black text-sm underline uppercase tracking-[1px] mt-16"
               ref={applyContentRefs[2]}

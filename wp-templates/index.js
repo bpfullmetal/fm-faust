@@ -1,11 +1,11 @@
 import frontPage from './front-page';
 import page from './page';
 import single from './single';
-import about from './about';
+import about from './about-us';
 
 export default {
   'front-page': frontPage,
   page,
   single,
-  'page-about': about
+  'page-about-us': about
 };

@@ -86,6 +86,8 @@ export default function Page(props) {
     }
   }
 
+  console.log('studio openings', studioOpenings)
+
   const [isPageEntered, setIsPageEntered] = React.useState(false);
   const [currentNavMenuItem, setCurrentNavMenuItem] = React.useState('about');
   const [jobListings, setJobListings] = React.useState([]);
