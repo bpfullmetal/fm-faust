@@ -21,7 +21,7 @@ export default function Page(props) {
   const [activeCategories, setActiveCategories] = React.useState(allCategoriesData);
   const [clickedImageOrder, setClickedImageOrder] = React.useState(-1);
   const [selectedCat, setSelectedCat] = React.useState(
-    allCategoriesData[0].node
+    allCategoriesData?.[0].node || null
   );
   const [filteredProjectImages, setFilteredProjectImages] = React.useState([]);
   const [animationEntrances, setAnimationEntrances] = React.useState({
