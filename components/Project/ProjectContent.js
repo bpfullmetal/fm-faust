@@ -168,6 +168,7 @@ const ProjectContent = ({ project, isPreview = false }) => {
                 className="featured-image-wrapper w-full h-full object-cover rounded-none"
                 src={featuredImage.node.mediaItemUrl}
                 layout="fill"
+                sizes="(min-width: 1024px) 50vw, 70vw"
                 loading="eager"
                 alt={featuredImage.node.altText || title}
               />
@@ -336,7 +337,7 @@ const ProjectContent = ({ project, isPreview = false }) => {
                               layout="fill"
                               objectFit="cover"
                               objectPosition="center"
-                              sizes="(min-width: 1024px) 40vw, 100vw"
+                              sizes="(min-width: 1024px) 30vw, 70vw"
                               loading="eager"
                               onLoad={event => handleDisplayImage(event, projectRefs[i])}	
                               quality={60}

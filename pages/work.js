@@ -121,7 +121,7 @@ export default function Page(props) {
                           src={project?.node?.featuredImage?.node?.mediaItemUrl}
                           style={{objectFit: "cover"}}
                           // layout="fill"
-                          sizes="(min-width: 768px) 50vw, 100vw"
+                          sizes="(min-width: 768px) 30vw, 70vw"
                           width={655}
                           height={437}
                           loading="eager"
