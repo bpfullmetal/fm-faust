@@ -85,6 +85,7 @@ const BlockLogoBanner = ({ data }) => {
                       alt={data.backgroundImage.node.altText}
                       width={data.backgroundImage.node.mediaDetails.width}
                       height={data.backgroundImage.node.mediaDetails.height}
+                      priority={true}
                     />
                   ) 
                   : null
@@ -120,6 +121,7 @@ const BlockLogoBanner = ({ data }) => {
                   alt={data.backgroundImage.node.altText}
                   width={data.backgroundImage.node.mediaDetails.width}
                   height={data.backgroundImage.node.mediaDetails.height}
+                  priority={true}
                 />
               </div>
             ) 

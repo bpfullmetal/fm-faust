@@ -170,6 +170,7 @@ const ProjectContent = ({ project, isPreview = false }) => {
                 layout="fill"
                 sizes="(min-width: 1024px) 50vw, 70vw"
                 loading="eager"
+                priority={true}
                 alt={featuredImage.node.altText || title}
               />
               <h1 className="absolute max-w-[480px] text-4xl font-medium !leading-none text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
@@ -332,8 +333,6 @@ const ProjectContent = ({ project, isPreview = false }) => {
                             <Image
                               className={`featured-image-wrapper w-full h-auto rounded featured-image-${block.image.node.id}`}
                               src={block.image.node.mediaItemUrl}
-                              width={orientation === 'landscape' ? 800 : 600}
-                              height={orientation === 'landscape' ? 600 : 800}
                               layout="fill"
                               objectFit="cover"
                               objectPosition="center"

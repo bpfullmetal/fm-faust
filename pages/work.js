@@ -124,6 +124,7 @@ export default function Page(props) {
                           sizes="(min-width: 768px) 30vw, 70vw"
                           width={655}
                           height={437}
+                          priority={i < 2}
                           loading="eager"
                           // objectFit='cover'
                           alt={

@@ -276,6 +276,7 @@ export default function Page(props) {
                       src={intro.backgroundImage.node.mediaItemUrl}
                       alt={intro.backgroundImage.node.altText}
                       layout="fill"
+                      priority={true}
                     />
                   : null
               }
@@ -298,6 +299,7 @@ export default function Page(props) {
                   className="featured-image-wrapper w-full h-full object-cover absolute inset-0"
                   src={intro.backgroundImage.node.mediaItemUrl}
                   alt={intro.backgroundImage.node.altText}
+                  priority={true}
                   layout="fill"
                 />
               )

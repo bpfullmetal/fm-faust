@@ -105,6 +105,7 @@ const BlockFeaturedProject = ({ data }) => {
           layout="fill"
           // width={window.width}
           // height={window.height}
+          priority={true}
           sizes="80vw"
           // width={projectImage.mediaDetails.width}
           // height={projectImage.mediaDetails.height}
