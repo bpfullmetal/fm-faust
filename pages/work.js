@@ -108,6 +108,7 @@ export default function Page(props) {
                   <Link passHref href={project.node.uri}>
                     <a className="w-full h-auto">
                       <div
+                      className="relative w-full h-auto"
                         style={{
                           // height: 0,
                           // paddingTop: "66.67%",
@@ -123,7 +124,7 @@ export default function Page(props) {
                           sizes="(min-width: 768px) 50vw, 100vw"
                           width={655}
                           height={437}
-                          objectFit='cover'
+                          // objectFit='cover'
                           alt={
                             project?.node?.featuredImage?.node?.altText ||
                             project?.node?.title

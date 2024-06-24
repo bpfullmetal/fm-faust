@@ -331,7 +331,7 @@ const ProjectContent = ({ project, isPreview = false }) => {
                               objectFit="cover"
                               objectPosition="center"
                               sizes="(min-width: 1024px) 40vw, 100vw"
-                              loading="lazy"
+                              loading="eager"
                               onLoad={event => handleDisplayImage(event, projectRefs[i])}	
                               quality={60}
                               alt={
