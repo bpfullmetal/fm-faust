@@ -130,11 +130,7 @@ const ProjectCarouselModal = ({ imageBlocks, initialSlide, onClose }) => {
                       width={block.width || block.video.node.mediaDetails.width}
                       height={block.height || block.video.node.mediaDetails.height}
                       loading="eager"
-                      style={{
-                        // width: block.width || block.video.node.mediaDetails.width,
-                        // height: block.height || block.video.node.mediaDetails.height,
-                        objectFit: 'cover',
-                      }}
+                      sizes="(min-width: 1024px) 60vw, 70vw"
                     />
                   )}
                 </div>
