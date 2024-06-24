@@ -82,7 +82,11 @@ const ProjectContent = ({ project, isPreview = false }) => {
     // if ( image?.target?.classList && imageRef?.current?.classList?.contains('reveal') ) {
     //   image.target.classList.add('reveal')
     // }
+    const projectBlock = image.target.closest('.project-block');
     image.target.classList.add('loaded')
+    if ( projectBlock.classList.contains('should-reveal') ) {
+      projectBlock.classList.add('reveal')
+    }
   }
 
   const handleIntersection = (entries) => {
@@ -92,6 +96,8 @@ const ProjectContent = ({ project, isPreview = false }) => {
     const featuredImageWrapper = entry.target.querySelector('.featured-image-wrapper');
     if ( featuredImageWrapper?.classList?.contains('loaded') ) {
       entry.target.classList.add('reveal');
+    } else {
+      entry.target.classList.add('should-reveal');
     }
   };
 
