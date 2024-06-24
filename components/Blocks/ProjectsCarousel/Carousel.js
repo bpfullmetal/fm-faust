@@ -57,6 +57,7 @@ const ProjectsCarousel = ({ slides }) => {
                         // width={project.image.mediaDetails.width}
                         // height={project.image.mediaDetails.height}
                         layout="fill"
+                        loading="eager"
                         objectFit="cover"
                         objectPosition="center"
                         sizes="(min-width: 1024px) 33vw, 50vw"
