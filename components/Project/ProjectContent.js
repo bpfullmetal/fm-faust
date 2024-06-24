@@ -336,10 +336,10 @@ const ProjectContent = ({ project, isPreview = false }) => {
                               layout="fill"
                               objectFit="cover"
                               objectPosition="center"
-                              sizes="(min-width: 1024px) 30vw, 70vw"
+                              sizes="(min-width: 1024px) 40vw, 70vw"
                               loading="eager"
                               onLoad={event => handleDisplayImage(event, projectRefs[i])}	
-                              quality={60}
+                              quality={82}
                               alt={
                                 block.image.node.altText ||
                                 block.description ||
