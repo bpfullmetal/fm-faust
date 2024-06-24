@@ -129,6 +129,7 @@ const ProjectCarouselModal = ({ imageBlocks, initialSlide, onClose }) => {
                       alt={block.image.node.altText || block.description || ''}
                       width={block.width || block.video.node.mediaDetails.width}
                       height={block.height || block.video.node.mediaDetails.height}
+                      loading="eager"
                       style={{
                         // width: block.width || block.video.node.mediaDetails.width,
                         // height: block.height || block.video.node.mediaDetails.height,
