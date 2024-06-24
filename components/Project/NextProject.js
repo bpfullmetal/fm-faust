@@ -107,7 +107,7 @@ const NextProjectContent = ({ nextProjectId }) => {
               >
                 <a className={!isMobile ? 'static' : 'relative w-full h-auto'}>
                   <Image
-                    loading="lazy"
+                    loading="eager"
                     className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
                     src={nextProject.featuredImage.node.mediaItemUrl}
                     width={nextProject.featuredImage.node.mediaDetails.width}
@@ -116,7 +116,7 @@ const NextProjectContent = ({ nextProjectId }) => {
                       nextProject.featuredImage.node.altText ||
                       nextProject.title
                     }
-                    sizes="100vw"
+                    sizes="(min-width: 1024px) 60vw, 70vw"
                   />
                 </a>
               </Link>
