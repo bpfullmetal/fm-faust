@@ -17,8 +17,6 @@ export default function Page(props) {
     variables: Page.variables(),
   });
 
-  console.log('ABOUT PAGE EDATA', data)
-
   const pageContent = data.page.pageAbout;
   const intro = {
     backgroundImage: pageContent?.intro?.backgroundImage ? {
