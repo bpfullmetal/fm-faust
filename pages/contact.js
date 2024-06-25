@@ -8,10 +8,6 @@ export default function Page(props) {
     variables: Page.variables(),
   });
 
-  React.useEffect(() => {
-    console.log('contact variables', Page.variables(), Page.query)
-  })
-
   return (
     <PageLayout options={{ currentURI: data.page.uri, hiddenBookSection: true }} pageData={data.page} />
   );

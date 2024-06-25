@@ -26,7 +26,6 @@ export default function Component(props) {
   const { post } = useFaustQuery(GET_POST_QUERY);
 
   const { content } = post ?? {};
-
   return (
     <PageLayout
       options={{ currentURI: props?.data?.page?.uri, hiddenBookSection: true }}

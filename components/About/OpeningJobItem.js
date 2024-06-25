@@ -49,7 +49,7 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
 
     setIsOpened((old) => !old);
   }, [contentRef, isOpened]);
-  console.log('how to apply', data.howToApply)
+  
   return (
     <div
       className={`animate-reveal flex flex-col ${isEntered ? 'reveal' : ''}`}

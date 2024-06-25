@@ -9,7 +9,6 @@ export default function Preview(props) {
   const { isAuthenticated, isReady, loginUrl } = useAuth();
   const { query } = useRouter();
   const client = getApolloAuthClient();
-
   const id = query.p ? parseInt(query.p) : null;
   const isPreview = true;
 

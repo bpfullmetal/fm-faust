@@ -13,56 +13,58 @@ import {
 import Helper from '../helper';
 
 export default function Page(props) {
-  const { data } = useQuery(Page.query, {
+  const { data, loading, error } = useQuery(Page.query, {
     variables: Page.variables(),
   });
 
-  const pageContent = data.page.template.pageAbout;
+  console.log('ABOUT PAGE EDATA', data)
+
+  const pageContent = data.page.pageAbout;
   const intro = {
-    backgroundImage: pageContent.intro.backgroundImage ? {
+    backgroundImage: pageContent?.intro?.backgroundImage ? {
       node: {
-        ...pageContent.intro.backgroundImage.node,
-        altText: pageContent.intro.backgroundImage.node.altText,
-        sourceUrl: pageContent.intro.backgroundImage.node.mediaItemUrl,
+        ...pageContent?.intro?.backgroundImage?.node,
+        altText: pageContent?.intro?.backgroundImage?.node?.altText,
+        sourceUrl: pageContent?.intro?.backgroundImage?.node?.mediaItemUrl,
       }
     } : null,
-    backgroundVideo: pageContent.intro.backgroundVideo ? {
+    backgroundVideo: pageContent?.intro?.backgroundVideo ? {
       node: {
-        mediaItemUrl: pageContent.intro.backgroundVideo.node.mediaItemUrl
+        mediaItemUrl: pageContent?.intro?.backgroundVideo?.node?.mediaItemUrl
       }
     } : null,
     byTheNumber: {
-      heading: pageContent.intro.byTheNumber.heading,
-      metrics: pageContent.intro.byTheNumber.metrics.map(metric => ({ count: metric.count, metric: metric.metric })),
+      heading: pageContent?.intro?.byTheNumber?.heading,
+      metrics: pageContent?.intro?.byTheNumber?.metrics.map(metric => ({ count: metric.count, metric: metric.metric })),
     },
-    introText: pageContent.intro.introText,
-    introSubtext: pageContent.intro.introSubtext,
-    menuName: pageContent.intro.menuName,
+    introText: pageContent?.intro?.introText,
+    introSubtext: pageContent?.intro?.introSubtext,
+    menuName: pageContent?.intro?.menuName,
   }
   const ourTeam = {
-    ...pageContent.ourTeam,
-    description: pageContent.ourTeam.description,
+    ...pageContent?.ourTeam,
+    description: pageContent?.ourTeam?.description,
     featuredImage: {
       node: {
-        altText: pageContent.ourTeam.featuredImage?.node?.altText,
-        sourceUrl: pageContent.ourTeam.featuredImage?.node?.mediaItemUrl
+        altText: pageContent?.ourTeam?.featuredImage?.node?.altText,
+        sourceUrl: pageContent?.ourTeam?.featuredImage?.node?.mediaItemUrl
       }
     },
-    featuredTeamMembers: pageContent.ourTeam.featuredTeamMembers.map(member => ({
+    featuredTeamMembers: pageContent?.ourTeam?.featuredTeamMembers?.map(member => ({
       ...member,
       bio: member.bio,
       bioMore: member.bioMore,
       image: {
         node: {
-          altText: member.image.node.altText,
-          sourceUrl: member.image.node.mediaItemUrl
+          altText: member?.image?.node?.altText,
+          sourceUrl: member?.image?.node?.mediaItemUrl
         }
       },
       name: member.name,
       role: member.role,
     })),
-    menuName: pageContent.ourTeam.menuName,
-    teamMembers: pageContent.ourTeam.teamMembers.map(member => ({
+    menuName: pageContent?.ourTeam?.menuName,
+    teamMembers: pageContent?.ourTeam?.teamMembers?.map(member => ({
       ...member,
       bio: member.bio,
       bioMore: member.bioMore,
@@ -71,9 +73,9 @@ export default function Page(props) {
     }))
   }
   const studioOpenings = {
-    ...pageContent.studioOpenings,
-    menuName: pageContent.studioOpenings.menuName,
-    jobListings: pageContent.studioOpenings.jobListings.map(job => ({
+    ...pageContent?.studioOpenings,
+    menuName: pageContent?.studioOpenings?.menuName,
+    jobListings: pageContent?.studioOpenings?.jobListings.map(job => ({
       ...job,
       active: job.active,
       applicationLink: job.applicationLink,
@@ -82,8 +84,8 @@ export default function Page(props) {
       title: job.title,
     })),
     jobsNoListings: {
-      heading: pageContent.studioOpenings.jobsNoListings.heading,
-      textContent: pageContent.studioOpenings.jobsNoListings.textContent
+      heading: pageContent?.studioOpenings?.jobsNoListings?.heading,
+      textContent: pageContent?.studioOpenings?.jobsNoListings?.textContent
     }
   }
 
@@ -92,7 +94,7 @@ export default function Page(props) {
   const [jobListings, setJobListings] = React.useState([]);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const [teamMembersAnimate, setTeamMembersAnimate] = React.useState(
-    Array(ourTeam?.teamMembers.length).fill(false)
+    Array(ourTeam?.teamMembers?.length || 0).fill(false)
   );
 
   const stringToSlug = (str) => {
@@ -153,7 +155,7 @@ export default function Page(props) {
   const openingsTitleRef = React.useRef();
 
   React.useEffect(() => {
-    setJobListings(studioOpenings.jobListings.filter((job) => job.active));
+    setJobListings(studioOpenings.jobListings?.filter((job) => job.active));
 
     setTimeout(() => setIsPageEntered(true), 500);
   }, []);
@@ -443,7 +445,7 @@ export default function Page(props) {
             </h2>
 
             <div className="flex flex-col my-16 space-y-5">
-              {jobListings.length ? (
+              {jobListings?.length ? (
                 jobListings.map((pos, i) => (
                   <React.Fragment key={i}>
                     <OpeningJobItem data={pos} order={i} opened={i === 0} />
@@ -470,81 +472,74 @@ export default function Page(props) {
 }
 
 Page.query = gql`
-  query GetPageData(
-    $id: ID!
-  ) {
-    page(id: $id) {
+  query GetPageDataByURI($uri: ID!) {
+    page(id: $uri, idType: URI) {
       title
       uri
-      template {
-        ... on Template_About {
-          templateName
-          pageAbout {
-            intro {
-              menuName
-              introText
-              introSubtext
-              byTheNumber {
-                heading
-                metrics {
-                  count
-                  metric
-                }
-              }
-              backgroundImage {
-                node {
-                  altText
-                  mediaItemUrl
-                }
-              }
-              backgroundVideo {
-                node {
-                  mediaItemUrl
-                }
+      pageAbout {
+        intro {
+          menuName
+          introText
+          introSubtext
+          byTheNumber {
+            heading
+            metrics {
+              count
+              metric
+            }
+          }
+          backgroundImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          backgroundVideo {
+            node {
+              mediaItemUrl
+            }
+          }
+        }
+        ourTeam {
+          description
+          menuName
+          featuredImage {
+            node {
+              altText
+              mediaItemUrl
+            }
+          }
+          featuredTeamMembers {
+            bio
+            bioMore
+            role
+            name
+            image {
+              node {
+                altText
+                mediaItemUrl
               }
             }
-            ourTeam {
-              description
-              menuName
-              featuredImage {
-                node {
-                  altText
-                  mediaItemUrl
-                }
-              }
-              featuredTeamMembers {
-                bio
-                bioMore
-                role
-                name
-                image {
-                  node {
-                    altText
-                    mediaItemUrl
-                  }
-                }
-              }
-              teamMembers {
-                bio
-                bioMore
-                name
-                role
-              }
-            }
-            studioOpenings {
-              menuName
-              jobListings {
-                active
-                applicationLink
-                description
-                howToApply
-                title
-              }
-              jobsNoListings {
-                heading
-                textContent
-              }
-            }
+          }
+          teamMembers {
+            bio
+            bioMore
+            name
+            role
+          }
+        }
+        studioOpenings {
+          menuName
+          jobListings {
+            active
+            applicationLink
+            description
+            howToApply
+            title
+          }
+          jobsNoListings {
+            heading
+            textContent
           }
         }
       }
@@ -552,9 +547,9 @@ Page.query = gql`
   }
 `;
 
-Page.variables = () => {
+Page.variables = (seedQuery, context, data) => {
   return {
-    id: 'cG9zdDo1'
+    uri: 'about',
   };
 };
 

@@ -6,7 +6,6 @@ export default function Component(props) {
   if (props.loading) {
     return <>Loading...</>;
   }
-
   return (
     <PageLayout
       options={{ currentURI: props?.data?.page?.uri, hiddenBookSection: true }}
@@ -16,7 +15,6 @@ export default function Component(props) {
 }
 
 Component.variables = ({ databaseId }, ctx) => {
-  console.log('page query', databaseId, ctx)
   return {
     databaseId,
     asPreview: ctx?.asPreview,
