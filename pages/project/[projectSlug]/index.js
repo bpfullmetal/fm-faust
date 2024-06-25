@@ -3,11 +3,13 @@ import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import ProjectContent from '../../../components/Project/ProjectContent';
+import { PageLayout } from '../../../components';
 
 export default function Page(props) {
   const { query } = useRouter();
-
   const projectUri = query.projectSlug;
+
+  const scrollContainerRef = React.useRef();
 
   const { data } = useQuery(gqlquery, {
     variables: { id: `/project/${projectUri}/` },
@@ -15,15 +17,25 @@ export default function Page(props) {
 
   const project = data?.project;
 
-  if (!project) return <></>;
-
-  return <ProjectContent project={project} />;
+  return (
+    <PageLayout
+      options={{ currentURI: '/work/', scrollIndicator: scrollContainerRef }}
+      pageData={project}
+    >
+      {project ? (
+        <ProjectContent
+          project={project}
+          scrollContainerRef={scrollContainerRef}
+        />
+      ) : (
+        <div className="h-screen"></div>
+      )}
+    </PageLayout>
+  );
 }
 
 const gqlquery = gql`
-  query GetProjectData(
-    $id: ID!
-  ) {
+  query GetProjectData($id: ID!) {
     project(id: $id, idType: URI) {
       uri
       title
@@ -73,7 +85,7 @@ const gqlquery = gql`
 `;
 
 export function getStaticProps(ctx) {
-  return getNextStaticProps(ctx, {Page});
+  return getNextStaticProps(ctx, { Page });
 }
 
 export async function getStaticPaths() {

@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from '@apollo/client';
 import { getApolloAuthClient, useAuth } from '@faustwp/core';
 import { useRouter } from 'next/router';
+import { PageLayout } from '../components';
 import ProjectContent from '../components/Project/ProjectContent';
 
 export default function Preview(props) {
@@ -11,30 +12,44 @@ export default function Preview(props) {
 
   const id = query.p ? parseInt(query.p) : null;
   const isPreview = true;
-  
+
+  const scrollContainerRef = React.useRef();
   const [previewProject, setPreviewProject] = React.useState();
 
   if (!isAuthenticated && loginUrl) {
     location.href = loginUrl;
   }
-  
+
   if (id && isAuthenticated && isReady) {
-    client.query({
-      query: gqlquery,
-      variables: {
-        id,
-        idType: isPreview ? 'DATABASE_ID' : 'URI',
-        asPreview: isPreview,
-      },
-    }).then(({ data }) => {
-      setPreviewProject(data.contentNode);
-    });
+    client
+      .query({
+        query: gqlquery,
+        variables: {
+          id,
+          idType: isPreview ? 'DATABASE_ID' : 'URI',
+          asPreview: isPreview,
+        },
+      })
+      .then(({ data }) => {
+        setPreviewProject(data.contentNode);
+      });
   }
 
-  if (!previewProject) return <></>;
-
   return (
-    <ProjectContent project={previewProject} isPreview />
+    <PageLayout
+      options={{ currentURI: '/work/', scrollIndicator: scrollContainerRef }}
+      pageData={previewProject}
+    >
+      {previewProject ? (
+        <ProjectContent
+          project={previewProject}
+          scrollContainerRef={scrollContainerRef}
+          isPreview
+        />
+      ) : (
+        <div className="h-screen"></div>
+      )}
+    </PageLayout>
   );
 }
 

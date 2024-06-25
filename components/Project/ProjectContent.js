@@ -5,11 +5,10 @@ import { PageLayout } from '../../components';
 import ProjectCarouselModal from './CarouselModal';
 import NextProject from './NextProject';
 
-const ProjectContent = ({ project, isPreview = false }) => {
+const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
   const { title, featuredImage, projectsSingle } = project;
   const positions = ['right', 'left', 'center'];
 
-  const scrollContainerRef = React.useRef();
   const [isMobile, setIsMobile] = React.useState(false);
   const [projectImages, setProjectImages] = React.useState(
     projectsSingle?.projectImages
@@ -156,10 +155,10 @@ const ProjectContent = ({ project, isPreview = false }) => {
   };
 
   return (
-    <PageLayout
-      options={{ currentURI: '/work/', scrollIndicator: scrollContainerRef }}
-      pageData={project}
-    >
+    // <PageLayout
+    //   options={{ currentURI: '/work/' }}
+    //   pageData={project}
+    // >
       <>
         {featuredImage && (
           <section className="h-home_banner">
@@ -367,7 +366,7 @@ const ProjectContent = ({ project, isPreview = false }) => {
           />
         )}
       </>
-    </PageLayout>
+    // </PageLayout>
   );
 };
 

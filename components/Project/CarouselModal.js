@@ -126,18 +126,11 @@ const ProjectCarouselModal = ({ imageBlocks, initialSlide, onClose }) => {
                   ) : (
                     <Image
                       src={block.image.node.mediaItemUrl}
-                      alt={block.image.node.altText || block.description || ''}
-                      width={block.width || block.video.node.mediaDetails.width}
-                      height={block.height || block.video.node.mediaDetails.height}
+                      alt={block.image.node.altText || block.title || ''}
+                      width={block.width || block.image.node.mediaDetails.width}
+                      height={block.height || block.image.node.mediaDetails.height}
                       loading="eager"
-                      // layout="responsive"
-                      // sizes="(min-width: 1024px) 60vw, 70vw"
-                      // className="h-full"
-                      style={{
-                        // width: block.width || block.video.node.mediaDetails.width,
-                        // height: block.height || block.video.node.mediaDetails.height,
-                        objectFit: 'cover',
-                      }}
+                      priority={true}
                     />
                   )}
                 </div>

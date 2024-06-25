@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Image from 'next/image';
-import Helper from '../../helper';
 import Link from 'next/link'
+import Helper from '../../helper';
 
 const DesignProjectsGrid = ({
   category,

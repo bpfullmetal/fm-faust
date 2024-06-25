@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
-import { getNextStaticProps } from '@faustwp/core';
 import { PageLayout } from '../../components';
 
 export default function Page(props) {
