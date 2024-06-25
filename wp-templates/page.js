@@ -16,6 +16,7 @@ export default function Component(props) {
 }
 
 Component.variables = ({ databaseId }, ctx) => {
+  console.log('page query', databaseId, ctx)
   return {
     databaseId,
     asPreview: ctx?.asPreview,
