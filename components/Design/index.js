@@ -2,6 +2,7 @@ import React from 'react';
 import CategoryModal from './CategoryModal';
 import DesignProjectsGrid from './ProjectsGrid';
 import { PageLayout } from '../PageLayout';
+import ProjectCarouselModal from '../Project/CarouselModal';
 
 export const DesignPageContent = ({
   allCategoriesData,
@@ -114,7 +115,7 @@ export const DesignPageContent = ({
       
       matchedImages = shuffleArray(matchedImages)
       
-      const filteredCategories = activeCategories.filter(category =>
+      const filteredCategories = allCategoriesData.filter(category =>
         allProjectImages.some(image =>
           image.category.nodes.some(imageCategory =>
             imageCategory.slug === category.node.slug
