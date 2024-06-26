@@ -13,79 +13,12 @@ import {
 import Helper from '../helper';
 
 export default function Page(props) {
-  const { data, loading, error } = useQuery(Page.query, {
+  const { data } = useQuery(Page.query, {
     variables: Page.variables(),
   });
 
   const pageContent = data.page.pageAbout;
-  const intro = {
-    backgroundImage: pageContent?.intro?.backgroundImage ? {
-      node: {
-        ...pageContent?.intro?.backgroundImage?.node,
-        altText: pageContent?.intro?.backgroundImage?.node?.altText,
-        sourceUrl: pageContent?.intro?.backgroundImage?.node?.mediaItemUrl,
-      }
-    } : null,
-    backgroundVideo: pageContent?.intro?.backgroundVideo ? {
-      node: {
-        mediaItemUrl: pageContent?.intro?.backgroundVideo?.node?.mediaItemUrl
-      }
-    } : null,
-    byTheNumber: {
-      heading: pageContent?.intro?.byTheNumber?.heading,
-      metrics: pageContent?.intro?.byTheNumber?.metrics.map(metric => ({ count: metric.count, metric: metric.metric })),
-    },
-    introText: pageContent?.intro?.introText,
-    introSubtext: pageContent?.intro?.introSubtext,
-    menuName: pageContent?.intro?.menuName,
-  }
-  const ourTeam = {
-    ...pageContent?.ourTeam,
-    description: pageContent?.ourTeam?.description,
-    featuredImage: {
-      node: {
-        altText: pageContent?.ourTeam?.featuredImage?.node?.altText,
-        sourceUrl: pageContent?.ourTeam?.featuredImage?.node?.mediaItemUrl
-      }
-    },
-    featuredTeamMembers: pageContent?.ourTeam?.featuredTeamMembers?.map(member => ({
-      ...member,
-      bio: member.bio,
-      bioMore: member.bioMore,
-      image: {
-        node: {
-          altText: member?.image?.node?.altText,
-          sourceUrl: member?.image?.node?.mediaItemUrl
-        }
-      },
-      name: member.name,
-      role: member.role,
-    })),
-    menuName: pageContent?.ourTeam?.menuName,
-    teamMembers: pageContent?.ourTeam?.teamMembers?.map(member => ({
-      ...member,
-      bio: member.bio,
-      bioMore: member.bioMore,
-      name: member.name,
-      role: member.role,
-    }))
-  }
-  const studioOpenings = {
-    ...pageContent?.studioOpenings,
-    menuName: pageContent?.studioOpenings?.menuName,
-    jobListings: pageContent?.studioOpenings?.jobListings.map(job => ({
-      ...job,
-      active: job.active,
-      applicationLink: job.applicationLink,
-      description: job.description,
-      howToApply: job.howToApply,
-      title: job.title,
-    })),
-    jobsNoListings: {
-      heading: pageContent?.studioOpenings?.jobsNoListings?.heading,
-      textContent: pageContent?.studioOpenings?.jobsNoListings?.textContent
-    }
-  }
+  const { intro, ourTeam, studioOpenings } = pageContent;
 
   const [isPageEntered, setIsPageEntered] = React.useState(false);
   const [currentNavMenuItem, setCurrentNavMenuItem] = React.useState('about');

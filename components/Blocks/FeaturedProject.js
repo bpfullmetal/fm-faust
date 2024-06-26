@@ -3,38 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link'
 
 const BlockFeaturedProject = ({ data }) => {
-  const [featuredProjectData] = React.useState({
-    projects: data.projects.map(project => ({
-      backgroundImage: project.backgroundImage?.node ? {
-        node: {
-          altText: project.backgroundImage.node.altText,
-          sourceUrl: project.backgroundImage.node.mediaItemUrl,
-          mediaDetails: {
-            width: project.backgroundImage.node.mediaDetails.width,
-            height: project.backgroundImage.node.mediaDetails.height
-          }
-        }
-      } : null,
-      description: project.description,
-      link: project.link ? {
-        title: project.link.title,
-        url: project.link.url
-      } : null,
-      project: project.project.nodes?.length ? {
-        featuredImage: {
-          altText: project.project.nodes[0].featuredImage.node.altText,
-          sourceUrl: project.project.nodes[0].featuredImage.node.mediaItemUrl,
-          mediaDetails: {
-            width: project.project.nodes[0].featuredImage.node.mediaDetails.width,
-            height: project.project.nodes[0].featuredImage.node.mediaDetails.height
-          }
-        },
-        link: project.project.nodes[0].uri,
-        title: project.project.nodes[0].title
-      } : null
-    }))
-  });
-
   const getRandomProject = (projects) => {
     if (!Array.isArray(projects) || projects.length === 0) {
       return null;
@@ -45,22 +13,30 @@ const BlockFeaturedProject = ({ data }) => {
   };
 
   const randomProject = React.useMemo(() => {
-    return getRandomProject(featuredProjectData.projects);
-  }, [featuredProjectData.projects]);
+    return getRandomProject(data.projects);
+  }, [data.projects]);
 
   const projectImage = randomProject?.backgroundImage
     ? randomProject?.backgroundImage?.node
-    : randomProject?.project?.featuredImage;
-  const projectDescription = randomProject.description
-    ? randomProject.description
-    : randomProject.project?.title;
-  const projectLink = randomProject.link
-    ? randomProject.link
     : randomProject.project
+    ? randomProject.project.nodes[0].featuredImage
+      ? randomProject.project.nodes[0].featuredImage.node
+      : null
+    : null;
+  const projectDescription = randomProject?.description
+    ? randomProject.description
+    : randomProject?.project
+    ? randomProject?.project?.nodes?.[0]?.title
+      ? randomProject.project.nodes[0].title
+      : null
+    : null;
+  const projectLink = randomProject?.link
+    ? randomProject.link
+    : randomProject?.project
     ? {
         target: '',
         title: 'View Project',
-        url: randomProject.project.link ?? '',
+        url: randomProject?.project?.link ?? '',
       }
     : null;
 
@@ -96,7 +72,7 @@ const BlockFeaturedProject = ({ data }) => {
       {projectImage && (
         <Image
           className="rounded-none"
-          src={projectImage.sourceUrl}
+          src={projectImage.mediaItemUrl}
           alt={projectImage.altText}
           // layout="fill"
           loading="eager"

@@ -25,7 +25,7 @@ export default function Component() {
       const hasHeader = editorBlocks.find(
         block => block.__typename === 'AcfHeaderNav'
       )
-      if ( hasHeader) {
+      if (hasHeader) {
         setShouldRenderheader(false)
       }
     }

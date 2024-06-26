@@ -13,43 +13,7 @@ const BlockProjectsCarousel = () => {
 
   if (!data) return <></>;
 
-  const carouselData = {
-    title: data.title,
-    manualSelection: data.manualSelection,
-    projectsMax: data.projectsMax,
-    projects: data.projects?.length ? data.projects.map(project => ({
-      image: project.image ? {
-        altText: project.image.node.altText,
-        sourceUrl: project.image.node.mediaItemUrl,
-        mediaDetails: {
-          width: project.image.node.mediaDetails.width,
-          height: project.image.node.mediaDetails.height,
-        }
-      } : null,
-      title: project.title,
-      project: {
-        featuredImage: project.project.nodes.length ? project.project.nodes[0].featuredImage.node.mediaItemUrl ? {
-          sourceUrl: project.project.nodes[0].featuredImage.node.mediaItemUrl,
-          altText: project.project.nodes[0].featuredImage.node.altText,
-          mediaDetails: {
-            width: project.project.nodes[0].featuredImage.node.mediaDetails.width,
-            height: project.project.nodes[0].featuredImage.node.mediaDetails.height
-          }
-        } : null : null,
-        projectSingleAlternateImages: project.project.nodes.length ? project.project.nodes[0].projectSingleAlternateImages?.verticalImage?.node?.mediaItemUrl ? {
-          sourceUrl: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.mediaItemUrl,
-          altText: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.altText,
-          mediaDetails: {
-            width: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.mediaDetails.width,
-            height: project.project.nodes[0].projectSingleAlternateImages.verticalImage.node.mediaDetails.height
-          }
-        } : null : null,
-        title: project.title ?? project.project.nodes.length ? project.project.nodes[0].title : '',
-        id: project.project.nodes.length ? project.project.nodes[0].id : '',
-        link: project.project.nodes.length ? project.project.nodes[0].uri : '',
-      }
-    })) : []
-  };
+  const carouselData = data;
 
   const slideCount = carouselData.manualSelection
     ? carouselData.projects.length
@@ -70,26 +34,30 @@ const BlockProjectsCarousel = () => {
       {carouselData.manualSelection && carouselData.projects.length && (
         <ProjectsCarousel
           slides={carouselData.projects.map((project) => {
+            const projectNode = project.project.nodes.length ? project.project.nodes[0] : null
             let image = null
-            if ( project.image ) {
-              image = project.image
+            if ( project.image?.node ) {
+              image = project.image.node
             } else {
-              if ( project.project.projectSingleAlternateImages?.sourceUrl ) {
-                image = project.project.projectSingleAlternateImages
+              if ( projectNode.projectSingleAlternateImages?.verticalImage ) {
+                image = projectNode.projectSingleAlternateImages.verticalImage.node
               } else {
-                if ( project.project.featuredImage?.sourceUrl ) {
-                  image = project.project.featuredImage
+                if ( projectNode.featuredImage ) {
+                  image = projectNode.featuredImage.node
                 }
               }
             }
 
             return {
-              image: image,
+              image: {
+                ...image,
+                sourceUrl: image.mediaItemUrl
+              },
               title: project.title
                 ? project.title
-                : project.project.title,
-              id: project.project.id,
-              link: project.project.link,
+                : projectNode?.title || '',
+              id: projectNode.id,
+              link: projectNode.link,
             };
           })}
         />

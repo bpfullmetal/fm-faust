@@ -49,7 +49,7 @@ const TeamStudioFeatured = ({ data }) => {
 
   return (
     <div className="flex flex-col">
-      {data?.image?.node?.sourceUrl && (
+      {data?.image?.node?.mediaItemUrl && (
         <div
           className="animate-reveal w-[500px] h-[360px]"
           data-animate-ref="image"
@@ -57,10 +57,8 @@ const TeamStudioFeatured = ({ data }) => {
         >
           <Image
             className="w-full h-full object-cover"
-            src={data?.image?.node?.sourceUrl}
+            src={data?.image?.node?.mediaItemUrl}
             alt={data?.image?.node?.altText ?? ''}
-            // width={data?.image?.node?.mediaDetails?.width}
-            // height={data?.image?.node?.mediaDetails?.height}
             layout="fill"
           />
         </div>
