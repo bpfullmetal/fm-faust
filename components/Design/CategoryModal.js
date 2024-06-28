@@ -17,7 +17,7 @@ const CategoryModal = ({ categories, selectedCat, onClose }) => {
     >
       <div className="flex flex-col w-full max-w-main mx-auto px-5 sm:px-12">
         <div
-          className={`ml-40 mt-12 pl-8 pt-40 transition delay-100 ${
+          className={`ml-24 mt-12 pl-8 pt-40 transition delay-100 sm:ml-40 ${
             isEntered ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -29,7 +29,7 @@ const CategoryModal = ({ categories, selectedCat, onClose }) => {
                 key={category.node.slug}
                 href={`/design/${category.node.slug}`}
               >
-                <a className="title flex items-center w-fit text-3xl leading-[44px] capitalize my-2 sm:text-4xl">
+                <a className="title flex items-center w-fit text-2xl leading-[32px] capitalize my-2 sm:text-4xl sm:leading-[44px]">
                   {category.node.name}
                 </a>
               </Link>
