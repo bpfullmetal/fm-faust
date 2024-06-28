@@ -35,35 +35,37 @@ export default function Page(props) {
       .replace(/^-+|-+$/g, ''); // Remove leading and trailing dashes
   };
 
-  let navMenuItems = [];
-  let sectionsArray = [];
+  const { navMenuItems } = React.useMemo(() => {
+    const navMenuItems = []
 
-  if (intro.menuName) {
-    sectionsArray.push(intro.menuName);
-    navMenuItems.push({
-      id: stringToSlug(intro.menuName),
-      name: intro.menuName,
-      link: `#${stringToSlug(intro.menuName)}`,
-    });
-  }
-  
-  if (ourTeam.menuName) {
-    sectionsArray.push(ourTeam.menuName);
-    navMenuItems.push({
-      id: stringToSlug(ourTeam.menuName),
-      name: ourTeam.menuName,
-      link: `#${stringToSlug(ourTeam.menuName)}`,
-    });
-  }
-  
-  if (studioOpenings.menuName) {
-    sectionsArray.push(studioOpenings.menuName);
-    navMenuItems.push({
-      id: stringToSlug(studioOpenings.menuName),
-      name: studioOpenings.menuName,
-      link: `#${stringToSlug(studioOpenings.menuName)}`,
-    });
-  }
+    const { intro, ourTeam, studioOpenings } = pageContent;
+
+    if (intro.menuName) {
+      navMenuItems.push({
+        id: stringToSlug(intro.menuName),
+        name: intro.menuName,
+        link: `#${stringToSlug(intro.menuName)}`,
+      });
+    }
+    
+    if (ourTeam.menuName) {
+      navMenuItems.push({
+        id: stringToSlug(ourTeam.menuName),
+        name: ourTeam.menuName,
+        link: `#${stringToSlug(ourTeam.menuName)}`,
+      });
+    }
+    
+    if (studioOpenings.menuName) {
+      navMenuItems.push({
+        id: stringToSlug(studioOpenings.menuName),
+        name: studioOpenings.menuName,
+        link: `#${stringToSlug(studioOpenings.menuName)}`,
+      });
+    }
+
+    return { navMenuItems };
+  }, [pageContent]);
 
   const navSectionRefs = Array(3)
     .fill()
@@ -92,17 +94,32 @@ export default function Page(props) {
   }, []);
 
   React.useEffect(() => {
-    navSectionRefs.forEach((ref) =>
-      Helper.setupIntersectionObserver(ref, handleIntersection)
-    );
+    Helper.setupIntersectionObserver(navSectionRefs[0], handleIntersection)
+  }, [navSectionRefs[0]]);
+
+  React.useEffect(() => {
+    Helper.setupIntersectionObserver(navSectionRefs[1], handleIntersection, { threshold: 0.1 })
+  }, [navSectionRefs[1]]);
+
+  React.useEffect(() => {
+    Helper.setupIntersectionObserver(navSectionRefs[2], handleIntersection)
+  }, [navSectionRefs[2]]);
+
+  React.useEffect(() => {
     ourTeamRefs.forEach((ref) =>
       Helper.setupIntersectionObserver(ref, handleIntersection)
     );
+  }, [ourTeamRefs]);
+
+  React.useEffect(() => {
     teamMemberRefs.forEach((ref) =>
       Helper.setupIntersectionObserver(ref, handleIntersection)
     );
+  }, [teamMemberRefs]);
+
+  React.useEffect(() => {
     Helper.setupIntersectionObserver(openingsTitleRef, handleIntersection);
-  }, [navSectionRefs, openingsTitleRef, ourTeamRefs, teamMemberRefs]);
+  }, [openingsTitleRef]);
 
   const handleIntersection = (entries) => {
     const [entry] = entries;
@@ -140,7 +157,6 @@ export default function Page(props) {
           }
           revealEl.classList.add('animate');
         }
-        setCurrentNavMenuItem(navMenuItems[1].id);
         break;
       case 'section':
         const sectionIndex = parseInt(
@@ -191,10 +207,10 @@ export default function Page(props) {
 
       <section
         id={stringToSlug(intro?.menuName ?? '')}
-        data-section-index="0"
-        data-animate-ref="section"
         className="relative flex"
         ref={navSectionRefs[0]}
+        data-section-index="0"
+        data-animate-ref="section"
         data-background="dark"
       >
         {
@@ -280,15 +296,13 @@ export default function Page(props) {
       <section
         id={stringToSlug(ourTeam?.menuName ?? '')}
         className="bg-dark_red py-48"
+        ref={navSectionRefs[1]}
+        data-section-index="1"
+        data-animate-ref="section"
+        data-background="dark"
       >
         <div className="flex flex-col justify-end w-full max-w-main mx-auto px-5 sm:px-12 lg:flex-row">
-          <div
-            className="flex h-fit mb-4 lg:justify-end lg:mb-0"
-            ref={navSectionRefs[1]}
-            data-section-index="1"
-            data-animate-ref="section"
-            data-background="dark"
-          >
+          <div className="flex h-fit mb-4 lg:justify-end lg:mb-0">
             <p
               className="animate-reveal text-4xl leading-none tracking-[0.36px] lg:w-[200px] lg:text-[65px] lg:leading-[65px] lg:tracking-[0.65px] lg:mr-10"
               ref={ourTeamRefs[0]}
