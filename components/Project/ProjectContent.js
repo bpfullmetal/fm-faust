@@ -330,7 +330,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center"
-                            sizes="(min-width: 1024px) 40vw, 70vw"
+                            sizes="(min-width: 1024px) 100vw"
                             loading="eager"
                             onLoad={event => handleDisplayImage(event, projectRefs[i])}	
                             quality={82}
