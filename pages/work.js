@@ -108,12 +108,14 @@ export default function Page(props) {
                   <Link passHref href={project.node.uri}>
                     <a className="relative w-full h-auto">
                       <Image
-                        className="w-full rounded object-cover"
+                        className="w-full rounded"
                         src={project?.node?.featuredImage?.node?.mediaItemUrl}
+                        sizes="(min-width: 768px) 100vw"
                         width={655}
                         height={437}
                         priority={i < 2}
                         loading="eager"
+                        objectFit="cover"
                         alt={
                           project?.node?.featuredImage?.node?.altText ||
                           project?.node?.title

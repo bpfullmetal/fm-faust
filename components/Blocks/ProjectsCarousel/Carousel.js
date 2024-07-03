@@ -60,7 +60,7 @@ const ProjectsCarousel = ({ slides }) => {
                         loading="eager"
                         objectFit="cover"
                         objectPosition="center"
-                        sizes="(min-width: 1024px) 33vw, 50vw"
+                        sizes="(min-width: 1024px) 50vw, 50vw"
                       />
                     </a>
                   </Link>
