@@ -117,6 +117,7 @@ const NextProjectContent = ({ nextProjectId }) => {
                       nextProject.featuredImage.node.altText ||
                       nextProject.title
                     }
+                    unoptimized={true}
                     // sizes="(min-width: 1024px) 60vw, 70vw"
                   />
                 </a>

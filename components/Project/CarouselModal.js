@@ -131,6 +131,7 @@ const ProjectCarouselModal = ({ imageBlocks, initialSlide, onClose }) => {
                       height={block.height || block.image.node.mediaDetails.height}
                       loading="eager"
                       priority={true}
+                      unoptimized={true}
                     />
                   )}
                 </div>

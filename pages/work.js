@@ -116,6 +116,7 @@ export default function Page(props) {
                         priority={i < 2}
                         loading="eager"
                         objectFit="cover"
+                        unoptimized={true}
                         alt={
                           project?.node?.featuredImage?.node?.altText ||
                           project?.node?.title
@@ -127,7 +128,7 @@ export default function Page(props) {
                 {!project.node.featuredImage && (
                   <Link passHref href={project.node.uri}>
                     <a className="w-full h-full">
-                      <Image src={projectPlaceholder} alt={project.node.title} />
+                      <Image src={projectPlaceholder} unoptimized={true} alt={project.node.title} />
                     </a>
                   </Link>
                 )}

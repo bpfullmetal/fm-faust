@@ -60,6 +60,7 @@ const TeamStudioFeatured = ({ data }) => {
             src={data?.image?.node?.mediaItemUrl}
             alt={data?.image?.node?.altText ?? ''}
             layout="fill"
+            unoptimized={true}
           />
         </div>
       )}

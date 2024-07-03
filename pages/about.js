@@ -226,6 +226,7 @@ export default function Page(props) {
                       alt={intro.backgroundImage.node.altText}
                       layout="fill"
                       priority={true}
+                      unoptimized={true}
                     />
                   : null
               }
@@ -250,6 +251,7 @@ export default function Page(props) {
                   alt={intro.backgroundImage.node.altText}
                   priority={true}
                   layout="fill"
+                  unoptimized={true}
                 />
               )
               : <div className="absolute w-full h-full bg-dark_red"></div>
@@ -325,6 +327,7 @@ export default function Page(props) {
                       // height={ourTeam?.featuredImage?.node?.mediaDetails?.height}
                       layout="fill"
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      unoptimized={true}
                     />
                   </div>
                 )}

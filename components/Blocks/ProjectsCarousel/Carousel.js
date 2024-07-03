@@ -61,6 +61,7 @@ const ProjectsCarousel = ({ slides }) => {
                         objectFit="cover"
                         objectPosition="center"
                         sizes="(min-width: 1024px) 50vw, 50vw"
+                        unoptimized={true}
                       />
                     </a>
                   </Link>

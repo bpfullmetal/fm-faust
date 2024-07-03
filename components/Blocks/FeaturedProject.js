@@ -79,6 +79,7 @@ const BlockFeaturedProject = ({ data }) => {
           objectPosition="center"
           layout="fill"
           priority={true}
+          unoptimized={true}
           // sizes="80vw"
           // width={projectImage.mediaDetails.width}
           // height={projectImage.mediaDetails.height}

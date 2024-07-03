@@ -66,6 +66,7 @@ const BlockFeaturedContent = ({ data }) => {
                         content.imageBlock.image.node.altText ||
                         content.imageBlock.link.title
                       }
+                      unoptimized={true}
                       width={content.imageBlock.image.node.mediaDetails.width}
                       height={content.imageBlock.image.node.mediaDetails.height}
                     />)}

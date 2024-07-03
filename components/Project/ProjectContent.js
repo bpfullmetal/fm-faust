@@ -167,6 +167,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
               loading="eager"
               priority={true}
               alt={featuredImage.node.altText || title}
+              unoptimized={true}
             />
             <h1 className="absolute max-w-[480px] text-4xl font-medium !leading-none text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
               {title}
@@ -333,6 +334,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
                             objectPosition="center"
                             sizes="(min-width: 1024px) 80vw"
                             loading="eager"
+                            unoptimized={true}
                             onLoad={event => handleDisplayImage(event, projectRefs[i])}	
                             quality={100}
                             alt={

@@ -66,6 +66,7 @@ const DesignProjectsGrid = ({
                 alt={
                   project.image ? project.image.node.altText : project.title
                 }
+                unoptimized={true}
               />
             </div>
           )}
