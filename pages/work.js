@@ -155,7 +155,7 @@ Page.query = gql`
       uri
       title
     }
-    projects(where: {orderby: {field: MENU_ORDER, order: ASC}}) {
+    projects(first: 20, where: {orderby: {field: MENU_ORDER, order: ASC}}) {
       edges {
         node {
           id
