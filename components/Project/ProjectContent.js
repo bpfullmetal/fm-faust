@@ -163,6 +163,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
               src={featuredImage.node.mediaItemUrl}
               layout="fill"
               // sizes="(min-width: 1024px) 50vw, 70vw"
+              quality={100}
               loading="eager"
               priority={true}
               alt={featuredImage.node.altText || title}
@@ -330,10 +331,10 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center"
-                            sizes="(min-width: 1024px) 100vw"
+                            sizes="(min-width: 1024px) 80vw"
                             loading="eager"
                             onLoad={event => handleDisplayImage(event, projectRefs[i])}	
-                            quality={82}
+                            quality={100}
                             alt={
                               block.image.node.altText ||
                               block.description ||
