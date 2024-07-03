@@ -110,13 +110,14 @@ const NextProjectContent = ({ nextProjectId }) => {
                     loading="eager"
                     className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
                     src={nextProject.featuredImage.node.mediaItemUrl}
-                    width={nextProject.featuredImage.node.mediaDetails.width}
-                    height={nextProject.featuredImage.node.mediaDetails.height}
+                    layout="fill"
+                    // width={nextProject.featuredImage.node.mediaDetails.width}
+                    // height={nextProject.featuredImage.node.mediaDetails.height}
                     alt={
                       nextProject.featuredImage.node.altText ||
                       nextProject.title
                     }
-                    sizes="(min-width: 1024px) 60vw, 70vw"
+                    // sizes="(min-width: 1024px) 60vw, 70vw"
                   />
                 </a>
               </Link>

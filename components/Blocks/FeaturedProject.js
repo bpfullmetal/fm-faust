@@ -74,15 +74,12 @@ const BlockFeaturedProject = ({ data }) => {
           className="rounded-none"
           src={projectImage.mediaItemUrl}
           alt={projectImage.altText}
-          // layout="fill"
           loading="eager"
           objectFit="cover"
           objectPosition="center"
           layout="fill"
-          // width={window.width}
-          // height={window.height}
           priority={true}
-          sizes="80vw"
+          // sizes="80vw"
           // width={projectImage.mediaDetails.width}
           // height={projectImage.mediaDetails.height}
         />

@@ -97,7 +97,7 @@ export default function Page(props) {
             return (
               <div
                 className={`${
-                  isPreload ? "!hidden" : ""
+                  isPreload ? '!hidden' : ''
                 } work-project-block animate-reveal py-4 mb-8`}
                 key={`work-project-${i}`}
                 data-ref-type="project"
@@ -106,33 +106,19 @@ export default function Page(props) {
               >
                 {project.node.featuredImage && (
                   <Link passHref href={project.node.uri}>
-                    <a className="w-full h-auto">
-                      <div
-                      className="relative w-full h-auto"
-                        style={{
-                          // height: 0,
-                          // paddingTop: "66.67%",
-                          position: 'relative',
-                        }}
-                      >
-                        <Image
-                          // className="w-full h-full aspect-[3/2] rounded"
-                          className="w-full rounded"
-                          src={project?.node?.featuredImage?.node?.mediaItemUrl}
-                          style={{objectFit: "cover"}}
-                          // layout="fill"
-                          sizes="(min-width: 768px) 30vw, 70vw"
-                          width={655}
-                          height={437}
-                          priority={i < 2}
-                          loading="eager"
-                          // objectFit='cover'
-                          alt={
-                            project?.node?.featuredImage?.node?.altText ||
-                            project?.node?.title
-                          }
-                        />
-                      </div>
+                    <a className="relative w-full h-auto">
+                      <Image
+                        className="w-full rounded object-cover"
+                        src={project?.node?.featuredImage?.node?.mediaItemUrl}
+                        width={655}
+                        height={437}
+                        priority={i < 2}
+                        loading="eager"
+                        alt={
+                          project?.node?.featuredImage?.node?.altText ||
+                          project?.node?.title
+                        }
+                      />
                     </a>
                   </Link>
                 )}
