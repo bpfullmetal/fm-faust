@@ -4,12 +4,14 @@ import Link from 'next/link'
 
 const BlockFeaturedProject = ({ data }) => {
   const getRandomProject = (projects) => {
-    if (!Array.isArray(projects) || projects.length === 0) {
+    const publishedProjects = projects.filter(project => project.project.nodes.length)
+
+    if (!Array.isArray(publishedProjects) || publishedProjects.length === 0) {
       return null;
     }
 
-    const randomIndex = Math.floor(Math.random() * projects.length);
-    return projects[randomIndex];
+    const randomIndex = Math.floor(Math.random() * publishedProjects.length);
+    return publishedProjects[randomIndex];
   };
 
   const randomProject = React.useMemo(() => {

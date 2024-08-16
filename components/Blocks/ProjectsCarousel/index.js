@@ -7,18 +7,22 @@ const BlockProjectsCarousel = () => {
   const { data: respData } = useQuery(gqlquery);
 
   const editorBlocks = respData?.page?.editorBlocks ?? [];
-  const projects = respData?.projects?.edges ?? [];
+  let projects = respData?.projects?.edges ?? [];
 
   const data = editorBlocks.find(block => block.blockProjectsCarousel)?.blockProjectsCarousel;
 
   if (!data) return <></>;
 
-  const carouselData = data;
+  const carouselData = {...data};
+  carouselData.projects = carouselData.projects.filter( project => project?.project?.nodes?.length )
 
   const slideCount = carouselData.manualSelection
     ? carouselData.projects.length
     : carouselData.projectsMax;
 
+  if ( !projects.length && !carouselData.projects.length ) {
+    return <></>
+  }
   return (
     <section
       className={`flex flex-col mt-36 mb-20 overflow-x-hidden pl-5 sm:mt-44 sm:pl-12 lg:pl-20 ${
