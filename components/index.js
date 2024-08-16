@@ -5,3 +5,4 @@ export { SEO } from './SEO';
 export { BookConsultation } from './BookConsultation';
 export { PageLayout } from './PageLayout';
 export { DesignPageContent } from './Design';
+export { NotFoundProject } from './404';

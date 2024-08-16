@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import ProjectContent from '../../../components/Project/ProjectContent';
-import { PageLayout } from '../../../components';
+import { NotFoundProject, PageLayout } from '../../../components';
 
 export default function Page(props) {
   const { query } = useRouter();
@@ -11,11 +11,15 @@ export default function Page(props) {
 
   const scrollContainerRef = React.useRef();
 
-  const { data } = useQuery(gqlquery, {
+  const { data, loading } = useQuery(gqlquery, {
     variables: { id: `/project/${projectUri}/` },
   });
 
   const project = data?.project;
+
+  if (!loading && !project) {
+    return <NotFoundProject />
+  }
 
   return (
     <PageLayout
