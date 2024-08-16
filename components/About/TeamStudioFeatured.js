@@ -96,7 +96,7 @@ const TeamStudioFeatured = ({ data }) => {
             ref={scrollRevealRefs[2]}
           >
             <p
-              className={`animate-reveal max-w-[420px] text-sm_extra leading-[24px] tracking-[0.25px] mb-5 ${
+              className={`animate-reveal max-w-[420px] text-sm_extra leading-6 tracking-[0.25px] mb-5 ${
                 bioRevealed ? 'reveal' : ''
               }`}
             >

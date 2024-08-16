@@ -277,7 +277,7 @@ export default function Page(props) {
                 {
                   intro.introSubtext && (
                     <p
-                      className={`animate-reveal text-lg leading-[30px] pt-8 ${
+                      className={`animate-reveal text-lg leading-[30px] pt-8 pb-24 ${
                         isPageEntered ? 'reveal' : ''
                       }`}
                       dangerouslySetInnerHTML={{
@@ -333,7 +333,7 @@ export default function Page(props) {
                 )}
                 {ourTeam.description && (
                   <p
-                    className="animate-reveal max-w-[280px] text-sm_extra leading-[20px] mt-5"
+                    className="animate-reveal max-w-[600px] text-sm_extra leading-8 mt-5"
                     ref={ourTeamRefs[2]}
                   >
                     {ourTeam.description}

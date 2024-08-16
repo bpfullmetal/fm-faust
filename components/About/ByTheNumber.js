@@ -4,6 +4,7 @@ const ByTheNumberBlock = ({ data }) => {
   const [byTheNumberIndex, setByTheNumberIndex] = React.useState(-1);
   const [nIntervalId, setNIntervalId] = React.useState(null);
   const [intervalCount, setIntervalCount] = React.useState(0);
+  const [metrics, setMetrics] = React.useState([]);
 
   const byTheNumberRef = React.useRef();
 
@@ -20,30 +21,34 @@ const ByTheNumberBlock = ({ data }) => {
   }, [byTheNumberRef]);
 
   React.useEffect(() => {
+    setMetrics(data.metrics.filter( metric => metric.metric ))
+  }, [data.metrics]);
+
+  React.useEffect(() => {
     if (
       !nIntervalId &&
       byTheNumberIndex > -1 &&
-      byTheNumberIndex < data.metrics.length
+      byTheNumberIndex < metrics.length
     ) {
       if (intervalCount < 1) {
         const intervalId = setInterval(
           () => setIntervalCount((old) => old + 1),
-          (data.metrics[byTheNumberIndex].count * 25) /
-            data.metrics[byTheNumberIndex].count /
+          (metrics[byTheNumberIndex].count * 25) /
+            metrics[byTheNumberIndex].count /
             10
         );
         setNIntervalId(intervalId);
       }
     }
-  }, [byTheNumberIndex, data.metrics, intervalCount, nIntervalId]);
+  }, [byTheNumberIndex, metrics, intervalCount, nIntervalId]);
 
   React.useEffect(() => {
     if (
       nIntervalId &&
       byTheNumberIndex > -1 &&
-      byTheNumberIndex < data.metrics.length
+      byTheNumberIndex < metrics.length
     ) {
-      if (intervalCount >= data.metrics[byTheNumberIndex].count * 10) {
+      if (intervalCount >= metrics[byTheNumberIndex].count * 10) {
         clearInterval(nIntervalId);
         setTimeout(() => {
           setNIntervalId(null);
@@ -52,7 +57,7 @@ const ByTheNumberBlock = ({ data }) => {
         }, 250);
       }
     }
-  }, [byTheNumberIndex, data.metrics, intervalCount, nIntervalId]);
+  }, [byTheNumberIndex, metrics, intervalCount, nIntervalId]);
 
   const dispCountingNumber = (count, i) => {
     if (i > byTheNumberIndex) return '';
@@ -85,11 +90,14 @@ const ByTheNumberBlock = ({ data }) => {
 
     return count;
   };
-
+  
+  if ( !metrics.length ) {
+    return <></>
+  }
   return (
-    <div className="h-[80vh]" ref={byTheNumberRef}>
+    <div className="h-[70vh]" ref={byTheNumberRef}>
       {data.heading && <p className="text-sm pt-[20vh] pb-5">{data.heading}</p>}
-      {data.metrics.map((item, i) => (
+      {metrics.map((item, i) => (
         <p className="text-2xl leading-[30px]" key={i}>
           {dispCountingNumber(item.count, i)}{' '}
           <span className={`${i < byTheNumberIndex ? 'fade-in' : 'opacity-0'}`}>
