@@ -347,7 +347,7 @@ export default function Page(props) {
                 <div
                   key={`featured-team-member-${i}`}
                   className={`flex flex-col${i % 2 !== 0 ? ' items-end' : ''}${
-                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' mb-18 mb-lg-24' : ''
+                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' lg:mb-24' : ''
                   }`}
                 >
                   <TeamStudioFeatured data={{ ...teamMember }} />
