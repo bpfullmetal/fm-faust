@@ -52,7 +52,7 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
   
   return (
     <div
-      className={`animate-reveal flex flex-col ${isEntered ? 'reveal' : ''}`}
+      className={`animate-reveal flex flex-col mb-4 ${isEntered ? 'reveal' : ''}`}
       data-animate-ref="content"
       ref={contentRef}
     >
@@ -70,7 +70,7 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
       <div
         className={`h-0 ${
           isOpened ? '!h-full mt-4' : 'mt-0'
-        } flex flex-col ml-10 space-y-5 overflow-hidden transition-all text-black`}
+        } flex flex-col ml-lg-10 space-y-5 overflow-hidden transition-all text-black`}
       >
         <div
           dangerouslySetInnerHTML={{
@@ -79,7 +79,7 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
         />
         {data.howToApply && (
           <div
-            className={`w-full flex flex-col bg-white p-9 rounded transition-all duration-1000 delay-300 origin-left scale-x-0 ${
+            className={`w-full flex flex-col bg-white p-6 p-lg-9 rounded transition-all duration-1000 delay-300 origin-left scale-x-0 ${
               beginApplyAnimate ? 'scale-x-100' : ''
             }`}
             data-animate-ref="apply"
@@ -104,14 +104,15 @@ const OpeningJobItem = ({ data, order, opened = false }) => {
                 __html: data.howToApply,
               }}
             />
-            <div
-              className="animate-reveal text-black text-sm underline uppercase tracking-[1px] mt-16"
-              ref={applyContentRefs[2]}
-            >
+            
               {data.applicationLink && (
-                <a target="_blank" href={data.applicationLink} rel="noreferrer">Apply here</a>
+                <div
+                  className="animate-reveal text-black text-sm underline uppercase tracking-[1px] mt-16"
+                  ref={applyContentRefs[2]}
+                >
+                  <a target="_blank" href={data.applicationLink} rel="noreferrer">Apply here</a>
+                </div>
               )}
-            </div>
           </div>
         )}
       </div>

@@ -48,20 +48,24 @@ const TeamStudioFeatured = ({ data }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full max-w-[500px]">
       {data?.image?.node?.mediaItemUrl && (
         <div
-          className="animate-reveal w-[500px] h-[360px]"
+          className="animate-reveal team-featured__image relative w-full"
           data-animate-ref="image"
           ref={scrollRevealRefs[0]}
         >
-          <Image
-            className="w-full h-full object-cover"
-            src={data?.image?.node?.mediaItemUrl}
-            alt={data?.image?.node?.altText ?? ''}
-            layout="fill"
-            unoptimized={true}
-          />
+          <div className="w-full relative">
+            <Image
+              className="w-full h-full object-cover"
+              src={data?.image?.node?.mediaItemUrl}
+              alt={data?.image?.node?.altText ?? ''}
+              height={data?.image?.node?.mediaDetails?.height}
+              width={data?.image?.node?.mediaDetails?.width}
+              layout="responsive"
+              unoptimized={true}
+            />
+          </div>
         </div>
       )}
       <div className="text-sm_extra leading-[20px] mt-8">

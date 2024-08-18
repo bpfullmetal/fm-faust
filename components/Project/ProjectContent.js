@@ -7,7 +7,7 @@ import NextProject from './NextProject';
 const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
   const { title, featuredImage, projectsSingle } = project;
   const positions = ['right', 'left', 'center'];
-
+  throw new Error("Server-side error occurred!");
   const [isMobile, setIsMobile] = React.useState(false);
   const [projectImages, setProjectImages] = React.useState(
     projectsSingle?.projectImages

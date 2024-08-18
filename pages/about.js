@@ -346,8 +346,8 @@ export default function Page(props) {
               ourTeam.featuredTeamMembers.map((teamMember, i) => (
                 <div
                   key={`featured-team-member-${i}`}
-                  className={`flex flex-col${i % 2 !== 0 ? ' ml-auto' : ''}${
-                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' mb-24' : ''
+                  className={`flex flex-col${i % 2 !== 0 ? ' items-end' : ''}${
+                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' mb-18 mb-lg-24' : ''
                   }`}
                 >
                   <TeamStudioFeatured data={{ ...teamMember }} />
@@ -466,6 +466,10 @@ Page.query = gql`
               node {
                 altText
                 mediaItemUrl
+                mediaDetails {
+                  width
+                  height
+                }
               }
             }
           }

@@ -23,7 +23,7 @@ export default function Page(props) {
   const { data } = useQuery(Page.query, {
     variables: Page.variables(),
   });
-
+  
   const edges = data?.projects?.edges ?? [];
 
   const [isPageEntered, setIsPageEntered] = React.useState(false);
