@@ -347,7 +347,7 @@ export default function Page(props) {
                 <div
                   key={`featured-team-member-${i}`}
                   className={`flex flex-col${i % 2 !== 0 ? ' items-end' : ''}${
-                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' lg:mb-24' : ''
+                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' mb-12 lg:mb-24' : ''
                   }`}
                 >
                   <TeamStudioFeatured data={{ ...teamMember }} />
@@ -355,13 +355,14 @@ export default function Page(props) {
               ))}
 
             {ourTeam.teamMembers && (
-              <div className="flex flex-wrap mt-48">
+              <div className="flex flex-wrap mt-20 lg:mt-48">
                 {ourTeam.teamMembers.map((teamMember, i) => (
                   <div
                     data-animate-ref="team-member"
                     data-index={i}
                     key={`team-members-${i}`}
                     ref={teamMemberRefs[i]}
+                    className="w-full lg:w-[360px]"
                   >
                     <TeamStudioItem
                       data={teamMember}

@@ -17,7 +17,7 @@ const TeamStudioItem = ({ data, animate }) => {
   }, [animate]);
 
   return (
-    <div className="w-[360px] flex flex-col md:mr-6 mb-12 mb-lg-24">
+    <div className="flex flex-col lg:mr-6 mb-8 lg:mb-18">
       <div
         className={`w-0 h-px bg-white mb-2 transition-all duration-500 ${
           beginRevealed ? '!w-full' : ''
