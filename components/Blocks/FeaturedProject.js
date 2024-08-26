@@ -18,6 +18,7 @@ const BlockFeaturedProject = ({ data }) => {
     return getRandomProject(data.projects);
   }, [data.projects]);
 
+  console.log('RANDOM', randomProject)
   const projectImage = randomProject?.backgroundImage
     ? randomProject?.backgroundImage?.node
     : randomProject.project
@@ -35,12 +36,12 @@ const BlockFeaturedProject = ({ data }) => {
   const projectLink = randomProject?.link
     ? randomProject.link
     : randomProject?.project
-    ? {
-        target: '',
-        title: 'View Project',
-        url: randomProject?.project?.link ?? '',
-      }
-    : null;
+      ? {
+          target: '',
+          title: 'View Project',
+          url: randomProject?.project?.nodes?.[0]?.uri ?? '',
+        }
+      : null;
 
   const [projectAnimate, setProjectAnimate] = React.useState('top');
 
