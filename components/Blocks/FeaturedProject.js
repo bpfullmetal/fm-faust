@@ -35,10 +35,10 @@ const BlockFeaturedProject = ({ data }) => {
     : null;
   const projectLink = randomProject?.link
     ? randomProject.link
-    : randomProject?.project
+    : randomProject?.project?.nodes?.[0]?.uri
       ? {
           target: '',
-          title: 'View Project',
+          title: randomProject.link?.title ?? 'View Project',
           url: randomProject?.project?.nodes?.[0]?.uri ?? '',
         }
       : null;
