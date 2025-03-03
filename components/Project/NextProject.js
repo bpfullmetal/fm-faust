@@ -103,7 +103,7 @@ const NextProjectContent = ({ nextProjectId }) => {
             {nextProject.featuredImage?.node?.mediaItemUrl && (
               <Link
                 passHref
-                href={nextProject.link}
+                href={nextProject.uri}
               >
                 <a className={!isMobile ? 'static' : 'relative w-full h-auto'}>
                   <Image

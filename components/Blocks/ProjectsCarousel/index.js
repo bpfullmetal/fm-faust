@@ -61,7 +61,7 @@ const BlockProjectsCarousel = () => {
                 ? project.title
                 : projectNode?.title || '',
               id: projectNode.id,
-              link: projectNode.link,
+              link: projectNode.uri,
             };
           })}
         />
@@ -79,7 +79,7 @@ const BlockProjectsCarousel = () => {
                   image: image,
                   title: project.node.title,
                   id: project.node.id,
-                  link: project.node.uri,
+                  link: project.node.link,
                 };
               })}
             />
