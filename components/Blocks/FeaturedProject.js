@@ -17,8 +17,7 @@ const BlockFeaturedProject = ({ data }) => {
   const randomProject = React.useMemo(() => {
     return getRandomProject(data.projects);
   }, [data.projects]);
-
-  console.log('RANDOM', randomProject)
+  
   const projectImage = randomProject?.backgroundImage
     ? randomProject?.backgroundImage?.node
     : randomProject.project

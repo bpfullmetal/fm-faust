@@ -57,7 +57,6 @@ const BlockLogoBanner = ({ data }) => {
   };
 
   const handleVideoOnLoad = () => {
-    console.log('VIDEO LOADED')
     setIsVideoLoaded(true);
     // videoRef.current.play()
   };

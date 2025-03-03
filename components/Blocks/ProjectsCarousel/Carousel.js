@@ -5,7 +5,6 @@ import Helper from '../../../helper';
 import Link from 'next/link'
 
 const ProjectsCarousel = ({ slides }) => {
-  console.log('SLIDES', slides)
   const carouselRef = React.useRef();
 
   const [carouselSlideRefs] = React.useState(

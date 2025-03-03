@@ -75,11 +75,6 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
   }, [projectRefs]);
 
   const handleDisplayImage = (image, imageRef) => {
-    // console.log('image', image.target?.classList)
-    // console.log('ref', imageRef.current?.classList)
-    // if ( image?.target?.classList && imageRef?.current?.classList?.contains('reveal') ) {
-    //   image.target.classList.add('reveal')
-    // }
     const projectBlock = image.target.closest('.project-block');
     image.target.classList.add('loaded')
     if ( projectBlock.classList.contains('should-reveal') ) {
