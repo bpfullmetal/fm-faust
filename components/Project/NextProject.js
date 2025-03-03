@@ -147,14 +147,14 @@ const NextProjectContent = ({ nextProjectId }) => {
                   : ''
               }`}
             >
-              <Link href={nextProject.link}>
+              <Link href={nextProject.uri}>
                 {nextProject.title}
               </Link>
             </p>
             {isMobile && (
               <Link
                 className="uppercase text-black"
-                href={nextProject.link}
+                href={nextProject.uri}
               >
                 View project
               </Link>
@@ -203,6 +203,7 @@ const GET_NEXT_PROJECT_QUERY = gql`
     project(id: $id) {
       title
       link
+      uri
       featuredImage {
         node {
           altText
