@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Error({ statusCode }) {
-  console.log('status code', statusCode)
+  console.error('status code', statusCode)
   return (
     <div>
       <h1>Something went wrong, but we're on it! Please try again later.</h1>
