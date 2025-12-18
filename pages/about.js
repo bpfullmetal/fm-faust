@@ -186,14 +186,14 @@ export default function Page(props) {
           <div className="uppercase" key={item.id}>
             <a
               className={`flex items-center ${
-                currentNavMenuItem === 'jobs' ? 'text-black' : ''
+                currentNavMenuItem === 'careers' ? 'text-black' : ''
               }`}
               href={item.link}
             >
               <div
                 className={`w-1.5 h-1.5 rounded ${
                   currentNavMenuItem === item.id
-                    ? currentNavMenuItem === 'jobs'
+                    ? currentNavMenuItem === 'careers'
                       ? 'bg-black'
                       : 'bg-white'
                     : ''
@@ -355,7 +355,7 @@ export default function Page(props) {
               ))}
 
             {ourTeam.teamMembers && (
-              <div className="flex flex-wrap mt-20 lg:mt-48">
+              <div className="flex flex-wrap mt-20 lg:mt-32">
                 {ourTeam.teamMembers.map((teamMember, i) => (
                   <div
                     data-animate-ref="team-member"

@@ -17,26 +17,30 @@ const TeamStudioItem = ({ data, animate }) => {
   }, [animate]);
 
   return (
-    <div className="flex flex-col lg:mr-6 mb-8 lg:mb-18">
-      <div
+    <div className="flex flex-col lg:mr-6 mb-2 lg:mb-2">
+      {/* <div
         className={`w-0 h-px bg-white mb-2 transition-all duration-500 ${
           beginRevealed ? '!w-full' : ''
         }`}
-      ></div>
+      ></div> */}
       <p
-        className={`animate-reveal text-4xl leading-[44px] mb-1 ${
+        className={`animate-reveal text-xl leading-[44px] ${
           nameRevealed ? 'reveal' : ''
         }`}
       >
         {data.name}
       </p>
-      <p
-        className={`animate-reveal text-xs tracking-[2px] uppercase mb-9 ${
-          roleRevealed ? 'reveal' : ''
-        }`}
-      >
-        {data.role}
-      </p>
+      {
+        data.role && (
+          <p
+            className={`animate-reveal text-xs mt-2 tracking-[2px] uppercase mb-9 ${
+              roleRevealed ? 'reveal' : ''
+            }`}
+          >
+            {data.role}
+          </p>
+        )
+      }
       {data.bio && (
         <div className={`animate-reveal ${bioRevealed ? 'reveal' : ''}`}>
           <p>{data.bio}</p>
