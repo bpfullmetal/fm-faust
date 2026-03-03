@@ -412,6 +412,30 @@ footer .logo svg {
   opacity: 0;
 }
 
+article {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3vw;
+}
+.wp-block-columns.is-layout-flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 3vw;
+}
+
+.wp-block-column {
+  display: none;
+}
+
+.wp-block-columns .wp-block-column {
+  display: block;
+  flex: 1;
+}
+
+.wp-block-columns.is-layout-flex img {
+  border-radius: 0!important;
+}
+
 @media (max-width: 1023px) {
 
   .projects-grid {

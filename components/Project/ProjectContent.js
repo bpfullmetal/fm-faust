@@ -178,7 +178,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
               {title}
             </h1>
           )}
-          {(project.content ||
+          {(
             projectsSingle?.projectDetails?.attributes?.length) && (
             <div className="flex flex-col mt-8">
               <div
@@ -203,14 +203,6 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
                   revealProjectInfo ? 'h-full pt-2' : 'pt-0'
                 } flex flex-col pl-8 sm:pl-12 pr-4 md:pr-0 overflow-hidden transition-all`}
               >
-                {project.content && (
-                  <div
-                    className="space-y-12"
-                    dangerouslySetInnerHTML={{
-                      __html: project.content
-                    }}
-                  />
-                )}
                 {projectsSingle.projectDetails.attributes && (
                   <div className="project-details">
                     {projectsSingle.projectDetails.attributes.map(
