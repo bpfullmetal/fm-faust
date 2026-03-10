@@ -53,6 +53,84 @@ const gqlquery = gql`
           altText
         }
       }
+      editorBlocks {
+        name
+        clientId
+        blockEditorCategoryName
+        ... on FreeformLayoutFreeformLayout {
+          apiVersion
+          blockEditorCategoryName
+          # attributes {
+          #   activeBreakpoint
+          #   className
+          #   layout
+          #   lock
+          #   metadata
+          # }
+        }
+        ... on CoreColumns {
+          anchor
+          apiVersion
+          name
+          attributes {
+            align
+            verticalAlignment
+            isStackedOnMobile
+            cssClassName
+            layout
+            style
+          }
+          innerBlocks {
+            blockEditorCategoryName
+            ... on CoreImage {
+              anchor
+              apiVersion
+              attributes {
+                id
+              }
+              mediaDetails {
+                file
+                filePath
+                height
+                width
+              }
+              name
+            }
+            ... on CoreColumn {
+              anchor
+              apiVersion
+              name
+              attributes {
+                cssClassName
+                width
+                verticalAlignment
+                layout
+                style
+              }
+              innerBlocks {
+                ... on CoreImage {
+                  mediaDetails {
+                    filePath
+                    height
+                    width
+                    file
+                  }
+                  attributes {
+                    id
+                  }
+                  name
+                }
+                ... on CoreParagraph {
+                  attributes {
+                    content
+                  }
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
       projectsSingle {
         projectDetails {
           attributes {

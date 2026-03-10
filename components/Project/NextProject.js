@@ -104,23 +104,22 @@ const NextProjectContent = ({ nextProjectId }) => {
               <Link
                 passHref
                 href={nextProject.uri}
+                className={!isMobile ? 'static' : 'relative w-full h-auto'}
               >
-                <a className={!isMobile ? 'static' : 'relative w-full h-auto'}>
-                  <Image
-                    loading="eager"
-                    className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
-                    src={nextProject.featuredImage.node.mediaItemUrl}
-                    layout="fill"
-                    // width={nextProject.featuredImage.node.mediaDetails.width}
-                    // height={nextProject.featuredImage.node.mediaDetails.height}
-                    alt={
-                      nextProject.featuredImage.node.altText ||
-                      nextProject.title
-                    }
-                    unoptimized={true}
-                    // sizes="(min-width: 1024px) 60vw, 70vw"
-                  />
-                </a>
+                <Image
+                  loading="eager"
+                  className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
+                  src={nextProject.featuredImage.node.mediaItemUrl}
+                  fill
+                  // width={nextProject.featuredImage.node.mediaDetails.width}
+                  // height={nextProject.featuredImage.node.mediaDetails.height}
+                  alt={
+                    nextProject.featuredImage.node.altText ||
+                    nextProject.title
+                  }
+                  unoptimized={true}
+                  // sizes="(min-width: 1024px) 60vw, 70vw"
+                />
               </Link>
             )}
             <svg width="0" height="0">
@@ -147,7 +146,7 @@ const NextProjectContent = ({ nextProjectId }) => {
                   : ''
               }`}
             >
-              <Link href={nextProject.uri}>
+              <Link href={nextProject.uri} className="md:text-center">
                 {nextProject.title}
               </Link>
             </p>

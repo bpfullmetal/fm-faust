@@ -62,7 +62,8 @@ const TeamStudioFeatured = ({ data }) => {
               alt={data?.image?.node?.altText ?? ''}
               height={data?.image?.node?.mediaDetails?.height}
               width={data?.image?.node?.mediaDetails?.width}
-              layout="responsive"
+              // layout="responsive"
+              // fill
               unoptimized={true}
             />
           </div>

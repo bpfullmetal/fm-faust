@@ -95,6 +95,8 @@ const BlockLogoBanner = ({ data }) => {
                 muted
                 ref={videoRef}
                 loop
+                playsInline
+                preload="metadata"
                 style={ isVideoLoaded ? {opacity: 1} : {opacity: 0} }
                 controls={false}
                 // onLoadedMetadata={handleVideoOnLoad}

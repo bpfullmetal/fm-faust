@@ -25,13 +25,11 @@ const CategoryModal = ({ categories, selectedCat, onClose }) => {
             .filter((cat) => cat.node.slug !== selectedCat.slug)
             .map((category) => (
               <Link
-                passHref
                 key={category.node.slug}
                 href={`/design/${category.node.slug}`}
+                className="title flex items-center w-fit text-2xl leading-[32px] capitalize my-2 sm:text-4xl sm:leading-[44px]"
               >
-                <a className="title flex items-center w-fit text-2xl leading-[32px] capitalize my-2 sm:text-4xl sm:leading-[44px]">
-                  {category.node.name}
-                </a>
+                {category.node.name}
               </Link>
             ))}
         </div>

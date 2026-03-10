@@ -224,7 +224,7 @@ export default function Page(props) {
                       className="featured-image-wrapper w-full h-full object-cover absolute"
                       src={intro.backgroundImage.node.mediaItemUrl}
                       alt={intro.backgroundImage.node.altText}
-                      layout="fill"
+                      fill
                       priority={true}
                       unoptimized={true}
                     />
@@ -250,7 +250,7 @@ export default function Page(props) {
                   src={intro.backgroundImage.node.mediaItemUrl}
                   alt={intro.backgroundImage.node.altText}
                   priority={true}
-                  layout="fill"
+                  fill
                   unoptimized={true}
                 />
               )
@@ -325,7 +325,7 @@ export default function Page(props) {
                       alt={ourTeam?.featuredImage?.node?.altText || 'Our team'}
                       // width={ourTeam?.featuredImage?.node?.mediaDetails?.width}
                       // height={ourTeam?.featuredImage?.node?.mediaDetails?.height}
-                      layout="fill"
+                      fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       unoptimized={true}
                     />

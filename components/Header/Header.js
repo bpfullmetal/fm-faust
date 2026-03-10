@@ -59,11 +59,10 @@ export default function Header({
               >
                 <Link
                   href={link.label === 'Home' ? '/' : link.path ?? ''}
-                  passHref={link.label === 'Home' ? true : false }
                   replace={link.label === 'Design' ? true: false}
                 >
                   {link.label === 'Home' ? (
-                    <a><div className="home-logo"></div></a>
+                    <div className="home-logo"></div>
                   ) : link.label}
                 </Link>
               </li>
@@ -71,14 +70,12 @@ export default function Header({
           })}
           <li className="text-black text-sm py-3 icon-instagram">
             <Link
-              passHref
               href="https://www.instagram.com/frances.mildred/"
               target="_blank"
               rel="noreferrer"
+              className="flex"
             >
-              <a className="flex">
-                <Image src={IconInstagram} alt="instagram" />
-              </a>
+              <Image src={IconInstagram} alt="instagram" />
             </Link>
           </li>
         </ul>

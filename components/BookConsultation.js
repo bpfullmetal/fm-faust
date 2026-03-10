@@ -70,7 +70,7 @@ export const BookConsultation = ({ fmSettings }) => {
                   }
                   width={width}
                   height={height}
-                  layout="responsive"
+                  // layout="responsive"
                   loading="lazy"
                   sizes="(min-width: 768px) 50vw, 100vw"
                   unoptimized={true}

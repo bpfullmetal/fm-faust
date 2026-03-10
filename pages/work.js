@@ -10,10 +10,10 @@ import projectPlaceholder from '../assets/images/project-placeholder.jpg';
 const ProjectBlockDetail = ({ project }) => {
   return (
     <div className="flex flex-col items-start mt-5 space-y-3 lg:flex-row lg:items-center lg:space-x-7 lg:space-y-0">
-      <Link passHref href={project.link}>
-        <a className="text-dark_green text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]">
-          {project.title}
-        </a>
+      <Link 
+       className="text-dark_green text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]" 
+       href={project.link}>
+        {project.title}
       </Link>
     </div>
   );
@@ -105,31 +105,31 @@ export default function Page(props) {
                 ref={workProjectRefs[i]}
               >
                 {project.node.featuredImage && (
-                  <Link passHref href={project.node.uri}>
-                    <a className="relative w-full h-auto">
-                      <Image
-                        className="w-full rounded"
-                        src={project?.node?.featuredImage?.node?.mediaItemUrl}
-                        sizes="(min-width: 768px) 100vw"
-                        width={655}
-                        height={437}
-                        priority={i < 2}
-                        loading="eager"
-                        objectFit="cover"
-                        unoptimized={true}
-                        alt={
-                          project?.node?.featuredImage?.node?.altText ||
-                          project?.node?.title
-                        }
-                      />
-                    </a>
+                  <Link 
+                    href={project.node.uri}
+                    className="relative w-full h-auto">
+                    <Image
+                      className="w-full rounded"
+                      src={project?.node?.featuredImage?.node?.mediaItemUrl}
+                      sizes="(min-width: 768px) 100vw"
+                      width={655}
+                      height={437}
+                      priority={i < 2}
+                      loading="eager"
+                      objectFit="cover"
+                      unoptimized={true}
+                      alt={
+                        project?.node?.featuredImage?.node?.altText ||
+                        project?.node?.title
+                      }
+                    />
                   </Link>
                 )}
                 {!project.node.featuredImage && (
-                  <Link passHref href={project.node.uri}>
-                    <a className="w-full h-full">
-                      <Image src={projectPlaceholder} unoptimized={true} alt={project.node.title} />
-                    </a>
+                  <Link 
+                    passHref href={project.node.uri}
+                    className="w-full h-full">
+                    <Image src={projectPlaceholder} unoptimized={true} alt={project.node.title} />
                   </Link>
                 )}
                 <ProjectBlockDetail project={project.node} />
