@@ -1,15 +1,12 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import ProjectContent from '../../../components/Project/ProjectContent';
 import { NotFoundProject, PageLayout } from '../../../components';
 
-export default function Page(props) {
-  const router = useRouter();
-  const projectUri = router?.query?.projectSlug;
-
+export default function Page({ projectSlug }) {
   const scrollContainerRef = React.useRef();
+  const projectUri = Array.isArray(projectSlug) ? projectSlug[0] : projectSlug;
 
   const { data, loading } = useQuery(gqlquery, {
     skip: !projectUri,
@@ -167,8 +164,19 @@ const gqlquery = gql`
   }
 `;
 
-export function getStaticProps(ctx) {
-  return getNextStaticProps(ctx, { Page });
+export async function getStaticProps(ctx) {
+  const faustProps = await getNextStaticProps(ctx, { Page });
+  const projectSlug = Array.isArray(ctx.params?.projectSlug)
+    ? ctx.params.projectSlug[0]
+    : ctx.params?.projectSlug ?? null;
+
+  return {
+    ...faustProps,
+    props: {
+      ...faustProps.props,
+      projectSlug,
+    },
+  };
 }
 
 export async function getStaticPaths() {
