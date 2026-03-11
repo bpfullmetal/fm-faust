@@ -6,12 +6,13 @@ import ProjectContent from '../../../components/Project/ProjectContent';
 import { NotFoundProject, PageLayout } from '../../../components';
 
 export default function Page(props) {
-  const { query } = useRouter();
-  const projectUri = query.projectSlug;
+  const router = useRouter();
+  const projectUri = router?.query?.projectSlug;
 
   const scrollContainerRef = React.useRef();
 
   const { data, loading } = useQuery(gqlquery, {
+    skip: !projectUri,
     variables: { id: `/project/${projectUri}/` },
   });
 
