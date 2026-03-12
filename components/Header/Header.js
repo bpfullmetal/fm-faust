@@ -24,26 +24,39 @@ export default function Header({
   const [scrollPercentage, setScrollPercentage] = React.useState(0);
 
   React.useEffect(() => {
-    if (options?.scrollIndicator?.current) {
-      const updateScrollPercentage = () => {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        
-        const scrollContainerHeight = options.scrollIndicator.current.clientHeight;
-        // const scrollContainerHeight = document.getElementById(options.scrollIndicator).clientHeight;
-        
-        // const totalScroll = scrollContainerHeight - windowHeight;
-        const percentage = (scrollPosition / scrollContainerHeight) * 100;
-        setScrollPercentage(percentage);
-      };
+    const updateScrollPercentage = () => {
+      const scrollEl = options?.scrollIndicator?.current;
 
-      window.addEventListener('scroll', updateScrollPercentage);
+      if (!scrollEl) {
+        setScrollPercentage(0);
+        return;
+      }
 
-      return () => {
-        window.removeEventListener('scroll', updateScrollPercentage);
-      };
-    }
-  }, []);
+      const scrollPosition = window.scrollY;
+      const scrollContainerHeight = scrollEl.clientHeight;
+
+      if (!scrollContainerHeight) {
+        setScrollPercentage(0);
+        return;
+      }
+
+      const percentage = (scrollPosition / scrollContainerHeight) * 100;
+      setScrollPercentage(percentage);
+    };
+
+    updateScrollPercentage();
+
+    window.addEventListener('scroll', updateScrollPercentage);
+    window.addEventListener('resize', updateScrollPercentage);
+
+    const raf = requestAnimationFrame(updateScrollPercentage);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', updateScrollPercentage);
+      window.removeEventListener('resize', updateScrollPercentage);
+    };
+  }, [options]);
 
   return (
     <div className="sticky top-0 z-20">

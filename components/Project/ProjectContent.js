@@ -27,11 +27,12 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
       return !isEmptyHtml(block?.attributes?.content);
     }
 
-    // Image (treat as content if it has an id or a file path)
+    // Image (treat as content if it has an id, URL, or a file path)
     if (block.name === 'core/image') {
       const attachmentId = block?.attributes?.id || block?.attributes?.attachmentId;
       const fp = block?.mediaDetails?.filePath;
-      return !!attachmentId || !!fp;
+      const imageUrl = block?.attributes?.url || block?.attributes?.src || block?.sourceUrl;
+      return !!attachmentId || !!fp || !!imageUrl;
     }
 
     // Containers
@@ -58,6 +59,9 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
     '';
 
   const resolveCoreImageSrc = (block) => {
+    const directUrl = block?.attributes?.url || block?.attributes?.src || block?.sourceUrl;
+    if (directUrl) return directUrl;
+
     const fp = block?.mediaDetails?.filePath;
     if (!fp) return null;
     if (fp.startsWith('http://') || fp.startsWith('https://')) return fp;
@@ -362,7 +366,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
       )}
 
       <section className="work-project flex flex-col bg-[#300808]">
-        <div className="w-full max-w-main mx-auto">
+        <div className="w-full mx-auto">
           {!featuredImage && (
             <h1 className="mx-auto mt-12 mb-12 max-w-[480px] text-3xl font-medium !leading-none text-center md:max-w-[580px] md:text-4xl lg:max-w-[680px] lg:text-[38px] text-center">
               {title}
@@ -373,7 +377,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
             <div
               id="project-images-container"
               ref={scrollContainerRef}
-              className="flex flex-col mt-8 md:mt-[4vw]"
+              className="flex flex-col mt-8 mt-[4vw] md:mt-[4vw]"
             >
               {(editorBlocks || []).map((block, idx) => {
                 // Skip freeform blocks here (already rendered above)
@@ -658,11 +662,11 @@ function BlockRenderer({
     }
 
     case 'core/image': {
-      // Prefer mediaById if an attachmentId is present (some setups include it), otherwise fall back to filePath.
+      // Prefer mediaById if an attachmentId is present (some setups include it), otherwise fall back to filePath or url.
       const attachmentId = block?.attributes?.id || block?.attributes?.attachmentId;
       const media = attachmentId != null ? mediaById[String(attachmentId)] : null;
       const src = media?.sourceUrl || resolveCoreImageSrc(block);
-      const alt = media?.altText || '';
+      const alt = media?.altText || block?.attributes?.alt || '';
       if (!src) return null;
 
       // Get real width/height if available

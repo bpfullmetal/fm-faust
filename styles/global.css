@@ -81,6 +81,13 @@ footer .logo svg {
   height: 100%;
 }
 
+
+@media (orientation: portrait) {
+  .h-home_banner {
+    height: 56.25vw!important;
+  }
+}
+
 /* Homepage Banner */
 .home-banner svg {
   width: auto;
@@ -437,6 +444,19 @@ article {
 .wp-block-column {
   display: none;
   overflow: hidden;
+}
+
+@media (max-width: 599px) {
+  .wp-block-column {
+    flex: 1 100%!important;
+    max-width: 100%!important;
+  }
+}
+
+@media (max-width: 599px) {
+  .wp-block-columns.is-layout-flex {
+    flex-wrap: wrap;
+  }
 }
 
 .wp-block-columns:not(:last-of-type), .work-project .wp-block-image:not(:last-of-type) {

@@ -107,9 +107,10 @@ export default function Page(props) {
                 {project.node.featuredImage && (
                   <Link 
                     href={project.node.uri}
-                    className="relative w-full h-auto">
+                    className="relative w-full relative"
+                    style={{ aspectRatio: "1.5" }}>
                     <Image
-                      className="w-full rounded"
+                      className="w-full h-full absolute rounded object-cover object-center"
                       src={project?.node?.featuredImage?.node?.mediaItemUrl}
                       sizes="(min-width: 768px) 100vw"
                       width={655}
