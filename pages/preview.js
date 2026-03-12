@@ -1,15 +1,13 @@
 import React from 'react';
 import { gql } from '@apollo/client';
 import { getApolloAuthClient, useAuth } from '@faustwp/core';
-import { useRouter } from 'next/router';
 import { PageLayout } from '../components';
 import ProjectContent from '../components/Project/ProjectContent';
 
-export default function Preview(props) {
+export default function Preview({ previewId }) {
   const { isAuthenticated, isReady, loginUrl } = useAuth();
-  const { query } = useRouter();
   const client = getApolloAuthClient();
-  const id = query.p ? parseInt(query.p) : null;
+  const id = previewId ? parseInt(previewId, 10) : null;
   const isPreview = true;
 
   const scrollContainerRef = React.useRef();
@@ -110,3 +108,11 @@ const gqlquery = gql`
     }
   }
 `;
+
+export async function getServerSideProps(ctx) {
+  return {
+    props: {
+      previewId: ctx.query?.p ?? null,
+    },
+  };
+}
