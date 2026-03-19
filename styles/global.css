@@ -485,6 +485,8 @@ article {
 
 .work-project .wp-block-columns .wp-block-paragraph {
   line-height: 2.2;
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 .work-project .wp-block-columns .wp-block-paragraph:not(:last-of-type) {

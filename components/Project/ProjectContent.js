@@ -47,11 +47,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
   const { title, featuredImage, projectsSingle, editorBlocks } = project;
   
   const [isMobile, setIsMobile] = React.useState(false);
-  const [revealProjectInfo, setRevealProjectInfo] = React.useState(false);
   const [clickedImageOrder, setClickedImageOrder] = React.useState(-1);
-  const [imageBlockPositions, setImageBlockPositions] = React.useState([]);
-  const [imageBlockSizes, setImageBlockSizes] = React.useState([]);
-  const [imageBlockDetails, setImageBlockDetails] = React.useState([]);
 
   const wpUploadsBase =
     process.env.NEXT_PUBLIC_WORDPRESS_URL ||
@@ -652,13 +648,15 @@ function BlockRenderer({
     case 'core/paragraph': {
       const html = block?.attributes?.content || '';
       // Drop empty paragraphs (common in WP editor output)
+      console.log('block', block)
+      const className = ['wp-block-paragraph'].filter(Boolean).join(' ');
       const stripped = String(html)
         .replace(/<\s*br\s*\/?\s*>/gi, '')
         .replace(/&nbsp;/gi, ' ')
         .replace(/<[^>]*>/g, '')
         .trim();
       if (!stripped.length) return null;
-      return <p className="wp-block-paragraph" dangerouslySetInnerHTML={{ __html: html }} />;
+      return <p className={`text-taupe wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
     }
 
     case 'core/image': {

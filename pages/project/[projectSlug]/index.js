@@ -120,7 +120,10 @@ const gqlquery = gql`
                 }
                 ... on CoreParagraph {
                   attributes {
+                    align
                     content
+                    cssClassName
+                    style
                   }
                   name
                 }
