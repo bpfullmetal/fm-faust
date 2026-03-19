@@ -434,6 +434,11 @@ article {
   gap: 4vw;
 }
 
+#project-images-container {
+  padding-left: 4vw;
+  padding-right: 4vw;
+}
+
 .wp-block-columns.is-layout-flex {
   display: flex;
   justify-content: space-between;
