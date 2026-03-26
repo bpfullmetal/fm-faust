@@ -24,6 +24,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
 
     // Paragraph
     if (block.name === 'core/paragraph') {
+      console.log('block attributes', block?.attributes)
       return !isEmptyHtml(block?.attributes?.content);
     }
 
@@ -656,7 +657,7 @@ function BlockRenderer({
         .replace(/<[^>]*>/g, '')
         .trim();
       if (!stripped.length) return null;
-      return <p className={`text-taupe wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
+      return <p className={`text-taupe wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}${block?.attributes?.cssClassName ? ` ${block.attributes.cssClassName}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
     }
 
     case 'core/image': {

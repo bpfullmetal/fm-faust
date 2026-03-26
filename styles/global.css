@@ -489,6 +489,10 @@ article {
   margin: 0 auto;
 }
 
+.work-project .wp-block-paragraph.has-large-font-size {
+  font-size: 18px;
+}
+
 .work-project .wp-block-columns .wp-block-paragraph:not(:last-of-type) {
   margin-bottom: 1rem;
 }
