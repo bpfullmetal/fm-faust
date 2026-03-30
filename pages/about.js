@@ -254,10 +254,10 @@ export default function Page(props) {
                   unoptimized={true}
                 />
               )
-              : <div className="absolute w-full h-full bg-dark_red"></div>
+              : <div className="absolute w-full h-full bg-dark_blue"></div>
         }
 
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="absolute inset-0 bg-dark_blue"></div>
 
         <div className="relative w-full max-w-main mx-auto px-5 sm:px-12">
           <div className="relative max-w-[860px] flex flex-col items-between ml-auto">
