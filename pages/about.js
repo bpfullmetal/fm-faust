@@ -254,7 +254,7 @@ export default function Page(props) {
                   unoptimized={true}
                 />
               )
-              : <div className="absolute w-full h-full bg-dark_red"></div>
+              : <div className="absolute w-full h-full bg-dark_blue"></div>
         }
 
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
