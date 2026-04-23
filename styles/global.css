@@ -614,3 +614,23 @@ article {
     opacity: 1;
   }
 }
+
+.press-block span {
+  letter-spacing: 3px;
+}
+
+.press-block a {
+  transition: all 0.3s ease-in-out;
+}
+
+.press-block a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+.press-link .press-arrow {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.press-link:hover .press-arrow {
+  opacity: 1;
+}

@@ -1,16 +1,4 @@
-import React from 'react';
-import Image from 'next/image';
-import { gql, useQuery } from '@apollo/client';
-import { getNextStaticProps } from '@faustwp/core';
-import { PageLayout } from '../components';
-import {
-  ByTheNumberBlock,
-  OpeningJobItem,
-  TeamStudioFeatured,
-  TeamStudioItem,
-} from '../components/About';
-import Helper from '../helper';
-// import About from '../pages/about';
+import { gql } from '@apollo/client';
 
 export default function Component(props) {
   // const { data, loading, error } = useQuery(Component.query, {
@@ -98,18 +86,8 @@ Component.query = gql`
   }
 `;
 
-// Page.variables = () => {
-//   return {
-//     id: 'cG9zdDo1'
-//   };
-// };
-
 Component.variables = (seedQuery, context, data) => {
   return {
     uri: 'about',
   };
 };
-
-// export function getStaticProps(ctx) {
-//   return getNextStaticProps(ctx, {Page, props: {title: 'About Page'}});
-// }
