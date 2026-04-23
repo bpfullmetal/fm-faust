@@ -27,7 +27,7 @@ export default function Page(props) {
 
   React.useEffect(() => {
     setAllPress(edges);
-
+    console.log('edges', edges)
     if (!hasNextPage) {
       lastRequestedCursorRef.current = null;
       isFetchingRef.current = false;
