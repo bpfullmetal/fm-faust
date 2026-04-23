@@ -17,6 +17,7 @@ export default function Page(props) {
     () => pressConnection?.edges ?? [],
     [pressConnection?.edges]
   );
+  console.log('WORDPRESS URL', process.env.NEXT_PUBLIC_WORDPRESS_URL);
 
   console.log('DATA', data)
   const endCursor = pressConnection?.pageInfo?.endCursor ?? null;
