@@ -13,7 +13,12 @@ export default function Page(props) {
   });
 
   const pressConnection = data?.page?.pressPageFields?.pressArticles;
-  const edges = pressConnection?.edges ?? [];
+  const edges = React.useMemo(
+    () => pressConnection?.edges ?? [],
+    [pressConnection?.edges]
+  );
+
+  console.log('DATA', data)
   const endCursor = pressConnection?.pageInfo?.endCursor ?? null;
   const hasNextPage = pressConnection?.pageInfo?.hasNextPage ?? false;
 
@@ -26,8 +31,10 @@ export default function Page(props) {
   const isFetchingRef = React.useRef(false);
 
   React.useEffect(() => {
+    if (!edges.length) return;
+
     setAllPress(edges);
-    console.log('edges', edges)
+
     if (!hasNextPage) {
       lastRequestedCursorRef.current = null;
       isFetchingRef.current = false;
