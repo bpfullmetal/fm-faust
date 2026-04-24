@@ -12,6 +12,10 @@ export default function Page(props) {
     notifyOnNetworkStatusChange: true,
   });
 
+  console.log('WORDPRESS URL', process.env.NEXT_PUBLIC_WORDPRESS_URL);
+
+  console.log('DATA', data)
+
   const pressConnection = data?.page?.pressPageFields?.pressArticles;
   const edges = React.useMemo(
     () => pressConnection?.edges ?? [],
