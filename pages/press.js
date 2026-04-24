@@ -7,8 +7,9 @@ import { PageLayout } from '../components';
 import Helper from '../helper';
 
 export default function Page(props) {
+  const queryVariables = React.useMemo(() => Page.variables(), []);
   const { data, fetchMore } = useQuery(Page.query, {
-    variables: Page.variables(),
+    variables: queryVariables,
     notifyOnNetworkStatusChange: true,
   });
 
@@ -36,7 +37,30 @@ export default function Page(props) {
   React.useEffect(() => {
     if (!edges.length) return;
 
-    setAllPress(edges);
+    setAllPress((currentPress) => {
+      if (!currentPress.length) {
+        return edges;
+      }
+
+      const existingIds = new Set(
+        currentPress.map((edge) => edge?.node?.id).filter(Boolean)
+      );
+      const mergedPress = [...currentPress];
+
+      edges.forEach((edge) => {
+        const nodeId = edge?.node?.id;
+
+        if (!nodeId || !existingIds.has(nodeId)) {
+          mergedPress.push(edge);
+
+          if (nodeId) {
+            existingIds.add(nodeId);
+          }
+        }
+      });
+
+      return mergedPress;
+    });
 
     if (!hasNextPage) {
       lastRequestedCursorRef.current = null;
@@ -61,17 +85,18 @@ export default function Page(props) {
 
           fetchMore({
             variables: {
-              uri: 'press',
+              id: queryVariables.id,
               first: postsPerPage,
               after: endCursor,
             },
             updateQuery: (previousResult, { fetchMoreResult }) => {
-              if (!fetchMoreResult?.page?.pressPageFields?.pressArticles?.edges?.length) {
+              const previousConnection = previousResult?.page?.pressPageFields?.pressArticles;
+              const nextConnection = fetchMoreResult?.page?.pressPageFields?.pressArticles;
+
+              if (!previousConnection || !nextConnection?.edges?.length) {
                 return previousResult;
               }
 
-              const previousConnection = previousResult.page.pressPageFields.pressArticles;
-              const nextConnection = fetchMoreResult.page.pressPageFields.pressArticles;
               const existingIds = new Set(
                 previousConnection.edges.map((edge) => edge?.node?.id).filter(Boolean)
               );
@@ -90,13 +115,14 @@ export default function Page(props) {
               });
 
               return {
-                ...fetchMoreResult,
+                ...previousResult,
                 page: {
-                  ...fetchMoreResult.page,
+                  ...previousResult.page,
                   pressPageFields: {
-                    ...fetchMoreResult.page.pressPageFields,
+                    ...previousResult.page.pressPageFields,
                     pressArticles: {
-                      ...nextConnection,
+                      ...previousConnection,
+                      pageInfo: nextConnection.pageInfo,
                       edges: mergedEdges,
                     },
                   },
@@ -117,11 +143,18 @@ export default function Page(props) {
   React.useEffect(() => {
     if (!allPress.length) return;
 
-    const newRefs = Array(allPress.length)
-      .fill(1)
-      .map((_) => React.createRef());
+    setWorkPressRefs((currentRefs) => {
+      if (currentRefs.length >= allPress.length) {
+        return currentRefs;
+      }
 
-    setWorkPressRefs(newRefs);
+      return [
+        ...currentRefs,
+        ...Array(allPress.length - currentRefs.length)
+          .fill(1)
+          .map((_) => React.createRef()),
+      ];
+    });
 
     Helper.setupIntersectionObserver(morePressRef, handleIntersection, {
       threshold: 0.5,
@@ -149,8 +182,8 @@ export default function Page(props) {
               <div
                 className={`${
                   isPreload ? '!hidden' : ''
-                } press-block animate-reveal text-white text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]${ i === press.length - 1 ? '' : ' border-b border-white' }`}
-                key={`press-${i}`}
+                } press-block${i < postsPerPage ? ' reveal' : ''} animate-reveal text-white text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]${ i === press.length - 1 ? '' : ' border-b border-white' }`}
+                key={article.node?.id ?? `press-${i}`}
                 data-ref-type="press"
                 data-title={article.node.title}
                 ref={pressRefs[i]}
