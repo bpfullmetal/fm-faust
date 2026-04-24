@@ -214,7 +214,7 @@ Page.query = gql`
 
 Page.variables = (seedQuery, context, data) => {
   return {
-    id: process.env.NEXT_PUBLIC_WORDPRESS_URL?.includes('stg') ? '2709' : null,
+    id: process.env.NEXT_PUBLIC_WORDPRESS_URL?.includes('stg') ? '2709' : '2702',
     first: 3,
     after: null,
   };
