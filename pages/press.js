@@ -17,9 +17,7 @@ export default function Page(props) {
     () => pressConnection?.edges ?? [],
     [pressConnection?.edges]
   );
-  console.log('WORDPRESS URL', process.env.NEXT_PUBLIC_WORDPRESS_URL);
 
-  console.log('DATA', data)
   const endCursor = pressConnection?.pageInfo?.endCursor ?? null;
   const hasNextPage = pressConnection?.pageInfo?.hasNextPage ?? false;
 
@@ -185,8 +183,8 @@ export default function Page(props) {
 }
 
 Page.query = gql`
-  query GetPageDataByURI($uri: ID!, $first: Int!, $after: String) {
-    page(id: $uri, idType: URI) {
+  query GetPageDataByURI($id: ID!, $first: Int!, $after: String) {
+    page(id: $id, idType: DATABASE_ID) {
       uri
       title
       pressPageFields {
@@ -214,9 +212,9 @@ Page.query = gql`
   }
 `;
 
-Page.variables = () => {
+Page.variables = (seedQuery, context, data) => {
   return {
-    uri: 'press',
+    id: process.env.NEXT_PUBLIC_WORDPRESS_URL?.includes('stg') ? '2709' : null,
     first: 3,
     after: null,
   };
