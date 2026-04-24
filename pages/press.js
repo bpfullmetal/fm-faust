@@ -194,7 +194,7 @@ export default function Page(props) {
                     {article.node?.pressFields?.publication && (
                       <span className="text-xs uppercase publication">{article.node?.pressFields?.publication}</span>
                     )}
-                    <p className="mt-2">{article.node.title}</p>
+                    <p className="mt-2 leading-8">{article.node.title}</p>
                     <div className="press-arrow absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 opacity-0">
                       <svg className="w-full h-full" width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="66.9453" cy="66.9453" r="66.9453" fill="#521414"/>
