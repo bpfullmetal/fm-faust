@@ -25,7 +25,7 @@ export default function Page(props) {
   const endCursor = pressConnection?.pageInfo?.endCursor ?? null;
   const hasNextPage = pressConnection?.pageInfo?.hasNextPage ?? false;
 
-  const postsPerPage = 3;
+  const postsPerPage = 6;
   const [allPress, setAllPress] = React.useState([]);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const [pressRefs, setWorkPressRefs] = React.useState([]);
@@ -219,7 +219,7 @@ Page.query = gql`
 Page.variables = (seedQuery, context, data) => {
   return {
     id: process.env.NEXT_PUBLIC_WORDPRESS_URL?.includes('stg') ? '2709' : '2702',
-    first: 3,
+    first: 6,
     after: null,
   };
 };
