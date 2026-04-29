@@ -55,17 +55,6 @@ const gqlquery = gql`
         name
         clientId
         blockEditorCategoryName
-        ... on FreeformLayoutFreeformLayout {
-          apiVersion
-          blockEditorCategoryName
-          # attributes {
-          #   activeBreakpoint
-          #   className
-          #   layout
-          #   lock
-          #   metadata
-          # }
-        }
         ... on CoreColumns {
           anchor
           apiVersion
