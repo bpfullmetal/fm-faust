@@ -355,7 +355,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
               priority={true}
               alt={featuredImage.node.altText || title}
             />
-            <h1 className="absolute max-w-[480px] text-4xl font-medium !leading-none text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
+            <h1 className="absolute max-w-[480px] text-4xl font-medium !leading-none !leading-tight  text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
               {title}
             </h1>
           </div>
@@ -402,7 +402,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
 
           {(
             projectsSingle?.projectDetails?.attributes?.length) && (
-            <div className="flex flex-col mt-8 items-center pt-24 pb-32">
+            <div className="flex flex-col items-center pt-10 pb-20 md:pt-20 md:pb-40">
               <div
                 className="flex items-center cursor-pointer"
                 onClick={() => setRevealProjectInfo((old) => !old)}
@@ -657,7 +657,7 @@ function BlockRenderer({
         .replace(/<[^>]*>/g, '')
         .trim();
       if (!stripped.length) return null;
-      return <p className={`text-taupe wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}${block?.attributes?.cssClassName ? ` ${block.attributes.cssClassName}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
+      return <p className={`text-taupe text-lg wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}${block?.attributes?.cssClassName ? ` ${block.attributes.cssClassName}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
     }
 
     case 'core/image': {

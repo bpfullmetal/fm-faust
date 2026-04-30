@@ -37,7 +37,7 @@ export const BookConsultation = ({ fmSettings }) => {
   const height = image?.mediaDetails?.height;
 
   return (
-    <section className="relative py-36 bg-dark_red z-[11]">
+    <section className="relative py-18 md:py-36 bg-dark_red z-[11]">
       <div className="flex flex-col items-center justify-center max-w-main mx-auto px-5 sm:px-12">
         {
           headingText && (
@@ -53,7 +53,7 @@ export const BookConsultation = ({ fmSettings }) => {
         {
           image && (
             <div
-              className="scroll-reveal w-full max-w-[320px] my-9 sm:max-w-[540px] sm:my-16"
+              className="scroll-reveal w-full max-w-[320px] mt-9 sm:max-w-[540px] sm:mt-16"
               data-block-order="2"
               ref={scrollRevealRefs[1]}
             >

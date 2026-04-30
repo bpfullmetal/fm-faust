@@ -96,7 +96,7 @@ const NextProjectContent = ({ nextProjectId }) => {
           }`}
         >
           <div
-            className={`flex items-center flex-col items-baseline md:items-center md:justify-center relative ${
+            className={`next-project__inner flex items-center flex-col items-baseline md:items-center md:justify-center relative ${
               !isMobile ? 'w-screen h-screen' : 'py-32 px-8'
             }`}
           >
