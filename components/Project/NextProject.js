@@ -140,7 +140,7 @@ const NextProjectContent = ({ nextProjectId }) => {
               Next Project
             </p>
             <p
-              className={`relative max-w-[600px] text-lg md:text-[58px] md:leading-[58px] md:text-center${
+              className={`relative max-w-[600px] text-lg md:text-[58px] md:leading-[58px] text-center${
                 !nextProject.featuredImage || isMobile
                   ? ' text-black'
                   : ''
