@@ -146,7 +146,7 @@ const NextProjectContent = ({ nextProjectId }) => {
                   : ''
               }`}
             >
-              <Link href={nextProject.uri} className="md:text-center">
+              <Link href={nextProject.uri} className="text-center">
                 {nextProject.title}
               </Link>
             </p>
