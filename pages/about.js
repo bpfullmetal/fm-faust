@@ -207,13 +207,13 @@ export default function Page(props) {
 
       <section
         id={stringToSlug(intro?.menuName ?? '')}
-        className="relative flex"
+        className="relative flex bg-dark_blue"
         ref={navSectionRefs[0]}
         data-section-index="0"
         data-animate-ref="section"
         data-background="dark"
       >
-        {
+        {/* {
           intro.backgroundVideo ? (
             <div className="absolute w-full h-full object-cover">
               {
@@ -255,9 +255,9 @@ export default function Page(props) {
                 />
               )
               : <div className="absolute w-full h-full bg-dark_blue"></div>
-        }
+        } */}
 
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        {/* <div className="absolute inset-0 bg-black bg-opacity-20"></div> */}
 
         <div className="relative w-full max-w-main mx-auto px-5 sm:px-12">
           <div className="relative max-w-[860px] flex flex-col items-between ml-auto">
@@ -297,27 +297,25 @@ export default function Page(props) {
 
       <section
         id={stringToSlug(ourTeam?.menuName ?? '')}
-        className="bg-dark_red py-48"
+        className="bg-dark_red py-36"
         ref={navSectionRefs[1]}
         data-section-index="1"
         data-animate-ref="section"
         data-background="dark"
       >
-        <div className="flex flex-col justify-end w-full max-w-main mx-auto px-5 sm:px-12 lg:flex-row">
-          <div className="flex h-fit mb-4 lg:justify-end lg:mb-0">
+        <div className="flex justify-end w-full max-w-main mx-auto px-5 sm:px-12">
+          <div className="w-full max-w-[860px] flex flex-col">
             <p
-              className="animate-reveal text-4xl leading-none tracking-[0.36px] lg:w-[200px] lg:text-[65px] lg:leading-[65px] lg:tracking-[0.65px] lg:mr-10"
+              className="animate-reveal text-4xl leading-none tracking-[0.36px] mb-2 lg:text-[65px] lg:leading-[65px] lg:tracking-[0.65px] lg:mb-4"
               ref={ourTeamRefs[0]}
               data-animate-ref="our-team"
               data-index="1"
             >
               Our Team
             </p>
-          </div>
 
-          <div className="max-w-[860px] flex flex-col">
             {(ourTeam?.featuredImage?.node?.mediaItemUrl || ourTeam.description) && (
-              <div className="flex flex-col mb-48">
+              <div className="flex flex-col mb-36">
                 {ourTeam?.featuredImage?.node?.mediaItemUrl && (
                   <div className="animate-reveal" ref={ourTeamRefs[1]}>
                     <Image
@@ -342,17 +340,15 @@ export default function Page(props) {
               </div>
             )}
 
-            {ourTeam.featuredTeamMembers &&
-              ourTeam.featuredTeamMembers.map((teamMember, i) => (
-                <div
-                  key={`featured-team-member-${i}`}
-                  className={`flex flex-col${i % 2 !== 0 ? ' items-end' : ''}${
-                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' mb-12 lg:mb-24' : ''
-                  }`}
-                >
-                  <TeamStudioFeatured data={{ ...teamMember }} />
-                </div>
-              ))}
+            {ourTeam.featuredTeamMembers?.length > 0 && (
+              <div className="w-full max-w-[1120px] grid grid-cols-1 gap-y-12 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-0">
+                {ourTeam.featuredTeamMembers.map((teamMember, i) => (
+                  <div key={`featured-team-member-${i}`} className="w-full">
+                    <TeamStudioFeatured data={{ ...teamMember }} />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {ourTeam.teamMembers && (
               <div className="flex flex-wrap mt-20 lg:mt-32">

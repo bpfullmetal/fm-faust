@@ -4,6 +4,8 @@ import Helper from '../helper';
 import Link from 'next/link'
 
 export const BookConsultation = ({ fmSettings }) => {
+  const [randomImageIndex, setRandomImageIndex] = React.useState(0);
+  const [randomTextIndex, setRandomTextIndex] = React.useState(0);
   const [scrollRevealRefs] = React.useState(
     Array(3)
       .fill()
@@ -15,6 +17,19 @@ export const BookConsultation = ({ fmSettings }) => {
       Helper.setupIntersectionObserver(ref, handleIntersection)
     );
   }, [scrollRevealRefs]);
+
+  React.useEffect(() => {
+    const imageOptions = fmSettings?.imageOptions ?? [];
+    const textContentOptions = fmSettings?.textContentOptions ?? [];
+
+    if (imageOptions.length > 0) {
+      setRandomImageIndex(Math.floor(Math.random() * imageOptions.length));
+    }
+
+    if (textContentOptions.length > 0) {
+      setRandomTextIndex(Math.floor(Math.random() * textContentOptions.length));
+    }
+  }, [fmSettings]);
 
   const handleIntersection = (entries) => {
     const [entry] = entries;
@@ -29,8 +44,10 @@ export const BookConsultation = ({ fmSettings }) => {
     }
   };
 
-  const image = fmSettings?.consultationImage?.node;
-  const headingText = fmSettings?.consultationHeadingText;
+  const image = fmSettings?.imageOptions?.[randomImageIndex]?.image?.node
+    ?? fmSettings?.consultationImage?.node;
+  const headingText = fmSettings?.textContentOptions?.[randomTextIndex]?.textContent
+    ?? fmSettings?.consultationHeadingText;
   const link = fmSettings?.consultationLink;
 
   const width = image?.mediaDetails?.width;

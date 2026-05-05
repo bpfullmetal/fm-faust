@@ -503,6 +503,11 @@ article {
   margin: 0 auto;
 }
 
+.work-project .wp-block-columns .wp-block-paragraph {
+  text-align: justify!important;
+  text-justify: distribute-all-lines;
+}
+
 .work-project .wp-block-paragraph.has-large-font-size {
   font-size: 18px;
 }
