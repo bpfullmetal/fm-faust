@@ -15,6 +15,7 @@ export const FmSettingsFragment = gql`
       }
       textContentOptions {
         textContent
+        author
       }
       imageOptions {
         image {
