@@ -98,7 +98,9 @@ export default function Page(props) {
               <div
                 className={`${
                   isPreload ? '!hidden' : ''
-                } work-project-block animate-reveal py-4 mb-8`}
+                } work-project-block animate-reveal py-4 mb-8${
+                  i < 6 ? ' reveal' : ''
+                }`}
                 key={`work-project-${i}`}
                 data-ref-type="project"
                 data-title={project.node.title}

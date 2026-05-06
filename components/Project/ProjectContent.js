@@ -675,8 +675,8 @@ function BlockRenderer({
 
       // Prefer native aspect-ratio (clean, supports any ratio). Fallback to padding-bottom when dims are missing.
       const wrapperStyle = hasDims
-        ? { position: 'relative', width: '100%', aspectRatio: `${w} / ${h}` }
-        : { position: 'relative', width: '100%', paddingBottom: '75%' };
+        ? { position: 'relative', width: '100%', aspectRatio: `${w} / ${h}`, borderRadius: 6, overflow: 'hidden' }
+        : { position: 'relative', width: '100%', paddingBottom: '75%', borderRadius: 6, overflow: 'hidden' };
 
       const isLandscape = hasDims ? w >= h : true;
 

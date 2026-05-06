@@ -17,6 +17,31 @@ module.exports = withFaust({
         permanent: true,
       },
       {
+        source: '/project/boerum-hill-duplexes',
+        destination: '/project/townhouse-duplex',
+        permanent: true,
+      },
+      {
+        source: '/project/tribeca-loft-1',
+        destination: '/project/manahttan-loft',
+        permanent: true,
+      },
+      {
+        source: '/project/beverly-hills-home',
+        destination: '/project/beverly-hills-compound',
+        permanent: true,
+      },
+      {
+        source: '/project/chelsea-apartment',
+        destination: '/project/chelsea-kitchen',
+        permanent: true,
+      },
+      {
+        source: '/project/park-slope-townhouse',
+        destination: '/project/brooklyn-townhouse-restoration',
+        permanent: true,
+      },
+      {
         source: '/about-2-1',
         destination: '/about',
         permanent: true,
@@ -43,7 +68,7 @@ module.exports = withFaust({
       },
       {
         source: '/#/tribeca-loft',
-        destination: '/project/tribeca-loft',
+        destination: '/project/manhattan-loft',
         permanent: true,
       },
       {
@@ -53,7 +78,12 @@ module.exports = withFaust({
       },
       {
         source: '/#/prospect-park-south',
-        destination: '/project/prospect-park-south-home',
+        destination: '/project/brooklyn-victorian',
+        permanent: true,
+      },
+      {
+        source: '/project/prospect-park-south-home',
+        destination: '/project/brooklyn-victorian',
         permanent: true,
       },
       {
@@ -113,7 +143,7 @@ module.exports = withFaust({
       },
       {
         source: '/#/chelsea-apartment',
-        destination: '/project/chelsea-apartment',
+        destination: '/project/chelsea-kitchen',
         permanent: true,
       },
       {
@@ -123,12 +153,12 @@ module.exports = withFaust({
       },
       {
         source: '/#/boerum-hill-duplex',
-        destination: '/project/boerum-hill-upper-duplex',
+        destination: '/project/townhouse-duplex',
         permanent: true,
       },
       {
         source: '/#/boerum-hill-duplex-1',
-        destination: '/project/boerum-hill-lower-duplex',
+        destination: '/project/townhouse-duplex',
         permanent: true,
       },
       {

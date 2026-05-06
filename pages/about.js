@@ -86,6 +86,7 @@ export default function Page(props) {
     });
 
   const openingsTitleRef = React.useRef();
+  const featuredTeamMembersImageRef = React.useRef();
 
   React.useEffect(() => {
     setJobListings(studioOpenings.jobListings?.filter((job) => job.active));
@@ -120,6 +121,14 @@ export default function Page(props) {
   React.useEffect(() => {
     Helper.setupIntersectionObserver(openingsTitleRef, handleIntersection);
   }, [openingsTitleRef]);
+
+  React.useEffect(() => {
+    if (!ourTeam?.featuredTeamMembersImage?.node?.mediaItemUrl) return;
+    Helper.setupIntersectionObserver(
+      featuredTeamMembersImageRef,
+      handleIntersection
+    );
+  }, [ourTeam?.featuredTeamMembersImage?.node?.mediaItemUrl]);
 
   const handleIntersection = (entries) => {
     const [entry] = entries;
@@ -341,12 +350,38 @@ export default function Page(props) {
             )}
 
             {ourTeam.featuredTeamMembers?.length > 0 && (
-              <div className="w-full max-w-[1120px] grid grid-cols-1 gap-y-12 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-0">
-                {ourTeam.featuredTeamMembers.map((teamMember, i) => (
-                  <div key={`featured-team-member-${i}`} className="w-full">
-                    <TeamStudioFeatured data={{ ...teamMember }} />
+              <div className="w-full max-w-[1120px]">
+                {ourTeam.featuredTeamMembersImage?.node?.mediaItemUrl && (
+                  <div
+                    className="animate-reveal w-full"
+                    ref={featuredTeamMembersImageRef}
+                  >
+                    <Image
+                      src={ourTeam.featuredTeamMembersImage.node.mediaItemUrl}
+                      alt={
+                        ourTeam.featuredTeamMembersImage.node.altText || ''
+                      }
+                      width={
+                        ourTeam.featuredTeamMembersImage.node.mediaDetails
+                          ?.width || 1120
+                      }
+                      height={
+                        ourTeam.featuredTeamMembersImage.node.mediaDetails
+                          ?.height || 628
+                      }
+                      className="w-full h-auto"
+                      sizes="(min-width: 1280px) 1120px, 100vw"
+                      unoptimized={true}
+                    />
                   </div>
-                ))}
+                )}
+                <div className="w-full grid grid-cols-1 gap-y-12 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-0">
+                  {ourTeam.featuredTeamMembers.map((teamMember, i) => (
+                    <div key={`featured-team-member-${i}`} className="w-full">
+                      <TeamStudioFeatured data={{ ...teamMember }} />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -452,6 +487,16 @@ Page.query = gql`
             node {
               altText
               mediaItemUrl
+            }
+          }
+          featuredTeamMembersImage {
+            node {
+              altText
+              mediaItemUrl
+              mediaDetails {
+                width
+                height
+              }
             }
           }
           featuredTeamMembers {
