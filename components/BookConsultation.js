@@ -64,14 +64,14 @@ export const BookConsultation = ({ fmSettings }) => {
               data-block-order="1"
               ref={scrollRevealRefs[0]}
             >
-              { `“${headingText}”` }
-              {
+              { headingText }
+              {/* {
                 headingAuthor && (
                   <span className="block mt-2 text-sm italic tracking-[0.48px] sm:tracking-[0.63px]">
                     — { headingAuthor }
                   </span>
                 )
-              }
+              } */}
             </p>
           )
         }
