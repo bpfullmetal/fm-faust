@@ -7,17 +7,26 @@ import { PageLayout } from '../components';
 import Helper from '../helper';
 
 export default function Page(props) {
+  const queryVariables = React.useMemo(() => Page.variables(), []);
   const { data, fetchMore } = useQuery(Page.query, {
-    variables: Page.variables(),
+    variables: queryVariables,
     notifyOnNetworkStatusChange: true,
   });
 
+  console.log('WORDPRESS URL', process.env.NEXT_PUBLIC_WORDPRESS_URL);
+
+  console.log('DATA', data)
+
   const pressConnection = data?.page?.pressPageFields?.pressArticles;
-  const edges = pressConnection?.edges ?? [];
+  const edges = React.useMemo(
+    () => pressConnection?.edges ?? [],
+    [pressConnection?.edges]
+  );
+
   const endCursor = pressConnection?.pageInfo?.endCursor ?? null;
   const hasNextPage = pressConnection?.pageInfo?.hasNextPage ?? false;
 
-  const postsPerPage = 3;
+  const postsPerPage = 6;
   const [allPress, setAllPress] = React.useState([]);
   const [isLoadingMore, setIsLoadingMore] = React.useState(false);
   const [pressRefs, setWorkPressRefs] = React.useState([]);
@@ -26,7 +35,32 @@ export default function Page(props) {
   const isFetchingRef = React.useRef(false);
 
   React.useEffect(() => {
-    setAllPress(edges);
+    if (!edges.length) return;
+
+    setAllPress((currentPress) => {
+      if (!currentPress.length) {
+        return edges;
+      }
+
+      const existingIds = new Set(
+        currentPress.map((edge) => edge?.node?.id).filter(Boolean)
+      );
+      const mergedPress = [...currentPress];
+
+      edges.forEach((edge) => {
+        const nodeId = edge?.node?.id;
+
+        if (!nodeId || !existingIds.has(nodeId)) {
+          mergedPress.push(edge);
+
+          if (nodeId) {
+            existingIds.add(nodeId);
+          }
+        }
+      });
+
+      return mergedPress;
+    });
 
     if (!hasNextPage) {
       lastRequestedCursorRef.current = null;
@@ -51,17 +85,18 @@ export default function Page(props) {
 
           fetchMore({
             variables: {
-              uri: 'press',
+              id: queryVariables.id,
               first: postsPerPage,
               after: endCursor,
             },
             updateQuery: (previousResult, { fetchMoreResult }) => {
-              if (!fetchMoreResult?.page?.pressPageFields?.pressArticles?.edges?.length) {
+              const previousConnection = previousResult?.page?.pressPageFields?.pressArticles;
+              const nextConnection = fetchMoreResult?.page?.pressPageFields?.pressArticles;
+
+              if (!previousConnection || !nextConnection?.edges?.length) {
                 return previousResult;
               }
 
-              const previousConnection = previousResult.page.pressPageFields.pressArticles;
-              const nextConnection = fetchMoreResult.page.pressPageFields.pressArticles;
               const existingIds = new Set(
                 previousConnection.edges.map((edge) => edge?.node?.id).filter(Boolean)
               );
@@ -80,13 +115,14 @@ export default function Page(props) {
               });
 
               return {
-                ...fetchMoreResult,
+                ...previousResult,
                 page: {
-                  ...fetchMoreResult.page,
+                  ...previousResult.page,
                   pressPageFields: {
-                    ...fetchMoreResult.page.pressPageFields,
+                    ...previousResult.page.pressPageFields,
                     pressArticles: {
-                      ...nextConnection,
+                      ...previousConnection,
+                      pageInfo: nextConnection.pageInfo,
                       edges: mergedEdges,
                     },
                   },
@@ -107,11 +143,18 @@ export default function Page(props) {
   React.useEffect(() => {
     if (!allPress.length) return;
 
-    const newRefs = Array(allPress.length)
-      .fill(1)
-      .map((_) => React.createRef());
+    setWorkPressRefs((currentRefs) => {
+      if (currentRefs.length >= allPress.length) {
+        return currentRefs;
+      }
 
-    setWorkPressRefs(newRefs);
+      return [
+        ...currentRefs,
+        ...Array(allPress.length - currentRefs.length)
+          .fill(1)
+          .map((_) => React.createRef()),
+      ];
+    });
 
     Helper.setupIntersectionObserver(morePressRef, handleIntersection, {
       threshold: 0.5,
@@ -139,19 +182,19 @@ export default function Page(props) {
               <div
                 className={`${
                   isPreload ? '!hidden' : ''
-                } press-block animate-reveal text-white text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]${ i === press.length - 1 ? '' : ' border-b border-white' }`}
-                key={`press-${i}`}
+                } press-block${i < postsPerPage ? ' reveal' : ''} animate-reveal text-white text-xl leading-none tracking-[0.4px] sm:text-2xl sm:tracking-[0.48px]${ i === press.length - 1 ? '' : ' border-b border-white' }`}
+                key={article.node?.id ?? `press-${i}`}
                 data-ref-type="press"
                 data-title={article.node.title}
                 ref={pressRefs[i]}
               >
               
-                <Link passHref href={article.node?.pressFields?.link ?? '#'}>
-                  <a className="press-link py-6 px-4 block pr-20" target="_blank" rel="noopener noreferrer">
+                <Link className="press-link py-6 px-4 block pr-20" href={article.node?.pressFields?.link ?? '#'} target="_blank" rel="noopener noreferrer">
+                  
                     {article.node?.pressFields?.publication && (
                       <span className="text-xs uppercase publication">{article.node?.pressFields?.publication}</span>
                     )}
-                    <p>{article.node.title}</p>
+                    <p className="mt-2 leading-8">{article.node.title}</p>
                     <div className="press-arrow absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 opacity-0">
                       <svg className="w-full h-full" width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="66.9453" cy="66.9453" r="66.9453" fill="#521414"/>
@@ -161,7 +204,6 @@ export default function Page(props) {
                       </svg>
 
                     </div>
-                  </a>
                 </Link>
               </div>
             );
@@ -171,11 +213,6 @@ export default function Page(props) {
             data-ref-type="more-press"
             ref={morePressRef}
           />
-          {isLoadingMore && hasNextPage ? (
-            <div className="col-span-full py-4 text-dark_green text-base">
-              Loading more press...
-            </div>
-          ) : null}
         </section>
       </div>
     </PageLayout>
@@ -183,8 +220,8 @@ export default function Page(props) {
 }
 
 Page.query = gql`
-  query GetPageDataByURI($uri: ID!, $first: Int!, $after: String) {
-    page(id: $uri, idType: URI) {
+  query GetPageDataByURI($id: ID!, $first: Int!, $after: String) {
+    page(id: $id, idType: DATABASE_ID) {
       uri
       title
       pressPageFields {
@@ -212,10 +249,10 @@ Page.query = gql`
   }
 `;
 
-Page.variables = () => {
+Page.variables = (seedQuery, context, data) => {
   return {
-    uri: 'press',
-    first: 3,
+    id: process.env.NEXT_PUBLIC_WORDPRESS_URL?.includes('stg') ? '2709' : '2709',
+    first: 6,
     after: null,
   };
 };

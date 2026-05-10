@@ -4,6 +4,8 @@ import Helper from '../helper';
 import Link from 'next/link'
 
 export const BookConsultation = ({ fmSettings }) => {
+  const [randomImageIndex, setRandomImageIndex] = React.useState(0);
+  const [randomTextIndex, setRandomTextIndex] = React.useState(0);
   const [scrollRevealRefs] = React.useState(
     Array(3)
       .fill()
@@ -15,6 +17,19 @@ export const BookConsultation = ({ fmSettings }) => {
       Helper.setupIntersectionObserver(ref, handleIntersection)
     );
   }, [scrollRevealRefs]);
+
+  React.useEffect(() => {
+    const imageOptions = fmSettings?.imageOptions ?? [];
+    const textContentOptions = fmSettings?.textContentOptions ?? [];
+
+    if (imageOptions.length > 0) {
+      setRandomImageIndex(Math.floor(Math.random() * imageOptions.length));
+    }
+
+    if (textContentOptions.length > 0) {
+      setRandomTextIndex(Math.floor(Math.random() * textContentOptions.length));
+    }
+  }, [fmSettings]);
 
   const handleIntersection = (entries) => {
     const [entry] = entries;
@@ -29,15 +44,18 @@ export const BookConsultation = ({ fmSettings }) => {
     }
   };
 
-  const image = fmSettings?.consultationImage?.node;
-  const headingText = fmSettings?.consultationHeadingText;
+  const image = fmSettings?.imageOptions?.[randomImageIndex]?.image?.node
+    ?? fmSettings?.consultationImage?.node;
+  const headingText = fmSettings?.textContentOptions?.[randomTextIndex]?.textContent
+    ?? fmSettings?.consultationHeadingText;
+  const headingAuthor = fmSettings?.textContentOptions?.[randomTextIndex]?.author
   const link = fmSettings?.consultationLink;
 
   const width = image?.mediaDetails?.width;
   const height = image?.mediaDetails?.height;
 
   return (
-    <section className="relative py-36 bg-dark_red z-[11]">
+    <section className="relative py-18 md:py-36 bg-dark_red z-[11]">
       <div className="flex flex-col items-center justify-center max-w-main mx-auto px-5 sm:px-12">
         {
           headingText && (
@@ -47,13 +65,20 @@ export const BookConsultation = ({ fmSettings }) => {
               ref={scrollRevealRefs[0]}
             >
               { headingText }
+              {/* {
+                headingAuthor && (
+                  <span className="block mt-2 text-sm italic tracking-[0.48px] sm:tracking-[0.63px]">
+                    — { headingAuthor }
+                  </span>
+                )
+              } */}
             </p>
           )
         }
         {
           image && (
             <div
-              className="scroll-reveal w-full max-w-[320px] my-9 sm:max-w-[540px] sm:my-16"
+              className="scroll-reveal w-full max-w-[320px] mt-9 sm:max-w-[540px] sm:mt-16"
               data-block-order="2"
               ref={scrollRevealRefs[1]}
             >
@@ -70,7 +95,7 @@ export const BookConsultation = ({ fmSettings }) => {
                   }
                   width={width}
                   height={height}
-                  layout="responsive"
+                  // layout="responsive"
                   loading="lazy"
                   sizes="(min-width: 768px) 50vw, 100vw"
                   unoptimized={true}

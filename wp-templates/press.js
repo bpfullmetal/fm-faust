@@ -1,6 +1,4 @@
-
-import { gql } from '@apollo/client';
-
+import { gql, useQuery } from '@apollo/client';
 export default function Component(props) {
   return <></>
 }
@@ -9,20 +7,26 @@ Component.query = gql`
   query GetPageDataByURI($uri: ID!) {
     page(id: $uri, idType: URI) {
       uri
+      title
       pressPageFields {
-      pressArticles(first: 10) {
-        edges {
-          node {
-            ... on Press {
-              id
-              pressFields {
-                fieldGroupName
-                link
-                publicatio
+        pressArticles(first: $first, after: $after) {
+          edges {
+            node {
+              ... on Press {
+                id
+                title
+                pressFields {
+                  link
+                  publication
+                }
               }
             }
+            cursor
           }
-          cursor
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
         }
       }
     }
@@ -34,3 +38,7 @@ Component.variables = (seedQuery, context, data) => {
     uri: 'press',
   };
 };
+
+// export function getStaticProps(ctx) {
+//   return getNextStaticProps(ctx, {Page, props: {title: 'Press Page'}});
+// }

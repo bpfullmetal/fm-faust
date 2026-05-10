@@ -1,7 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@config "../tailwind.config.cjs";
+@import "tailwindcss";
 @import '../assets/fonts/fonts.css';
 
 * {
@@ -81,6 +79,13 @@ header .logo svg,
 footer .logo svg {
   width: auto;
   height: 100%;
+}
+
+
+@media (orientation: portrait) {
+  .h-home_banner {
+    height: 56.25vw!important;
+  }
 }
 
 /* Homepage Banner */
@@ -296,6 +301,17 @@ footer .logo svg {
   top: 100%;
   left: 0;
 }
+
+.work-project .wp-block-image, .work-project .wp-block-column {
+  display: block;
+}
+
+.work-project .wp-block-image span, .work-project .wp-block-image span img {
+  position: relative!important;
+  height: auto!important;
+  overflow: unset!important;
+
+}
 .work-project .project-block .description-reveal {
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0, 0, 0.58, 1),
@@ -352,6 +368,20 @@ footer .logo svg {
 .next-project svg path {
   transform: scale(1)
     translate(calc((100vw - 660px) / 2), calc((100vh - 440px) / 2));
+}
+
+.next-project__inner {
+  @media (max-width: 599px) {
+    .text-lg {
+      font-size: 36px;
+    }
+
+    .text-lg + .uppercase {
+      letter-spacing: 3px;
+      text-decoration: underline;
+      text-underline-offset: 8px;
+    }
+  }
 }
 
 /* Project Carousel Modal */
@@ -416,21 +446,126 @@ footer .logo svg {
 article {
   display: flex;
   flex-wrap: wrap;
-  gap: 3vw;
+  gap: 4vw;
 }
+
+#project-images-container {
+  padding-left: 4vw;
+  padding-right: 4vw;
+}
+
 .wp-block-columns.is-layout-flex {
   display: flex;
   justify-content: space-between;
-  gap: 3vw;
+  gap: 4vw;
+  /* align-items: flex-start; */
 }
 
 .wp-block-column {
   display: none;
+  overflow: hidden;
+}
+
+@media (max-width: 599px) {
+  .wp-block-column {
+    flex: 1 100%!important;
+    max-width: 100%!important;
+  }
+}
+
+@media (max-width: 599px) {
+  .wp-block-columns.is-layout-flex {
+    flex-wrap: wrap;
+  }
+}
+
+.wp-block-columns:not(:last-of-type), .work-project .wp-block-image:not(:last-of-type) {
+  margin-bottom: 4vw;
+}
+
+
+.work-project .wp-block-columns .wp-block-image {
+  margin-bottom: 0;
+}
+
+.work-project .wp-block-columns .wp-inner-paragraph {
+  flex-direction: column;
+  height: auto;
+}
+
+.work-project .wp-block-columns .wp-inner-paragraph:not(.reveal) {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.work-project .wp-block-columns .wp-block-paragraph {
+  line-height: 2.2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.work-project .wp-block-columns .wp-block-paragraph {
+  text-align: justify!important;
+  text-justify: distribute-all-lines;
+}
+
+.work-project .wp-block-paragraph.has-large-font-size {
+  font-size: 18px;
+}
+
+.work-project .wp-block-columns .wp-block-paragraph:not(:last-of-type) {
+  margin-bottom: 2rem;
+}
+
+.work-project .wp-block-columns .wp-inner-paragraph .wp-block-column__inner {
+  padding: 2rem 3rem 2rem 3rem;
+}
+
+.wp-block-columns .wp-block-column, .wp-block-columns .wp-block-column .wp-block-column__inner {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+
+.wp-block-columns .wp-block-column .wp-block-column__inner {
+  display: block;
+  height: auto;
 }
 
 .wp-block-columns .wp-block-column {
-  display: block;
+  text-align: left;
+}
+
+.wp-block-columns .wp-block-column:last-of-type {
+  text-align: right;
+}
+
+.wp-block-columns .wp-block-column:last-of-type.wp-inner-paragraph .wp-block-column__inner {
+  padding: 3rem 0;
+}
+
+/* Image column: make the figure/wrapper fill the column height */
+.work-project .wp-inner-image,
+.work-project .wp-inner-image .wp-block-image {
   flex: 1;
+  display: flex;
+}
+
+.work-project .wp-inner-image .wp-block-image { 
+  height: 100%;
+}
+
+.work-project .wp-inner-image .wp-block-image > div {
+  /* this is your relative wrapper around <Image layout="fill"> */
+  flex: 1;
+  width: 100%;
+  height: 100%;          /* key: allow it to stretch */
+  padding-bottom: 0 !important; /* if you had padding-bottom fallback */
+}
+
+/* Ensure the actual <img> covers the stretched box */
+.work-project .wp-inner-image img {
+  object-fit: cover;
 }
 
 .wp-block-columns.is-layout-flex img {
@@ -448,6 +583,11 @@ article {
     column-gap: 20px;
     column-count: 2;
   }
+
+  .wp-block-columns .wp-block-column:last-of-type.wp-inner-paragraph .wp-block-column__inner {
+    padding: 1rem 0;
+  }
+
 }
 
 @media (max-width: 639px) {

@@ -19,8 +19,8 @@ export const NotFoundProject = () => {
           <h1 className="text-xl">Oops, this project doesn’t exist.</h1>
           <p>
             View some of our{' '}
-            <Link href="/work" passHref>
-              <a className="underline">case studies</a>
+            <Link href="/work" className="underline">
+              case studies
             </Link>{' '}
             instead :)
           </p>

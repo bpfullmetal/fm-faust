@@ -86,6 +86,7 @@ export default function Page(props) {
     });
 
   const openingsTitleRef = React.useRef();
+  const featuredTeamMembersImageRef = React.useRef();
 
   React.useEffect(() => {
     setJobListings(studioOpenings.jobListings?.filter((job) => job.active));
@@ -120,6 +121,14 @@ export default function Page(props) {
   React.useEffect(() => {
     Helper.setupIntersectionObserver(openingsTitleRef, handleIntersection);
   }, [openingsTitleRef]);
+
+  React.useEffect(() => {
+    if (!ourTeam?.featuredTeamMembersImage?.node?.mediaItemUrl) return;
+    Helper.setupIntersectionObserver(
+      featuredTeamMembersImageRef,
+      handleIntersection
+    );
+  }, [ourTeam?.featuredTeamMembersImage?.node?.mediaItemUrl]);
 
   const handleIntersection = (entries) => {
     const [entry] = entries;
@@ -207,13 +216,13 @@ export default function Page(props) {
 
       <section
         id={stringToSlug(intro?.menuName ?? '')}
-        className="relative flex"
+        className="relative flex bg-dark_blue"
         ref={navSectionRefs[0]}
         data-section-index="0"
         data-animate-ref="section"
         data-background="dark"
       >
-        {
+        {/* {
           intro.backgroundVideo ? (
             <div className="absolute w-full h-full object-cover">
               {
@@ -224,7 +233,7 @@ export default function Page(props) {
                       className="featured-image-wrapper w-full h-full object-cover absolute"
                       src={intro.backgroundImage.node.mediaItemUrl}
                       alt={intro.backgroundImage.node.altText}
-                      layout="fill"
+                      fill
                       priority={true}
                       unoptimized={true}
                     />
@@ -250,14 +259,14 @@ export default function Page(props) {
                   src={intro.backgroundImage.node.mediaItemUrl}
                   alt={intro.backgroundImage.node.altText}
                   priority={true}
-                  layout="fill"
+                  fill
                   unoptimized={true}
                 />
               )
               : <div className="absolute w-full h-full bg-dark_blue"></div>
-        }
+        } */}
 
-        <div className="absolute inset-0 bg-dark_blue"></div>
+        {/* <div className="absolute inset-0 bg-black bg-opacity-20"></div> */}
 
         <div className="relative w-full max-w-main mx-auto px-5 sm:px-12">
           <div className="relative max-w-[860px] flex flex-col items-between ml-auto">
@@ -297,27 +306,25 @@ export default function Page(props) {
 
       <section
         id={stringToSlug(ourTeam?.menuName ?? '')}
-        className="bg-dark_red py-48"
+        className="bg-dark_red py-36"
         ref={navSectionRefs[1]}
         data-section-index="1"
         data-animate-ref="section"
         data-background="dark"
       >
-        <div className="flex flex-col justify-end w-full max-w-main mx-auto px-5 sm:px-12 lg:flex-row">
-          <div className="flex h-fit mb-4 lg:justify-end lg:mb-0">
+        <div className="flex justify-end w-full max-w-main mx-auto px-5 sm:px-12">
+          <div className="w-full max-w-[860px] flex flex-col">
             <p
-              className="animate-reveal text-4xl leading-none tracking-[0.36px] lg:w-[200px] lg:text-[65px] lg:leading-[65px] lg:tracking-[0.65px] lg:mr-10"
+              className="animate-reveal text-4xl leading-none tracking-[0.36px] mb-2 lg:text-[65px] lg:leading-[65px] lg:tracking-[0.65px] lg:mb-4"
               ref={ourTeamRefs[0]}
               data-animate-ref="our-team"
               data-index="1"
             >
               Our Team
             </p>
-          </div>
 
-          <div className="max-w-[860px] flex flex-col">
             {(ourTeam?.featuredImage?.node?.mediaItemUrl || ourTeam.description) && (
-              <div className="flex flex-col mb-48">
+              <div className="flex flex-col mb-36">
                 {ourTeam?.featuredImage?.node?.mediaItemUrl && (
                   <div className="animate-reveal" ref={ourTeamRefs[1]}>
                     <Image
@@ -325,7 +332,7 @@ export default function Page(props) {
                       alt={ourTeam?.featuredImage?.node?.altText || 'Our team'}
                       // width={ourTeam?.featuredImage?.node?.mediaDetails?.width}
                       // height={ourTeam?.featuredImage?.node?.mediaDetails?.height}
-                      layout="fill"
+                      fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       unoptimized={true}
                     />
@@ -342,17 +349,41 @@ export default function Page(props) {
               </div>
             )}
 
-            {ourTeam.featuredTeamMembers &&
-              ourTeam.featuredTeamMembers.map((teamMember, i) => (
-                <div
-                  key={`featured-team-member-${i}`}
-                  className={`flex flex-col${i % 2 !== 0 ? ' items-end' : ''}${
-                    i !== ourTeam.featuredTeamMembers.length - 1 ? ' mb-12 lg:mb-24' : ''
-                  }`}
-                >
-                  <TeamStudioFeatured data={{ ...teamMember }} />
+            {ourTeam.featuredTeamMembers?.length > 0 && (
+              <div className="w-full max-w-[1120px]">
+                {ourTeam.featuredTeamMembersImage?.node?.mediaItemUrl && (
+                  <div
+                    className="animate-reveal w-full"
+                    ref={featuredTeamMembersImageRef}
+                  >
+                    <Image
+                      src={ourTeam.featuredTeamMembersImage.node.mediaItemUrl}
+                      alt={
+                        ourTeam.featuredTeamMembersImage.node.altText || ''
+                      }
+                      width={
+                        ourTeam.featuredTeamMembersImage.node.mediaDetails
+                          ?.width || 1120
+                      }
+                      height={
+                        ourTeam.featuredTeamMembersImage.node.mediaDetails
+                          ?.height || 628
+                      }
+                      className="w-full h-auto"
+                      sizes="(min-width: 1280px) 1120px, 100vw"
+                      unoptimized={true}
+                    />
+                  </div>
+                )}
+                <div className="w-full grid grid-cols-1 gap-y-12 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-0">
+                  {ourTeam.featuredTeamMembers.map((teamMember, i) => (
+                    <div key={`featured-team-member-${i}`} className="w-full">
+                      <TeamStudioFeatured data={{ ...teamMember }} />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+            )}
 
             {ourTeam.teamMembers && (
               <div className="flex flex-wrap mt-20 lg:mt-32">
@@ -456,6 +487,16 @@ Page.query = gql`
             node {
               altText
               mediaItemUrl
+            }
+          }
+          featuredTeamMembersImage {
+            node {
+              altText
+              mediaItemUrl
+              mediaDetails {
+                width
+                height
+              }
             }
           }
           featuredTeamMembers {

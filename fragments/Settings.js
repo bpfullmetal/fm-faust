@@ -13,6 +13,22 @@ export const FmSettingsFragment = gql`
           }
         }
       }
+      textContentOptions {
+        textContent
+        author
+      }
+      imageOptions {
+        image {
+          node {
+            altText
+            mediaItemUrl
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
       consultationHeadingText
       consultationLink {
         target

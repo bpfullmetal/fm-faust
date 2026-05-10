@@ -1,17 +1,15 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import ProjectContent from '../../../components/Project/ProjectContent';
 import { NotFoundProject, PageLayout } from '../../../components';
 
-export default function Page(props) {
-  const { query } = useRouter();
-  const projectUri = query.projectSlug;
-
+export default function Page({ projectSlug }) {
   const scrollContainerRef = React.useRef();
+  const projectUri = Array.isArray(projectSlug) ? projectSlug[0] : projectSlug;
 
   const { data, loading } = useQuery(gqlquery, {
+    skip: !projectUri,
     variables: { id: `/project/${projectUri}/` },
   });
 
@@ -53,6 +51,76 @@ const gqlquery = gql`
           altText
         }
       }
+      editorBlocks {
+        name
+        clientId
+        blockEditorCategoryName
+        ... on CoreColumns {
+          anchor
+          apiVersion
+          name
+          attributes {
+            align
+            verticalAlignment
+            isStackedOnMobile
+            cssClassName
+            layout
+            style
+          }
+          innerBlocks {
+            blockEditorCategoryName
+            ... on CoreImage {
+              anchor
+              apiVersion
+              attributes {
+                id
+              }
+              mediaDetails {
+                file
+                filePath
+                height
+                width
+              }
+              name
+            }
+            ... on CoreColumn {
+              anchor
+              apiVersion
+              name
+              attributes {
+                cssClassName
+                width
+                verticalAlignment
+                layout
+                style
+              }
+              innerBlocks {
+                ... on CoreImage {
+                  mediaDetails {
+                    filePath
+                    height
+                    width
+                    file
+                  }
+                  attributes {
+                    id
+                  }
+                  name
+                }
+                ... on CoreParagraph {
+                  attributes {
+                    align
+                    content
+                    cssClassName
+                    style
+                  }
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
       projectsSingle {
         projectDetails {
           attributes {
@@ -88,8 +156,19 @@ const gqlquery = gql`
   }
 `;
 
-export function getStaticProps(ctx) {
-  return getNextStaticProps(ctx, { Page });
+export async function getStaticProps(ctx) {
+  const faustProps = await getNextStaticProps(ctx, { Page });
+  const projectSlug = Array.isArray(ctx.params?.projectSlug)
+    ? ctx.params.projectSlug[0]
+    : ctx.params?.projectSlug ?? null;
+
+  return {
+    ...faustProps,
+    props: {
+      ...faustProps.props,
+      projectSlug,
+    },
+  };
 }
 
 export async function getStaticPaths() {

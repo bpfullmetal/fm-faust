@@ -24,26 +24,39 @@ export default function Header({
   const [scrollPercentage, setScrollPercentage] = React.useState(0);
 
   React.useEffect(() => {
-    if (options?.scrollIndicator?.current) {
-      const updateScrollPercentage = () => {
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        
-        const scrollContainerHeight = options.scrollIndicator.current.clientHeight;
-        // const scrollContainerHeight = document.getElementById(options.scrollIndicator).clientHeight;
-        
-        // const totalScroll = scrollContainerHeight - windowHeight;
-        const percentage = (scrollPosition / scrollContainerHeight) * 100;
-        setScrollPercentage(percentage);
-      };
+    const updateScrollPercentage = () => {
+      const scrollEl = options?.scrollIndicator?.current;
 
-      window.addEventListener('scroll', updateScrollPercentage);
+      if (!scrollEl) {
+        setScrollPercentage(0);
+        return;
+      }
 
-      return () => {
-        window.removeEventListener('scroll', updateScrollPercentage);
-      };
-    }
-  }, []);
+      const scrollPosition = window.scrollY;
+      const scrollContainerHeight = scrollEl.clientHeight;
+
+      if (!scrollContainerHeight) {
+        setScrollPercentage(0);
+        return;
+      }
+
+      const percentage = (scrollPosition / scrollContainerHeight) * 100;
+      setScrollPercentage(percentage);
+    };
+
+    updateScrollPercentage();
+
+    window.addEventListener('scroll', updateScrollPercentage);
+    window.addEventListener('resize', updateScrollPercentage);
+
+    const raf = requestAnimationFrame(updateScrollPercentage);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', updateScrollPercentage);
+      window.removeEventListener('resize', updateScrollPercentage);
+    };
+  }, [options]);
 
   return (
     <div className="sticky top-0 z-20">
@@ -59,11 +72,10 @@ export default function Header({
               >
                 <Link
                   href={link.label === 'Home' ? '/' : link.path ?? ''}
-                  passHref={link.label === 'Home' ? true : false }
                   replace={link.label === 'Design' ? true: false}
                 >
                   {link.label === 'Home' ? (
-                    <a><div className="home-logo"></div></a>
+                    <div className="home-logo"></div>
                   ) : link.label}
                 </Link>
               </li>
@@ -71,14 +83,12 @@ export default function Header({
           })}
           <li className="text-black text-sm py-3 icon-instagram">
             <Link
-              passHref
               href="https://www.instagram.com/frances.mildred/"
               target="_blank"
               rel="noreferrer"
+              className="flex"
             >
-              <a className="flex">
-                <Image src={IconInstagram} alt="instagram" />
-              </a>
+              <Image src={IconInstagram} alt="instagram" />
             </Link>
           </li>
         </ul>

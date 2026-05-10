@@ -77,9 +77,11 @@ const BlockFeaturedProject = ({ data }) => {
           src={projectImage.mediaItemUrl}
           alt={projectImage.altText}
           loading="eager"
-          objectFit="cover"
-          objectPosition="center"
-          layout="fill"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center'
+          }}
+          fill
           priority={true}
           unoptimized={true}
           // sizes="80vw"
@@ -108,12 +110,10 @@ const BlockFeaturedProject = ({ data }) => {
             )}
             {projectLink && (
               <Link
-                passHref
                 href={projectLink.url}
+                className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8"
               >
-                <a className="text-base text-white leading-tight tracking-[0.48px] underline sm:text-2xl lg:pl-8">
-                  {projectLink.title}
-                </a>
+                {projectLink.title}
               </Link>
             )}
           </div>

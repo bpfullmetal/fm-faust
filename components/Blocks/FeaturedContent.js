@@ -37,6 +37,10 @@ const BlockFeaturedContent = ({ data }) => {
     entry.target.classList.add('reveal');
   };
 
+  if ( featuredContent.title === null && (!featuredContent.content || !featuredContent.content.length) ) {
+    return null;
+  }
+
   return (
     <section className="flex flex-col max-w-main mx-auto pt-14 px-5 space-y-32 sm:px-12 md:flex-row md:space-y-0">
       {featuredContent.title && (

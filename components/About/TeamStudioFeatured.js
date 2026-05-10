@@ -48,21 +48,20 @@ const TeamStudioFeatured = ({ data }) => {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-[500px]">
+    <div className="flex flex-col w-full">
       {data?.image?.node?.mediaItemUrl && (
         <div
           className="animate-reveal team-featured__image relative w-full"
           data-animate-ref="image"
           ref={scrollRevealRefs[0]}
         >
-          <div className="w-full relative">
+          <div className="relative w-full aspect-[333/507] overflow-hidden">
             <Image
               className="w-full h-full object-cover"
               src={data?.image?.node?.mediaItemUrl}
               alt={data?.image?.node?.altText ?? ''}
-              height={data?.image?.node?.mediaDetails?.height}
-              width={data?.image?.node?.mediaDetails?.width}
-              layout="responsive"
+              fill
+              sizes="(min-width: 1024px) 42vw, 100vw"
               unoptimized={true}
             />
           </div>

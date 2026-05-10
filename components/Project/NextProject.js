@@ -96,7 +96,7 @@ const NextProjectContent = ({ nextProjectId }) => {
           }`}
         >
           <div
-            className={`flex items-center flex-col items-baseline md:items-center md:justify-center relative ${
+            className={`next-project__inner flex items-center flex-col items-baseline md:items-center md:justify-center relative ${
               !isMobile ? 'w-screen h-screen' : 'py-32 px-8'
             }`}
           >
@@ -104,23 +104,22 @@ const NextProjectContent = ({ nextProjectId }) => {
               <Link
                 passHref
                 href={nextProject.uri}
+                className={!isMobile ? 'static' : 'relative w-full h-auto'}
               >
-                <a className={!isMobile ? 'static' : 'relative w-full h-auto'}>
-                  <Image
-                    loading="eager"
-                    className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
-                    src={nextProject.featuredImage.node.mediaItemUrl}
-                    layout="fill"
-                    // width={nextProject.featuredImage.node.mediaDetails.width}
-                    // height={nextProject.featuredImage.node.mediaDetails.height}
-                    alt={
-                      nextProject.featuredImage.node.altText ||
-                      nextProject.title
-                    }
-                    unoptimized={true}
-                    // sizes="(min-width: 1024px) 60vw, 70vw"
-                  />
-                </a>
+                <Image
+                  loading="eager"
+                  className={!isMobile ? 'w-full h-full' : 'relative w-full h-auto'}
+                  src={nextProject.featuredImage.node.mediaItemUrl}
+                  fill
+                  // width={nextProject.featuredImage.node.mediaDetails.width}
+                  // height={nextProject.featuredImage.node.mediaDetails.height}
+                  alt={
+                    nextProject.featuredImage.node.altText ||
+                    nextProject.title
+                  }
+                  unoptimized={true}
+                  // sizes="(min-width: 1024px) 60vw, 70vw"
+                />
               </Link>
             )}
             <svg width="0" height="0">
@@ -141,13 +140,13 @@ const NextProjectContent = ({ nextProjectId }) => {
               Next Project
             </p>
             <p
-              className={`relative max-w-[600px] text-lg md:text-[58px] md:leading-[58px] md:text-center${
+              className={`relative max-w-[600px] text-lg md:text-[58px] md:leading-[58px] text-center${
                 !nextProject.featuredImage || isMobile
                   ? ' text-black'
                   : ''
               }`}
             >
-              <Link href={nextProject.uri}>
+              <Link href={nextProject.uri} className="text-center">
                 {nextProject.title}
               </Link>
             </p>

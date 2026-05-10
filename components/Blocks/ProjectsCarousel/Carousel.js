@@ -48,30 +48,30 @@ const ProjectsCarousel = ({ slides }) => {
                 className="swiper-slide-image bg-[#f8f8f8] rounded aspect-[5/7]"
               >
                 {project.image && (
-                  <Link href={project.link} passHref>
-                    <a>
-                      <Image
-                        className="featured-image-wrapper rounded"
-                        src={project.image.sourceUrl}
-                        alt={project.image.altText || project.title}
-                        // width={project.image.mediaDetails.width}
-                        // height={project.image.mediaDetails.height}
-                        layout="fill"
-                        loading="eager"
-                        objectFit="cover"
-                        objectPosition="center"
-                        sizes="(min-width: 1024px) 50vw, 50vw"
-                        unoptimized={true}
-                      />
-                    </a>
+                  <Link href={project.link}>
+                    <Image
+                      className="featured-image-wrapper rounded"
+                      src={project.image.sourceUrl}
+                      alt={project.image.altText || project.title}
+                      // width={project.image.mediaDetails.width}
+                      // height={project.image.mediaDetails.height}
+                      fill
+                      loading="eager"
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: 'center'
+                      }}
+                      sizes="(min-width: 1024px) 50vw, 50vw"
+                      unoptimized={true}
+                    />
                   </Link>
                 )}
               </div>
               <div className="flex flex-col flex-wrap items-start text-dark_green">
-                <Link href={project.link} passHref>
-                  <a className="text-md leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7">
-                    {project.title}
-                  </a>
+                <Link 
+                  href={project.link}
+                  className="text-md leading-[20px] tracking-[0.4px] mt-2 mr-3 sm:text-lg sm:tracking-[0.48px] sm:mr-7">
+                  {project.title}
                 </Link>
               </div>
             </div>
