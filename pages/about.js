@@ -324,7 +324,7 @@ export default function Page(props) {
             </p>
 
             {(ourTeam?.featuredImage?.node?.mediaItemUrl || ourTeam.description) && (
-              <div className="flex flex-col mb-36">
+              <div className="flex flex-col mb-24">
                 {ourTeam?.featuredImage?.node?.mediaItemUrl && (
                   <div className="animate-reveal" ref={ourTeamRefs[1]}>
                     <Image
