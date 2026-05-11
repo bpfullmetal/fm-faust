@@ -687,7 +687,7 @@ function BlockRenderer({
         .replace(/<[^>]*>/g, '')
         .trim();
       if (!stripped.length) return null;
-      return <p className={`text-taupe text-lg wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}${block?.attributes?.cssClassName ? ` ${block.attributes.cssClassName}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
+      return <p className={`text-taupe text-md sm:text-lg wp-block-paragraph${block?.attributes?.align ? ` text-${block.attributes.align}` : ''}${block?.attributes?.cssClassName ? ` ${block.attributes.cssClassName}` : ''}`} dangerouslySetInnerHTML={{ __html: html }} />;
     }
 
     case 'core/image': {
