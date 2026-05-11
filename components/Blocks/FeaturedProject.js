@@ -70,7 +70,7 @@ const BlockFeaturedProject = ({ data }) => {
   };
 
   return (
-    <section className="featured-project relative flex items-center w-full !min-h-screen">
+    <section className="featured-project relative flex items-center w-full !min-h-screen overflow-hidden">
       {projectImage && (
         <Image
           className="rounded-none"
@@ -93,7 +93,9 @@ const BlockFeaturedProject = ({ data }) => {
         <div className="absolute w-full h-full" ref={wrapperRef}>
           <div
             className={`${
-              projectAnimate === 'fixed' ? 'fixed bottom-[100px]' : 'absolute'
+              projectAnimate === 'fixed'
+                ? 'max-md:absolute max-md:bottom-[100px] md:fixed md:bottom-[100px]'
+                : 'absolute'
             } ${
               projectAnimate === 'top'
                 ? 'top-[100px]'
