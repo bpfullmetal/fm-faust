@@ -84,7 +84,7 @@ footer .logo svg {
 
 @media (orientation: portrait) {
   .project-page .h-home_banner {
-    height: 56.25vw!important;
+    /* height: 56.25vw!important; */
   }
 }
 

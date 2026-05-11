@@ -104,6 +104,18 @@ const gqlquery = gql`
             mediaItemUrl
           }
         }
+        projectSingleAlternateImages {
+          verticalImage {
+            node {
+              altText
+              mediaItemUrl
+              mediaDetails {
+                width
+                height
+              }
+            }
+          }
+        }
       }
     }
   }

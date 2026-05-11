@@ -5,7 +5,7 @@ import Helper from '../../helper';
 import ProjectCarouselModal from './CarouselModal';
 import NextProject from './NextProject';
 import { gql, useQuery } from '@apollo/client';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 
 const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
   // --- helpers for block content ---
@@ -45,8 +45,37 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
     return false;
   };
 
-  const { title, featuredImage, projectsSingle, editorBlocks } = project;
-  
+  const { title, featuredImage, projectsSingle, editorBlocks, projectSingleAlternateImages } =
+    project;
+
+  const verticalImageNode = projectSingleAlternateImages?.verticalImage?.node ?? null;
+
+  const subscribePortrait = React.useCallback((onStoreChange) => {
+    if (typeof window === 'undefined') return () => {};
+    const mq = window.matchMedia('(orientation: portrait)');
+    mq.addEventListener('change', onStoreChange);
+    return () => mq.removeEventListener('change', onStoreChange);
+  }, []);
+
+  const isPortrait = useSyncExternalStore(
+    subscribePortrait,
+    () =>
+      typeof window !== 'undefined' && window.matchMedia('(orientation: portrait)').matches,
+    () => false
+  );
+
+  const heroMediaNode =
+    isPortrait && verticalImageNode ? verticalImageNode : featuredImage?.node ?? null;
+
+  const showHeroBanner = !!heroMediaNode;
+
+  const heroBannerHeightClass =
+    isPortrait && verticalImageNode
+      ? 'h-home_banner'
+      : isPortrait && !verticalImageNode && featuredImage?.node
+        ? 'h-[56.25vw]'
+        : 'h-home_banner';
+
   const [isMobile, setIsMobile] = React.useState(false);
   const [clickedImageOrder, setClickedImageOrder] = React.useState(-1);
 
@@ -342,20 +371,21 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
 
   return (
     <>
-      {featuredImage && (
-        <section className="h-home_banner">
+      {showHeroBanner && (
+        <section className={heroBannerHeightClass}>
           <div className="relative w-full h-full flex items-center justify-center">
             <Image
+              key={heroMediaNode.mediaItemUrl}
               className="featured-image-wrapper w-full h-full object-cover rounded-none"
-              src={featuredImage.node.mediaItemUrl}
+              src={heroMediaNode.mediaItemUrl}
               fill
               // sizes="(min-width: 1024px) 50vw, 70vw"
               quality={100}
               loading="eager"
               priority={true}
-              alt={featuredImage.node.altText || title}
+              alt={heroMediaNode.altText || title}
             />
-            <h1 className="absolute max-w-[480px] text-4xl font-medium !leading-none !leading-tight  text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
+            <h1 className="absolute max-w-[480px] px-2 sm:px-0 text-4xl font-medium !leading-none !leading-tight  text-center md:max-w-[580px] md:text-5xl lg:max-w-[680px] lg:text-[58px]">
               {title}
             </h1>
           </div>
@@ -364,7 +394,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
 
       <section className="work-project flex flex-col bg-[#300808]">
         <div className="w-full mx-auto">
-          {!featuredImage && (
+          {!showHeroBanner && (
             <h1 className="mx-auto mt-12 mb-12 max-w-[480px] text-3xl font-medium !leading-none text-center md:max-w-[580px] md:text-4xl lg:max-w-[680px] lg:text-[38px] text-center">
               {title}
             </h1>

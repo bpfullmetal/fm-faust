@@ -52,6 +52,18 @@ const gqlquery = gql`
           altText
         }
       }
+      projectSingleAlternateImages {
+        verticalImage {
+          node {
+            altText
+            mediaItemUrl
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
       editorBlocks {
         name
         clientId
