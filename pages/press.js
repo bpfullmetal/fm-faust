@@ -189,12 +189,25 @@ export default function Page(props) {
                 ref={pressRefs[i]}
               >
               
-                <Link className="press-link py-6 px-4 block pr-20" href={article.node?.pressFields?.link ?? '#'} target="_blank" rel="noopener noreferrer">
+                <Link className="press-link py-6 sm:px-4 block sm:pr-20" href={article.node?.pressFields?.link ?? '#'} target="_blank" rel="noopener noreferrer">
                   
                     {article.node?.pressFields?.publication && (
                       <span className="text-xs uppercase publication">{article.node?.pressFields?.publication}</span>
                     )}
-                    <p className="mt-2 leading-8">{article.node.title}</p>
+                    <p className="mt-2 leading-8">
+                      {article.node.title}
+                      <svg
+                        className="md:hidden inline-block w-[1em] h-[1em] ml-1.5 align-[-0.15em] shrink-0 text-current"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                        />
+                      </svg>
+                    </p>
                     <div className="press-arrow absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 opacity-0">
                       <svg className="w-full h-full" width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="66.9453" cy="66.9453" r="66.9453" fill="#521414"/>

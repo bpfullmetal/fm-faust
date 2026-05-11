@@ -763,14 +763,16 @@ article {
   transition: all 0.3s ease-in-out;
 }
 
-.press-block a:hover {
-  background-color: rgba(255,255,255,0.2);
-}
-
 .press-link .press-arrow {
   transition: opacity 0.3s ease-in-out;
 }
 
-.press-link:hover .press-arrow {
-  opacity: 1;
+@media (min-width: 768px) and (hover: hover) {
+  .press-block a:hover {
+    background-color: rgba(255,255,255,0.2);
+  }
+
+  .press-link:hover .press-arrow {
+    opacity: 1;
+  }
 }
