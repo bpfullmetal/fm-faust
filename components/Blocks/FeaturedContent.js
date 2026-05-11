@@ -38,7 +38,7 @@ const BlockFeaturedContent = ({ data }) => {
   };
 
   if ( featuredContent.title === null && (!featuredContent.content || !featuredContent.content.length) ) {
-    return null;
+    return <></>;
   }
 
   return (
