@@ -23,6 +23,7 @@ export default function Page({ projectSlug }) {
     <PageLayout
       options={{ currentURI: '/work/', scrollIndicator: scrollContainerRef }}
       pageData={project}
+      className="project-page"
     >
       {project ? (
         <ProjectContent

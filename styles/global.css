@@ -82,11 +82,11 @@ footer .logo svg {
 }
 
 
-/* @media (orientation: portrait) {
-  .h-home_banner {
+@media (orientation: portrait) {
+  .project-page .h-home_banner {
     height: 56.25vw!important;
   }
-} */
+}
 
 /* Homepage Banner */
 .home-banner svg {
