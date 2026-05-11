@@ -25,7 +25,7 @@ const BlockProjectsCarousel = () => {
   }
   return (
     <section
-      className={`flex flex-col mt-36 mb-20 overflow-x-hidden pl-5 sm:mt-44 sm:pl-12 lg:pl-20 ${
+      className={`flex flex-col mt-24 mb-20 overflow-x-hidden pl-5 sm:mt-24 sm:pl-12 lg:pl-20 ${
         slideCount < 4 ? 'xl:ml-our_latest_work' : ''
       }`}
     >

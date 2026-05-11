@@ -8,7 +8,7 @@ const BlockFeaturedContent = ({ data }) => {
   if (featuredContent.title) {
     revealRefsCount++;
   }
-  if (featuredContent.content.length) {
+  if (featuredContent?.content?.length) {
     revealRefsCount += featuredContent.content.length;
   }
 
