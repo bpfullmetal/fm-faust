@@ -591,6 +591,11 @@ article {
 }
 
 @media (max-width: 639px) {
+
+  .work-project .wp-block-columns .wp-block-paragraph {
+    line-height: 2;
+  }
+
   .project-carousel .slick-slide {
     width: calc(100vw - 3.5rem) !important;
   }
