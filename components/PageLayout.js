@@ -17,6 +17,24 @@ export const PageLayout = ({ className, children, options = {}, pageData = null 
 
   const description = pageData?.excerpt ? pageData.excerpt.replace(/<[^>]*>?/gm, '').trim() : null
 
+  const layout = (
+    <>
+      {!options.hiddenHeader && <Header menuItems={primaryMenu} options={options} />}
+
+      <main className={className}>
+        {children}
+
+        {(!options.hiddenBookSection && fmSettings) && <BookConsultation fmSettings={fmSettings} />}
+      </main>
+
+      <Footer
+        fmSettings={fmSettings}
+        menuItems={footerMenu}
+        fillRemaining={options.fillFooter}
+      />
+    </>
+  );
+
   return (
     <>
       {
@@ -30,15 +48,11 @@ export const PageLayout = ({ className, children, options = {}, pageData = null 
         )
       }
 
-      {!options.hiddenHeader && <Header menuItems={primaryMenu} options={options} />}
-
-      <main className={className}>
-        {children}
-
-        {(!options.hiddenBookSection && fmSettings) && <BookConsultation fmSettings={fmSettings} />}
-      </main>
-
-      <Footer fmSettings={fmSettings} menuItems={footerMenu} />
+      {options.fillFooter ? (
+        <div className="flex w-full flex-col min-h-screen">{layout}</div>
+      ) : (
+        layout
+      )}
     </>
   );
 };

@@ -13,12 +13,18 @@ import LetterR from '../../assets/js/icons/letter-r';
 import LetterS from '../../assets/js/icons/letter-s';
 import Link from 'next/link'
 
-export default function Footer({ fmSettings, menuItems, showMenu }) {
+export default function Footer({ fmSettings, menuItems, showMenu, fillRemaining }) {
   const contactInfo = fmSettings?.contactInfo;
   const url = fmSettings?.mailchimpFormActionUrl || '';
 
+  const footerSizeClass = showMenu
+    ? 'mt-0 sm:pt-7'
+    : fillRemaining
+      ? 'w-full sm:flex-1'
+      : 'sm:min-h-full';
+
   return (
-    <footer className={`relative bg-dark_green -mt-12 pt-24 pb-8 z-10 sm:pb-14 ${ showMenu ? 'mt-0 sm:pt-7' : 'sm:min-h-full'}`}>
+    <footer className={`relative bg-dark_green -mt-12 pt-24 pb-8 z-10 sm:pb-14 ${footerSizeClass}`}>
       <div className={`flex flex-col max-w-main mx-auto px-5 sm:px-12${ showMenu ? '' : ' min-h-full justify-between'}`}>
         <div className="flex flex-col justify-between md:flex-row">
           <div className="flex flex-col mr-0 mb-40 md:mr-10 md:mb-0">
@@ -72,7 +78,7 @@ export default function Footer({ fmSettings, menuItems, showMenu }) {
               </div>
             )}
           </div>
-          <MailchimpSubscribe
+          {/* <MailchimpSubscribe
             url={url}
             render={({ subscribe, status, message }) => (
               <MailchimpForm
@@ -81,7 +87,7 @@ export default function Footer({ fmSettings, menuItems, showMenu }) {
                 onValidated={(formData) => subscribe(formData)}
               />
             )}
-          />
+          /> */}
         </div>
 
         <div className={`logo flex flex-col mt-24 space-y-6 sm:space-y-24 ${ showMenu ? 'sm:mt-64' : 'sm:mt-36'}`}>

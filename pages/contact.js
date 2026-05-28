@@ -9,7 +9,10 @@ export default function Page(props) {
   });
 
   return (
-    <PageLayout options={{ currentURI: data.page.uri, hiddenBookSection: true }} pageData={data.page} />
+    <PageLayout
+      options={{ currentURI: data.page.uri, hiddenBookSection: true, fillFooter: true }}
+      pageData={data.page}
+    />
   );
 }
 
