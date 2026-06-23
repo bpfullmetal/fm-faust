@@ -9,8 +9,7 @@ export const PageLayout = ({ className, children, options = {}, pageData = null 
   const { data } = useQuery(PageLayout.query, {
     variables: PageLayout.variables(),
   });
-
-  console.log('CONSULATATION DATA',data)
+  
   const fmSettings = data?.settings?.fmSettings;
   const primaryMenu = data?.headerMenuItems?.nodes ?? [];
   const footerMenu = data?.footerMenuItems?.nodes ?? [];

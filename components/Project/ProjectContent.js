@@ -59,9 +59,10 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
     title,
     featuredImage,
     projectsSingle,
-    editorBlocks = [],
     projectSingleAlternateImages,
   } = project;
+
+  const editorBlocks = Array.isArray(project?.editorBlocks) ? project.editorBlocks : [];
 
   const verticalImageNode = projectSingleAlternateImages?.verticalImage?.node ?? null;
 
@@ -415,7 +416,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
             </h1>
           )}
 
-          {editorBlocks.length ? (
+          {editorBlocks.length > 0 ? (
             <div
               id="project-images-container"
               ref={scrollContainerRef}
@@ -445,8 +446,8 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
             </div>
           ) : <></>}
 
-          {(
-            projectsSingle?.projectDetails?.attributes?.length) && (
+          {Array.isArray(projectsSingle?.projectDetails?.attributes) &&
+            projectsSingle.projectDetails.attributes.length > 0 && (
             <div className="flex flex-col items-center pt-10 pb-20 md:pt-20 md:pb-40">
               <h3 className="text-taupe text-xl leading-[44px] sm:text-[26px] mb-6">
                 {projectsSingle.projectDetails.label || 'Credits'}
@@ -485,7 +486,7 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
                                         <>{attItem.title}</>
                                       )}
                                       {a !==
-                                        attribute.attributeListings.length -
+                                        (attribute.attributeListings?.length ?? 0) -
                                           1 && <span>, </span>}
                                     </span>
                                   );

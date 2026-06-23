@@ -17,7 +17,9 @@ export default function Preview({ previewId }) {
     location.href = loginUrl;
   }
 
-  if (id && isAuthenticated && isReady) {
+  React.useEffect(() => {
+    if (!id || !isAuthenticated || !isReady) return;
+
     client
       .query({
         query: gqlquery,
@@ -28,9 +30,9 @@ export default function Preview({ previewId }) {
         },
       })
       .then(({ data }) => {
-        setPreviewProject(data.contentNode);
+        setPreviewProject(data.contentNode ?? null);
       });
-  }
+  }, [client, id, isAuthenticated, isPreview, isReady]);
 
   return (
     <PageLayout
