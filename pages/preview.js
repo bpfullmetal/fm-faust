@@ -59,6 +59,76 @@ const gqlquery = gql`
     contentNode(id: $id, idType: $idType, asPreview: $asPreview) {
       ... on Project {
         title
+        editorBlocks {
+          name
+          clientId
+          blockEditorCategoryName
+          ... on CoreColumns {
+            anchor
+            apiVersion
+            name
+            attributes {
+              align
+              verticalAlignment
+              isStackedOnMobile
+              cssClassName
+              layout
+              style
+            }
+            innerBlocks {
+              blockEditorCategoryName
+              ... on CoreImage {
+                anchor
+                apiVersion
+                attributes {
+                  id
+                }
+                mediaDetails {
+                  file
+                  filePath
+                  height
+                  width
+                }
+                name
+              }
+              ... on CoreColumn {
+                anchor
+                apiVersion
+                name
+                attributes {
+                  cssClassName
+                  width
+                  verticalAlignment
+                  layout
+                  style
+                }
+                innerBlocks {
+                  ... on CoreImage {
+                    mediaDetails {
+                      filePath
+                      height
+                      width
+                      file
+                    }
+                    attributes {
+                      id
+                    }
+                    name
+                  }
+                  ... on CoreParagraph {
+                    attributes {
+                      align
+                      content
+                      cssClassName
+                      style
+                    }
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
         projectsSingle {
           projectDetails {
             attributes {

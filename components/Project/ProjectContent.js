@@ -7,6 +7,16 @@ import NextProject from './NextProject';
 import { gql, useQuery } from '@apollo/client';
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 
+const safeJson = (val, fallback = {}) => {
+  if (val == null) return fallback;
+  if (typeof val === 'object') return val;
+  try {
+    return JSON.parse(val);
+  } catch {
+    return fallback;
+  }
+};
+
 const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
   // --- helpers for block content ---
   const isEmptyHtml = (html) => {
@@ -45,8 +55,13 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
     return false;
   };
 
-  const { title, featuredImage, projectsSingle, editorBlocks, projectSingleAlternateImages } =
-    project;
+  const {
+    title,
+    featuredImage,
+    projectsSingle,
+    editorBlocks = [],
+    projectSingleAlternateImages,
+  } = project;
 
   const verticalImageNode = projectSingleAlternateImages?.verticalImage?.node ?? null;
 
@@ -433,15 +448,9 @@ const ProjectContent = ({ project, scrollContainerRef, isPreview = false }) => {
           {(
             projectsSingle?.projectDetails?.attributes?.length) && (
             <div className="flex flex-col items-center pt-10 pb-20 md:pt-20 md:pb-40">
-              <div
-                className="flex items-center cursor-pointer"
-                onClick={() => setRevealProjectInfo((old) => !old)}
-              >
-                <h3 className="text-taupe text-xl leading-[44px] sm:text-[26px] mb-6">
-                  {projectsSingle.projectDetails.label ||
-                    'Credits'}
-                </h3>
-              </div>
+              <h3 className="text-taupe text-xl leading-[44px] sm:text-[26px] mb-6">
+                {projectsSingle.projectDetails.label || 'Credits'}
+              </h3>
               <div
                 className={`text-taupe w-full md:w-1/2 h-0 h-full pt-2 flex flex-col items-center text-center`}
               >
