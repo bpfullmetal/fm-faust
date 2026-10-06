@@ -2,21 +2,35 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { getNextStaticProps } from '@faustwp/core';
 import ProjectContent from '../../../components/Project/ProjectContent';
-import { NotFoundProject, PageLayout } from '../../../components';
+import { PageLayout } from '../../../components';
 
-export default function Page({ projectSlug }) {
+function projectUriFromSlug(projectSlug) {
+  if (!projectSlug) return null;
+  const slug = Array.isArray(projectSlug) ? projectSlug[0] : projectSlug;
+  return `/project/${slug}/`;
+}
+
+export default function Page(props) {
   const scrollContainerRef = React.useRef();
-  const projectUri = Array.isArray(projectSlug) ? projectSlug[0] : projectSlug;
+  const projectSlug = Array.isArray(props.projectSlug)
+    ? props.projectSlug[0]
+    : props.projectSlug;
 
-  const { data, loading } = useQuery(gqlquery, {
-    skip: !projectUri,
-    variables: { id: `/project/${projectUri}/` },
+  const variables =
+    props.__PAGE_VARIABLES__ ??
+    (projectUriFromSlug(projectSlug)
+      ? { id: projectUriFromSlug(projectSlug) }
+      : undefined);
+
+  const { data } = useQuery(Page.query, {
+    skip: !variables?.id,
+    variables,
   });
 
   const project = data?.project;
 
-  if (!loading && !project) {
-    return <NotFoundProject />
+  if (!project) {
+    return null;
   }
 
   return (
@@ -25,19 +39,15 @@ export default function Page({ projectSlug }) {
       pageData={project}
       className="project-page"
     >
-      {project ? (
-        <ProjectContent
-          project={project}
-          scrollContainerRef={scrollContainerRef}
-        />
-      ) : (
-        <div className="h-screen"></div>
-      )}
+      <ProjectContent
+        project={project}
+        scrollContainerRef={scrollContainerRef}
+      />
     </PageLayout>
   );
 }
 
-const gqlquery = gql`
+Page.query = gql`
   query GetProjectData($id: ID!) {
     project(id: $id, idType: URI) {
       uri
@@ -169,11 +179,34 @@ const gqlquery = gql`
   }
 `;
 
+Page.variables = (context) => {
+  const uri = projectUriFromSlug(context?.params?.projectSlug);
+  return uri ? { id: uri } : { id: '' };
+};
+
 export async function getStaticProps(ctx) {
-  const faustProps = await getNextStaticProps(ctx, { Page });
   const projectSlug = Array.isArray(ctx.params?.projectSlug)
     ? ctx.params.projectSlug[0]
     : ctx.params?.projectSlug ?? null;
+
+  if (!projectSlug) {
+    return { notFound: true };
+  }
+
+  const faustProps = await getNextStaticProps(ctx, { Page });
+
+  if ('notFound' in faustProps && faustProps.notFound) {
+    return faustProps;
+  }
+
+  if ('redirect' in faustProps && faustProps.redirect) {
+    return faustProps;
+  }
+
+  const project = faustProps.props?.data?.project;
+  if (!project) {
+    return { notFound: true };
+  }
 
   return {
     ...faustProps,
